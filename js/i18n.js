@@ -61,7 +61,7 @@ const i18n = {
         }
         // Re-load current page to re-render everything in the new language
         if (window.router && router.currentRoute) {
-            await router.loadPage(window.location.pathname);
+            await router.loadPage(window.location.pathname + window.location.search);
         } else {
             this.updateDOM();
         }

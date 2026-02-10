@@ -1,6 +1,7 @@
 {
     "nav_home": "Home",
-    "nav_art": "Art (Paint & Charcoal)",
+    "filter_all": "All",
+    "nav_art": "Art",
     "nav_photo": "Photo",
     "nav_sculpting": "Volume",
     "nav_projects": "Code",
@@ -70,6 +71,7 @@
     "music_no_tracks": "Nothing yet. Studio is empty.",
     "music_load_error": "Load error.",
     "music_audio_unsupported": "Your browser refuses to play sound.",
+    "music_play_in_radio": "Play in Radio",
     "index_latest_loading": "Checking what's new...",
     "index_latest_label": "⭐ FRESH ⭐",
     "index_latest_added": "Date:",

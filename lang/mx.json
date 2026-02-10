@@ -1,6 +1,7 @@
 {
     "nav_home": "Inicio",
-    "nav_art": "Arte (Pintura y Carbón)",
+    "filter_all": "Todo",
+    "nav_art": "Arte",
     "nav_photo": "Foto",
     "nav_sculpting": "Volumen",
     "nav_projects": "Código",
@@ -70,6 +71,7 @@
     "music_no_tracks": "Nada aún. El estudio está vacío.",
     "music_load_error": "Error de carga.",
     "music_audio_unsupported": "Tu navegador se niega a reproducir sonido.",
+    "music_play_in_radio": "Escuchar en la radio",
     "index_latest_loading": "Checando qué hay de nuevo...",
     "index_latest_label": "⭐ FRESCO ⭐",
     "index_latest_added": "Fecha:",

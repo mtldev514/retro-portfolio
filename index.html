@@ -50,14 +50,6 @@
 
         <header>
             <h1 id="page-title" data-i18n="header_title">Alex's Artistic Portfolio</h1>
-            <nav>
-                <a href="index.html" data-i18n="nav_home">Home</a>
-                <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
-                <a href="photography.html" data-i18n="nav_photo">Photography</a>
-                <a href="sculpting.html" data-i18n="nav_sculpting">Sculpting</a>
-                <a href="music.html" data-i18n="nav_music">Music</a>
-                <a href="projects.html" data-i18n="nav_projects">Code</a>
-            </nav>
         </header>
 
         <div class="marquee-container">
@@ -110,7 +102,15 @@
             </aside>
 
             <main id="app">
-                <!-- Page content loaded by router.js -->
+                <div id="filter-nav" class="filter-bar">
+                    <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
+                    <button class="filter-btn" data-filter="art" data-i18n="nav_art">Art (Paint/Draw)</button>
+                    <button class="filter-btn" data-filter="photography" data-i18n="nav_photo">Photography</button>
+                    <button class="filter-btn" data-filter="sculpting" data-i18n="nav_sculpting">Sculpting</button>
+                    <button class="filter-btn" data-filter="music" data-i18n="nav_music">Music</button>
+                    <button class="filter-btn" data-filter="projects" data-i18n="nav_projects">Code</button>
+                </div>
+                <!-- Gallery grid loaded by render.js -->
             </main>
         </div>
 

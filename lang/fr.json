@@ -1,6 +1,7 @@
 {
     "nav_home": "Accueil",
-    "nav_art": "Art (Peinture & Fusain)",
+    "filter_all": "Tout",
+    "nav_art": "Art",
     "nav_photo": "Photo",
     "nav_sculpting": "Volume",
     "nav_projects": "Code",
@@ -70,6 +71,7 @@
     "music_no_tracks": "Rien pour l'instant. Le studio est vide.",
     "music_load_error": "Erreur de chargement.",
     "music_audio_unsupported": "Ton browser veut pas jouer de son.",
+    "music_play_in_radio": "Jouer dans la radio",
     "index_latest_loading": "On regarde ce qui est nouveau...",
     "index_latest_label": "⭐ TOUT FRAIS ⭐",
     "index_latest_added": "Date :",

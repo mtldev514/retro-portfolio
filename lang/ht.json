@@ -1,6 +1,7 @@
 {
     "nav_home": "Akèy",
-    "nav_art": "Kreyasyon (Penti & Chabon)",
+    "filter_all": "Tout",
+    "nav_art": "Kreyasyon",
     "nav_photo": "Foto",
     "nav_sculpting": "Volim",
     "nav_projects": "Kòd",
@@ -70,6 +71,7 @@
     "music_no_tracks": "Poko gen anyen. Estidyo a vid.",
     "music_load_error": "Erè chajman.",
     "music_audio_unsupported": "Navigatè w la refize jwe son.",
+    "music_play_in_radio": "Jwe nan radyo a",
     "index_latest_loading": "N'ap gade sa k nouvo...",
     "index_latest_label": "⭐ TOUT FRE ⭐",
     "index_latest_added": "Dat:",
