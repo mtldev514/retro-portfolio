@@ -16,18 +16,25 @@ const renderer = {
         return field;
     },
 
+    // Map route key to data file and detail 'from' category
+    routeMap: {
+        'gallery':      { file: 'art.json',         from: 'gallery' },
+        'photography':  { file: 'photography.json', from: 'photography' },
+        'sculpting':    { file: 'sculpting.json',   from: 'sculpting' },
+        'projects':     { file: 'projects.json',    from: 'projects' },
+    },
+    currentFrom: null,
+
     async init() {
-        // Use router's current route if available, fallback to URL path
         const route = (window.router && router.currentRoute) || window.location.pathname;
-        let dataFile = '';
+        this.currentFrom = null;
 
-        if (route.includes('gallery')) dataFile = 'art.json';
-        else if (route.includes('photography')) dataFile = 'photography.json';
-        else if (route.includes('sculpting')) dataFile = 'sculpting.json';
-        else if (route.includes('projects')) dataFile = 'projects.json';
-
-        if (dataFile) {
-            await this.renderGallery(dataFile);
+        for (const [key, info] of Object.entries(this.routeMap)) {
+            if (route.includes(key)) {
+                this.currentFrom = info.from;
+                await this.renderGallery(info.file);
+                return;
+            }
         }
     },
 
@@ -65,6 +72,11 @@ const renderer = {
         const description = this.t(item.description);
         const medium = this.t(item.medium);
 
+        // Build detail link: use item.id, or plain title for projects
+        const itemId = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
+        const from = this.currentFrom || 'gallery';
+        const detailHref = `detail.html?id=${encodeURIComponent(itemId)}&from=${from}`;
+
         let visibilityEmoji = '';
         if (item.category === 'projects') {
             visibilityEmoji = item.visibility === 'private' ? ' 🔒' : ' 🔓';
@@ -73,13 +85,14 @@ const renderer = {
         const subTitle = item.category === 'projects' ? description : (medium ? `(${medium})` : '');
 
         div.innerHTML = `
-            ${item.url && item.category !== 'projects' ? `<img src="${item.url}" alt="${title}">` : ''}
-            <h3 align="center">${title}${visibilityEmoji}</h3>
-            ${subTitle ? `<p align="center"><i>${subTitle}</i></p>` : ''}
-            ${item.url && item.category === 'projects' ? `<p align="center"><a href="${item.url}" target="_blank" data-i18n="projects_view_code">View Code</a></p>` : ''}
-            <p align="center" class="item-date">
-                <span data-i18n="gallery_added_on">Added on:</span> ${dateStr}
-            </p>
+            <a href="${detailHref}" class="gallery-link">
+                ${item.url && item.category !== 'projects' ? `<img src="${item.url}" alt="${title}">` : ''}
+                <h3 align="center">${title}${visibilityEmoji}</h3>
+                ${subTitle ? `<p align="center"><i>${subTitle}</i></p>` : ''}
+                <p align="center" class="item-date">
+                    <span data-i18n="gallery_added_on">Added on:</span> ${dateStr}
+                </p>
+            </a>
         `;
         return div;
     }

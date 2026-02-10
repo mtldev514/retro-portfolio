@@ -32,11 +32,17 @@
         if (newest) {
             const title = tf(newest.title);
             const medium = tf(newest.medium);
+            const catMap = { 'art': 'gallery', 'photography': 'photography', 'sculpting': 'sculpting' };
+            const from = catMap[newest.category] || 'gallery';
+            const itemId = newest.id || '';
+            const detailHref = 'detail.html?id=' + encodeURIComponent(itemId) + '&from=' + from;
             box.innerHTML = `
-                <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">${t('index_latest_label', '&#11088; LATEST ADDITION &#11088;')}</p>
-                <img src="${newest.url}" alt="${title}">
-                <p align="center"><i>"${title}"${medium ? ' (' + medium + ')' : ''}</i></p>
-                <p align="center" style="font-size: 10px; color: #666;">${t('index_latest_added', 'Added:')} ${newest.date} | ${newest.category}</p>
+                <a href="${detailHref}" class="gallery-link">
+                    <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">${t('index_latest_label', '&#11088; LATEST ADDITION &#11088;')}</p>
+                    <img src="${newest.url}" alt="${title}">
+                    <p align="center"><i>"${title}"${medium ? ' (' + medium + ')' : ''}</i></p>
+                    <p align="center" style="font-size: 10px; color: #666;">${t('index_latest_added', 'Added:')} ${newest.date} | ${newest.category}</p>
+                </a>
             `;
         } else {
             box.innerHTML = `<p align="center"><i>${t('index_latest_empty', 'No items in the gallery yet.')}</i></p>`;

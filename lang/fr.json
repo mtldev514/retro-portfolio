@@ -75,5 +75,15 @@
     "index_latest_added": "Ajouté le :",
     "index_latest_empty": "Aucun élément dans la galerie pour le moment.",
     "sidebar_radio_loading": "Chargement des pistes...",
-    "sidebar_radio_no_tracks": "Aucune piste disponible"
+    "sidebar_radio_no_tracks": "Aucune piste disponible",
+    "detail_loading": "Chargement...",
+    "detail_not_found": "Élément introuvable.",
+    "detail_medium": "Médium :",
+    "detail_genre": "Genre :",
+    "detail_description": "Description",
+    "detail_listen": "Écouter",
+    "detail_back": "Retour à la galerie",
+    "detail_private": "Privé",
+    "detail_public": "Public",
+    "detail_error": "Impossible de charger les détails."
 }

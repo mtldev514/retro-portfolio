@@ -10,6 +10,7 @@ const router = {
         'sculpting.html':    { page: 'pages/sculpting.html',    subtitle: 'sculpting_subtitle' },
         'music.html':        { page: 'pages/music.html',        subtitle: 'music_subtitle' },
         'projects.html':     { page: 'pages/projects.html',     subtitle: 'projects_subtitle' },
+        'detail.html':       { page: 'pages/detail.html',       subtitle: null },
     },
 
     currentRoute: null,
@@ -54,7 +55,8 @@ const router = {
     },
 
     resolveRouteKey(url) {
-        const path = typeof url === 'string' ? url : '';
+        // Strip query string and hash for matching
+        const path = (typeof url === 'string' ? url : '').split('?')[0].split('#')[0];
         for (const key of Object.keys(this.routes)) {
             if (path.endsWith(key)) return key;
         }

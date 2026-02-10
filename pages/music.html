@@ -37,11 +37,13 @@
                 const title = tf(track.title);
                 const genre = tf(track.genre);
                 const description = tf(track.description);
+                const trackId = track.id || (typeof track.title === 'string' ? track.title : (track.title && track.title.en) || '');
+                const detailHref = 'detail.html?id=' + encodeURIComponent(trackId) + '&from=music';
                 html += `
                     <li class="track-item">
-                        <div class="track-icon">&#127925;</div>
+                        <div class="track-icon"><a href="${detailHref}" style="text-decoration:none">&#127925;</a></div>
                         <div class="track-info">
-                            <p class="track-title">${title}</p>
+                            <p class="track-title"><a href="${detailHref}" class="track-detail-link">${title}</a></p>
                             <div class="track-meta">
                                 ${genre ? `<span>&#127928; ${genre}</span>` : ''}
                                 ${track.date ? `<span>&#128197; ${track.date}</span>` : ''}

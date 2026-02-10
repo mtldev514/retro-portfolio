@@ -1,0 +1,128 @@
+<div id="detail-container">
+    <p class="empty-message" data-i18n="detail_loading">Loading...</p>
+</div>
+
+<script>
+    (async function loadDetail() {
+        const container = document.getElementById('detail-container');
+        if (!container) return;
+
+        const tf = (field) => {
+            if (!field) return '';
+            if (typeof field === 'object' && !Array.isArray(field)) {
+                const lang = (window.i18n && i18n.currentLang) || 'en';
+                return field[lang] || field.en || '';
+            }
+            return field;
+        };
+        const t = (key, fallback) => (window.i18n && i18n.translations[key]) || fallback;
+
+        // Read query params: ?id=xxx&from=gallery
+        const params = new URLSearchParams(window.location.search);
+        const itemId = params.get('id');
+        const from = params.get('from') || 'gallery';
+
+        // Map 'from' to data file and back link
+        const categoryMap = {
+            'gallery':      { file: 'art.json',          back: 'gallery.html' },
+            'photography':  { file: 'photography.json',  back: 'photography.html' },
+            'sculpting':    { file: 'sculpting.json',    back: 'sculpting.html' },
+            'projects':     { file: 'projects.json',     back: 'projects.html' },
+            'music':        { file: 'music.json',        back: 'music.html' }
+        };
+
+        const category = categoryMap[from];
+        if (!itemId || !category) {
+            container.innerHTML = `<p class="empty-message">${t('detail_not_found', 'Item not found.')}</p>
+                <p align="center"><a href="index.html" class="btn" data-i18n="gallery_back">Back to Home</a></p>`;
+            return;
+        }
+
+        try {
+            const res = await fetch('data/' + category.file);
+            const items = await res.json();
+
+            // Find by id, or by title for projects (which may not have id)
+            const item = items.find(i => i.id === itemId || i.title === itemId ||
+                (typeof i.title === 'object' && i.title.en === itemId));
+
+            if (!item) {
+                container.innerHTML = `<p class="empty-message">${t('detail_not_found', 'Item not found.')}</p>
+                    <p align="center"><a href="${category.back}" class="btn" data-i18n="gallery_back">Back</a></p>`;
+                return;
+            }
+
+            const title = tf(item.title);
+            const description = tf(item.description);
+            const medium = tf(item.medium);
+            const genre = tf(item.genre);
+            const dateStr = item.date || 'N/A';
+            const isProject = (from === 'projects');
+            const isMusic = (from === 'music');
+
+            let visibilityBadge = '';
+            if (isProject) {
+                visibilityBadge = item.visibility === 'private'
+                    ? `<span class="detail-badge detail-badge-private">🔒 ${t('detail_private', 'Private')}</span>`
+                    : `<span class="detail-badge detail-badge-public">🔓 ${t('detail_public', 'Public')}</span>`;
+            }
+
+            let html = `<div class="detail-page">`;
+
+            // Image hero (for art/photo/sculpting)
+            if (item.url && !isProject && !isMusic) {
+                html += `<div class="detail-hero">
+                    <img src="${item.url}" alt="${title}">
+                </div>`;
+            }
+
+            html += `<div class="detail-info">`;
+            html += `<h2 class="detail-title">${title} ${visibilityBadge}</h2>`;
+
+            // Meta row
+            html += `<div class="detail-meta">`;
+            if (medium) html += `<span>🎨 ${t('detail_medium', 'Medium:')} ${medium}</span>`;
+            if (genre) html += `<span>🎵 ${t('detail_genre', 'Genre:')} ${genre}</span>`;
+            html += `<span>📅 ${t('gallery_added_on', 'Added on:')} ${dateStr}</span>`;
+            html += `</div>`;
+
+            // Description
+            if (description) {
+                html += `<div class="detail-description">
+                    <h3>${t('detail_description', 'Description')}</h3>
+                    <p>${description}</p>
+                </div>`;
+            }
+
+            // Audio player for music
+            if (isMusic && item.url) {
+                html += `<div class="detail-audio">
+                    <h3>${t('detail_listen', 'Listen')}</h3>
+                    <audio controls style="width:100%"><source src="${item.url}">${t('music_audio_unsupported', 'Your browser does not support audio.')}</audio>
+                </div>`;
+            }
+
+            // Source code link for projects
+            if (isProject && item.url) {
+                html += `<div class="detail-actions">
+                    <a href="${item.url}" target="_blank" class="btn">🔗 ${t('projects_view_code', 'View Source')}</a>
+                </div>`;
+            }
+
+            html += `</div>`; // .detail-info
+            html += `</div>`; // .detail-page
+
+            // Back button
+            html += `<p align="center" style="margin-top: 20px;">
+                <a href="${category.back}" class="btn">⬅ ${t('detail_back', 'Back to Gallery')}</a>
+            </p>`;
+
+            container.innerHTML = html;
+
+        } catch (e) {
+            console.error('Detail load error:', e);
+            container.innerHTML = `<p class="empty-message">${t('detail_error', 'Could not load item details.')}</p>
+                <p align="center"><a href="index.html" class="btn" data-i18n="gallery_back">Back to Home</a></p>`;
+        }
+    })();
+</script>

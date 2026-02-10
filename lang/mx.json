@@ -75,5 +75,15 @@
     "index_latest_added": "Agregado:",
     "index_latest_empty": "No hay elementos en la galería todavía.",
     "sidebar_radio_loading": "Cargando pistas...",
-    "sidebar_radio_no_tracks": "No hay pistas disponibles"
+    "sidebar_radio_no_tracks": "No hay pistas disponibles",
+    "detail_loading": "Cargando...",
+    "detail_not_found": "Elemento no encontrado.",
+    "detail_medium": "Medio:",
+    "detail_genre": "Género:",
+    "detail_description": "Descripción",
+    "detail_listen": "Escuchar",
+    "detail_back": "Volver a la galería",
+    "detail_private": "Privado",
+    "detail_public": "Público",
+    "detail_error": "No se pudieron cargar los detalles."
 }

@@ -75,5 +75,15 @@
     "index_latest_added": "Ajoute:",
     "index_latest_empty": "Pa gen okenn eleman nan galeri a ankò.",
     "sidebar_radio_loading": "Ap chaje tras yo...",
-    "sidebar_radio_no_tracks": "Pa gen tras disponib"
+    "sidebar_radio_no_tracks": "Pa gen tras disponib",
+    "detail_loading": "Ap chaje...",
+    "detail_not_found": "Eleman pa jwenn.",
+    "detail_medium": "Medyòm:",
+    "detail_genre": "Jan:",
+    "detail_description": "Deskripsyon",
+    "detail_listen": "Koute",
+    "detail_back": "Tounen nan galeri a",
+    "detail_private": "Prive",
+    "detail_public": "Piblik",
+    "detail_error": "Pa t kapab chaje detay yo."
 }
