@@ -4,59 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex's Art Portfolio - Welcome to my World!</title>
+    <title data-i18n="header_title">Alex's Art Portfolio - Welcome to my World!</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/i18n.js" defer></script>
 </head>
 
 <body>
     <div class="container">
         <div class="lang-switcher">
-            <button class="lang-btn"><span class="lang-flag">🇫🇷</span> French</button>
+            <button class="lang-btn"><span class="lang-flag">🇬🇧</span> English</button>
             <div class="lang-dropdown">
-                <div class="lang-option" onclick="changeLang('🇫🇷', 'French')"><span class="lang-flag">🇫🇷</span>
-                    French (France)</div>
-                <div class="lang-option" onclick="changeLang('🇬🇧', 'English')"><span class="lang-flag">🇬🇧</span>
-                    English (England)</div>
-                <div class="lang-option" onclick="changeLang('🇲🇽', 'Spanish')"><span class="lang-flag">🇲🇽</span>
-                    Spanish (Mexico)</div>
-                <div class="lang-option" onclick="changeLang('🇭🇹', 'Creole')"><span class="lang-flag">🇭🇹</span>
-                    Haitian Creole (Haiti)</div>
-                <div class="lang-option" onclick="changeLang('⚜️', 'Joual')"><span class="lang-flag">⚜️</span> Joual
+                <div class="lang-option" onclick="i18n.changeLang('fr')"><span class="lang-flag">🇫🇷</span> French
+                    (France)</div>
+                <div class="lang-option" onclick="i18n.changeLang('en')"><span class="lang-flag">🇬🇧</span> English
+                    (England)</div>
+                <div class="lang-option" onclick="i18n.changeLang('mx')"><span class="lang-flag">🇲🇽</span> Spanish
+                    (Mexico)</div>
+                <div class="lang-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span> Haitian
+                    Creole (Haiti)</div>
+                <div class="lang-option" onclick="i18n.changeLang('qc')"><span class="lang-flag">⚜️</span> Joual
                     (Quebec)</div>
-                <div class="lang-option" onclick="changeLang('🇨🇦', 'Acadian')"><span class="lang-flag">🇨🇦</span>
-                    Acadian (Canada)</div>
+                <div class="lang-option" onclick="i18n.changeLang('ac')"><span class="lang-flag">🇨🇦</span> Acadian
+                    (Canada)</div>
             </div>
         </div>
 
-        <script>
-            function changeLang(flag, name) {
-                document.querySelector('.lang-btn').innerHTML = `<span class="lang-flag">${flag}</span> ${name}`;
-                // Future implementation for real translations can be triggered here
-            }
-        </script>
         <header>
-            <h1>Alex's Artistic Portfolio</h1>
-            <p><i>Celebrating Beauty through Paint, Pencil, and Lens</i></p>
+            <h1 data-i18n="header_title">Alex's Artistic Portfolio</h1>
+            <p><i data-i18n="header_subtitle">Celebrating Beauty through Paint, Pencil, and Lens</i></p>
             <nav>
-                <a href="index.html">Home</a>
-                <a href="gallery.html">Art (Paint/Draw)</a>
-                <a href="photography.html">Photography</a>
-                <a href="street-photography.html">Street Life</a>
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
+                <a href="photography.html" data-i18n="nav_photo">Photography</a>
+                <a href="street-photography.html" data-i18n="nav_street">Street Life</a>
             </nav>
         </header>
 
         <div class="marquee-container">
-            <marquee scrollamount="5">*** WELCOME TO MY NEW PORTFOLIO SITE! STAY AWHILE AND BROWSE THE GALLERIES ***
+            <marquee scrollamount="5" data-i18n="marquee">*** WELCOME TO MY NEW PORTFOLIO SITE! STAY AWHILE AND BROWSE
+                THE GALLERIES ***
                 UPDATED: FEB 2026 ***</marquee>
         </div>
 
         <div class="content">
             <aside class="sidebar">
-                <h3>About Me</h3>
-                <p>Hello! I am Alex, an artist based in the city. I love capturing the essence of life in all its forms.
+                <h3 data-i18n="sidebar_about_title">About Me</h3>
+                <p data-i18n="sidebar_about_text">Hello! I am Alex, an artist based in the city. I love capturing the
+                    essence of life in all its forms.
                 </p>
                 <hr>
-                <h3>Status</h3>
+                <h3 data-i18n="sidebar_status_title">Status</h3>
                 <p>Currently: <b>Available for Commissions!</b></p>
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJqNGp4ZzRnd3NqZzRnd3NqZzRnd3NqZzRnd3NqZzRnd3NqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxP5OqPxF8Q/giphy.gif"
                     alt="Under Construction" style="width: 100px;">
@@ -64,30 +61,31 @@
             </aside>
 
             <main class="main-content">
-                <h2>Welcome to my digital gallery!</h2>
-                <p>This website is a collection of my favorite works. I specialize in traditional painting, charcoal
+                <h2 data-i18n="index_welcome">Welcome to my digital gallery!</h2>
+                <p data-i18n="index_intro">This website is a collection of my favorite works. I specialize in
+                    traditional painting, charcoal
                     drawing, and urban photography.</p>
 
                 <div class="gallery-item" style="max-width: 400px; margin: 20px auto;">
                     <img src="painting_abstract_pastel_1770727576366.png" alt="Featured Work: Abstract Pastel">
-                    <p align="center"><i>Featured: "Morning Dreams" (Oil on Canvas)</i></p>
+                    <p align="center"><i data-i18n="index_featured">Featured: "Morning Dreams" (Oil on Canvas)</i></p>
                 </div>
 
-                <p>Feel free to look around! Every image tells a different story.</p>
+                <p data-i18n="index_look_around">Feel free to look around! Every image tells a different story.</p>
 
-                <h3>Project Highlights:</h3>
+                <h3 data-i18n="index_highlights_title">Project Highlights:</h3>
                 <ul>
-                    <li>The Street Life - A deep dive into urban chaos.</li>
-                    <li>Pastel Series - Exploring soft colors and emotions.</li>
-                    <li>Charcoal Portraits - capturing the human soul.</li>
+                    <li data-i18n="index_highlight_street">The Street Life - A deep dive into urban chaos.</li>
+                    <li data-i18n="index_highlight_pastel">Pastel Series - Exploring soft colors and emotions.</li>
+                    <li data-i18n="index_highlight_charcoal">Charcoal Portraits - capturing the human soul.</li>
                 </ul>
             </main>
         </div>
 
         <footer class="footer">
-            <p>&copy; 2026 Alex's Art. All rights reserved.</p>
-            <p>Best viewed in Netscape Navigator or Internet Explorer 6.0</p>
-            <p>Visitors: <span class="visitor-counter">000427</span></p>
+            <p data-i18n="footer_copy">&copy; 2026 Alex's Art. All rights reserved.</p>
+            <p data-i18n="footer_browser">Best viewed in Netscape Navigator or Internet Explorer 6.0</p>
+            <p><span data-i18n="footer_visitors">Visitors:</span> <span class="visitor-counter">000427</span></p>
         </footer>
     </div>
 </body>

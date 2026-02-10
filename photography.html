@@ -4,49 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography Portfolio</title>
+    <title data-i18n="photo_title">Photography Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/i18n.js" defer></script>
 </head>
 
 <body>
     <div class="container">
         <div class="lang-switcher">
-            <button class="lang-btn"><span class="lang-flag">🇫🇷</span> French</button>
+            <button class="lang-btn"><span class="lang-flag">🇬🇧</span> English</button>
             <div class="lang-dropdown">
-                <div class="lang-option" onclick="changeLang('🇫🇷', 'French')"><span class="lang-flag">🇫🇷</span>
-                    French (France)</div>
-                <div class="lang-option" onclick="changeLang('🇬🇧', 'English')"><span class="lang-flag">🇬🇧</span>
-                    English (England)</div>
-                <div class="lang-option" onclick="changeLang('🇲🇽', 'Spanish')"><span class="lang-flag">🇲🇽</span>
-                    Spanish (Mexico)</div>
-                <div class="lang-option" onclick="changeLang('🇭🇹', 'Creole')"><span class="lang-flag">🇭🇹</span>
-                    Haitian Creole (Haiti)</div>
-                <div class="lang-option" onclick="changeLang('⚜️', 'Joual')"><span class="lang-flag">⚜️</span> Joual
+                <div class="lang-option" onclick="i18n.changeLang('fr')"><span class="lang-flag">🇫🇷</span> French
+                    (France)</div>
+                <div class="lang-option" onclick="i18n.changeLang('en')"><span class="lang-flag">🇬🇧</span> English
+                    (England)</div>
+                <div class="lang-option" onclick="i18n.changeLang('mx')"><span class="lang-flag">🇲🇽</span> Spanish
+                    (Mexico)</div>
+                <div class="lang-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span> Haitian
+                    Creole (Haiti)</div>
+                <div class="lang-option" onclick="i18n.changeLang('qc')"><span class="lang-flag">⚜️</span> Joual
                     (Quebec)</div>
-                <div class="lang-option" onclick="changeLang('🇨🇦', 'Acadian')"><span class="lang-flag">🇨🇦</span>
-                    Acadian (Canada)</div>
+                <div class="lang-option" onclick="i18n.changeLang('ac')"><span class="lang-flag">🇨🇦</span> Acadian
+                    (Canada)</div>
             </div>
         </div>
 
-        <script>
-            function changeLang(flag, name) {
-                document.querySelector('.lang-btn').innerHTML = `<span class="lang-flag">${flag}</span> ${name}`;
-            }
-        </script>
         <header>
-            <h1>Photography</h1>
-            <p><i>Capturing Moments in Time</i></p>
+            <h1 data-i18n="photo_title">Photography</h1>
+            <p><i data-i18n="photo_subtitle">Capturing Moments in Time</i></p>
             <nav>
-                <a href="index.html">Home</a>
-                <a href="gallery.html">Art (Paint/Draw)</a>
-                <a href="photography.html">Photography</a>
-                <a href="street-photography.html">Street Life</a>
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
+                <a href="photography.html" data-i18n="nav_photo">Photography</a>
+                <a href="street-photography.html" data-i18n="nav_street">Street Life</a>
             </nav>
         </header>
 
         <main class="main-content">
-            <h2>Collections</h2>
-            <p>My lens focuses on the quiet beauty of nature and the stillness of the world.</p>
+            <h2 data-i18n="photo_collections">Collections</h2>
+            <p data-i18n="photo_intro">My lens focuses on the quiet beauty of nature and the stillness of the world.</p>
 
             <div class="gallery-grid">
                 <div class="gallery-item">
@@ -63,14 +59,15 @@
                 </div>
             </div>
 
-            <p>Check out my specialized <a href="street-photography.html">Street Photography</a> section for more urban
+            <p>Check out my specialized <a href="street-photography.html" data-i18n="nav_street">Street Photography</a>
+                section for more urban
                 work.</p>
 
-            <p align="center"><a href="index.html">Back to Home</a></p>
+            <p align="center"><a href="index.html" data-i18n="gallery_back">Back to Home</a></p>
         </main>
 
         <footer class="footer">
-            <p>&copy; 2026 Alex's Art. All rights reserved.</p>
+            <p data-i18n="footer_copy">&copy; 2026 Alex's Art. All rights reserved.</p>
         </footer>
     </div>
 </body>
