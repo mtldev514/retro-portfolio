@@ -200,6 +200,37 @@ nav a:active {
     padding-top: 10px;
 }
 
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 50%, #b8b8b8 100%);
+    border: 2px outset #fff;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    color: #000080;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    color: #ff00ff;
+    background: linear-gradient(180deg, #f5f5f5 0%, #e0e0e0 50%, #d5d5d5 100%);
+}
+
+.footer-social a:active {
+    border-style: inset;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+
 .visitor-counter {
     background: #0a0a0a;
     color: #f00;
