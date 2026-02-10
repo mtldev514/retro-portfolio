@@ -33,10 +33,24 @@ If you use VS Code, install the **Live Server** extension and click **"Go Live"*
 - `index.html`: Home page.
 - `gallery.html`: Art gallery (Paint/Draw).
 - `photography.html`: Photography collections.
-- `street-photography.html`: Specialized street life gallery.
+- `sculpting.html`: Sculpting gallery.
+- `projects.html`: IT & Coding projects.
 - `js/i18n.js`: Core internationalization logic.
 - `lang/`: JSON translation files.
 - `style.css`: Main styling (Retro theme).
+
+## 🚀 Hosting & Deployment
+
+Your portfolio is perfect for **GitHub Pages**.
+
+### How to Host:
+1.  **Repo Setup**: Host your code in a public GitHub repository.
+2.  **Enable Pages**: Go to **Settings > Pages** and select the `main` branch.
+3.  **To Update**: Every `git push` will update your live site!
+
+### Maintenance:
+- **Updating Content**: Add your new art to the `gallery-grid` in the relevant `.html` file.
+- **Dating**: Update the `Last Updated` date in the footers and add an `Added on` label to your new work for that classic feel.
 
 ---
 *Best viewed in Netscape Navigator or Internet Explorer 6.0* 🌐
