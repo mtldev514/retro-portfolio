@@ -43,10 +43,14 @@ If you use VS Code, install the **Live Server** extension and click **"Go Live"*
 
 Your portfolio is perfect for **GitHub Pages**.
 
-### How to Host:
-1.  **Repo Setup**: Host your code in a public GitHub repository.
-2.  **Enable Pages**: Go to **Settings > Pages** and select the `main` branch.
-3.  **To Update**: Every `git push` will update your live site!
+### How to Host/Update:
+1.  **Repository Setup**: Ensure your code is in a public repository on GitHub.
+2.  **Enable GitHub Actions Deployment**: 
+    - Go to **Settings > Pages** in your GitHub repository.
+    - Under **Build and deployment > Source**, select **GitHub Actions**.
+3.  **Deployment**: Simply push your changes to the `main` branch.
+    GitHub will automatically start the deployment workflow. You can track it in the **Actions** tab.
+    Your site will be live at `https://your-username.github.io/retro-portfolio/`.
 
 ### Maintenance:
 - **Updating Content**: Add your new art to the `gallery-grid` in the relevant `.html` file.
