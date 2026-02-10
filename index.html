@@ -30,8 +30,8 @@
         </div>
 
         <header>
-            <h1 data-i18n="header_title">Alex's Artistic Portfolio</h1>
-            <p><i data-i18n="header_subtitle">Celebrating Beauty through Paint, Pencil, and Lens</i></p>
+            <h1 id="page-title" data-i18n="header_title">Alex's Artistic Portfolio</h1>
+            <p id="page-subtitle"><i data-i18n="header_subtitle">Celebrating Beauty through Paint, Pencil, and Lens</i></p>
             <nav>
                 <a href="index.html" data-i18n="nav_home">Home</a>
                 <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
@@ -103,63 +103,8 @@
                 </div>
             </aside>
 
-            <main class="main-content">
-                <h2 data-i18n="index_welcome">Welcome to my digital gallery!</h2>
-                <p data-i18n="index_intro">This website is a collection of my favorite works. I specialize in
-                    traditional painting, charcoal
-                    drawing, and urban photography.</p>
-
-                <div id="latestAddition" class="gallery-item" style="max-width: 400px; margin: 20px auto;">
-                    <p align="center"><i data-i18n="index_latest_loading">Loading latest addition...</i></p>
-                </div>
-                <script>
-                    (async function loadLatest() {
-                        const categories = ['art', 'photography', 'sculpting'];
-                        let newest = null;
-                        for (const cat of categories) {
-                            try {
-                                const res = await fetch(`data/${cat}.json`);
-                                const items = await res.json();
-                                for (const item of items) {
-                                    if (item.url && item.date && (!newest || item.date > newest.date)) {
-                                        newest = { ...item, category: cat };
-                                    }
-                                }
-                            } catch (e) { /* skip missing files */ }
-                        }
-                        const box = document.getElementById('latestAddition');
-                        const t = (key, fallback) => (window.i18n && i18n.translations[key]) || fallback;
-                        const tf = (field) => {
-                            if (!field) return '';
-                            if (typeof field === 'object' && !Array.isArray(field)) {
-                                const lang = (window.i18n && i18n.currentLang) || 'en';
-                                return field[lang] || field.en || '';
-                            }
-                            return field;
-                        };
-                        if (newest) {
-                            const title = tf(newest.title);
-                            const medium = tf(newest.medium);
-                            box.innerHTML = `
-                                <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">${t('index_latest_label', '⭐ LATEST ADDITION ⭐')}</p>
-                                <img src="${newest.url}" alt="${title}">
-                                <p align="center"><i>"${title}"${medium ? ' (' + medium + ')' : ''}</i></p>
-                                <p align="center" style="font-size: 10px; color: #666;">${t('index_latest_added', 'Added:')} ${newest.date} | ${newest.category}</p>
-                            `;
-                        } else {
-                            box.innerHTML = `<p align="center"><i>${t('index_latest_empty', 'No items in the gallery yet.')}</i></p>`;
-                        }
-                    })();
-                </script>
-
-                <p data-i18n="index_look_around">Feel free to look around! Every image tells a different story.</p>
-
-                <h3 data-i18n="index_highlights_title">Project Highlights:</h3>
-                <ul>
-                    <li data-i18n="index_highlight_street">The Street Life - A deep dive into urban chaos.</li>
-                    <li data-i18n="index_highlight_pastel">Pastel Series - Exploring soft colors and emotions.</li>
-                    <li data-i18n="index_highlight_charcoal">Charcoal Portraits - capturing the human soul.</li>
-                </ul>
+            <main id="app">
+                <!-- Page content loaded by router.js -->
             </main>
         </div>
 

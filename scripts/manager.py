@@ -98,7 +98,7 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
 def update_site_timestamp():
     """Updates the 'Last Updated' string in all HTML files."""
     now = datetime.now().strftime("%d %b %Y")
-    html_files = ["index.html", "gallery.html", "photography.html", "sculpting.html", "projects.html"]
+    html_files = ["index.html"]
     for file_name in html_files:
         if os.path.exists(file_name):
             with open(file_name, "r", encoding="utf-8") as f:

@@ -17,13 +17,14 @@ const renderer = {
     },
 
     async init() {
-        const path = window.location.pathname;
+        // Use router's current route if available, fallback to URL path
+        const route = (window.router && router.currentRoute) || window.location.pathname;
         let dataFile = '';
 
-        if (path.includes('gallery.html')) dataFile = 'art.json';
-        else if (path.includes('photography.html')) dataFile = 'photography.json';
-        else if (path.includes('sculpting.html')) dataFile = 'sculpting.json';
-        else if (path.includes('projects.html')) dataFile = 'projects.json';
+        if (route.includes('gallery')) dataFile = 'art.json';
+        else if (route.includes('photography')) dataFile = 'photography.json';
+        else if (route.includes('sculpting')) dataFile = 'sculpting.json';
+        else if (route.includes('projects')) dataFile = 'projects.json';
 
         if (dataFile) {
             await this.renderGallery(dataFile);
@@ -84,6 +85,5 @@ const renderer = {
     }
 };
 
-// Auto-run if not using router (for direct access)
-document.addEventListener('DOMContentLoaded', () => renderer.init());
+// Renderer is called by router.loadPage() — no auto-run needed
 window.renderer = renderer;

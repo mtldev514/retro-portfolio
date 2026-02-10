@@ -52,7 +52,6 @@ const i18n = {
 
     async changeLang(lang) {
         await this.loadTranslations(lang);
-        this.updateDOM();
         this.updateSwitcherUI();
         // Rebuild media playlist names for new language
         if (window.media && media.rawTracks.length > 0) {
@@ -60,11 +59,13 @@ const i18n = {
             media.updateTrackDisplay();
             media.populateTrackSelector();
         }
-        // Re-render gallery for new language
-        if (window.renderer) {
-            renderer.init();
+        // Re-load current page to re-render everything in the new language
+        if (window.router && router.currentRoute) {
+            await router.loadPage(window.location.pathname);
+        } else {
+            this.updateDOM();
         }
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => i18n.init());
+// i18n.init() is called by the router during boot — no auto-run needed

@@ -331,3 +331,71 @@ nav a:active {
     margin-top: 5px;
     font-family: 'Courier New', monospace;
 }
+
+/* Music Page - Track Styles */
+.track-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.track-item {
+    background: #1a1a2e;
+    border: 1px solid #444;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffd700;
+    margin: 0 0 4px;
+}
+
+.track-meta {
+    font-size: 11px;
+    color: #aaa;
+}
+
+.track-meta span {
+    margin-right: 10px;
+}
+
+.track-description {
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.track-player {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.track-player audio {
+    width: 100%;
+    height: 32px;
+}
+
+.track-icon {
+    font-size: 28px;
+    color: #ffd700;
+    min-width: 40px;
+    text-align: center;
+}
+
+.empty-message {
+    text-align: center;
+    color: #888;
+    padding: 40px;
+    font-style: italic;
+}

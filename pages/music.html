@@ -1,0 +1,64 @@
+<h2 data-i18n="music_tracks_heading">&#127911; Tracks</h2>
+
+<div id="track-container">
+    <p class="empty-message" data-i18n="music_loading">Loading tracks...</p>
+</div>
+
+<div class="marquee-container" style="margin-top: 30px;">
+    <marquee direction="right" data-i18n="music_marquee">>>> NOW PLAYING <<< ORIGINAL COMPOSITIONS <<< LISTEN & ENJOY 2026 <<<</marquee>
+</div>
+
+<p align="center" style="margin-top: 20px;"><a href="index.html" class="btn" data-i18n="gallery_back">Back to Home</a></p>
+
+<script>
+    (async function loadTracks() {
+        const container = document.getElementById('track-container');
+        if (!container) return;
+        const tf = (field) => {
+            if (!field) return '';
+            if (typeof field === 'object' && !Array.isArray(field)) {
+                const lang = (window.i18n && i18n.currentLang) || 'en';
+                return field[lang] || field.en || '';
+            }
+            return field;
+        };
+        try {
+            const res = await fetch('data/music.json');
+            const tracks = await res.json();
+
+            if (!tracks || tracks.length === 0) {
+                const msg = (window.i18n && i18n.translations.music_no_tracks) || 'No tracks uploaded yet. Add music through the admin dashboard!';
+                container.innerHTML = `<p class="empty-message">${msg}</p>`;
+                return;
+            }
+
+            tracks.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+            let html = '<ul class="track-list">';
+            tracks.forEach(track => {
+                const title = tf(track.title);
+                const genre = tf(track.genre);
+                const description = tf(track.description);
+                html += `
+                    <li class="track-item">
+                        <div class="track-icon">&#127925;</div>
+                        <div class="track-info">
+                            <p class="track-title">${title}</p>
+                            <div class="track-meta">
+                                ${genre ? `<span>&#127928; ${genre}</span>` : ''}
+                                ${track.date ? `<span>&#128197; ${track.date}</span>` : ''}
+                            </div>
+                            ${description ? `<p class="track-description">"${description}"</p>` : ''}
+                            ${track.url ? `<div class="track-player"><audio controls preload="none"><source src="${track.url}">${(window.i18n && i18n.translations.music_audio_unsupported) || 'Your browser does not support audio.'}</audio></div>` : ''}
+                        </div>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            container.innerHTML = html;
+        } catch (e) {
+            const errMsg = (window.i18n && i18n.translations.music_load_error) || 'Could not load tracks.';
+            container.innerHTML = `<p class="empty-message">${errMsg}</p>`;
+        }
+    })();
+</script>
