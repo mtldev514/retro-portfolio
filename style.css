@@ -324,3 +324,10 @@ nav a:active {
     padding: 2px 5px;
     pointer-events: none;
 }
+
+.item-date {
+    font-size: 0.7em;
+    color: #666;
+    margin-top: 5px;
+    font-family: 'Courier New', monospace;
+}
