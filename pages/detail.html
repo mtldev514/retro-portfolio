@@ -94,11 +94,12 @@
                 </div>`;
             }
 
-            // Audio player for music
+            // Play in Radio button for music
             if (isMusic && item.url) {
-                html += `<div class="detail-audio">
-                    <h3>${t('detail_listen', 'Listen')}</h3>
-                    <audio controls style="width:100%"><source src="${item.url}">${t('music_audio_unsupported', 'Your browser does not support audio.')}</audio>
+                html += `<div class="detail-audio" style="margin-top: 15px;">
+                    <button class="track-radio-btn" id="detail-play-radio" data-track-url="${item.url.replace(/"/g, '&quot;')}">
+                        &#9654; ${t('music_play_in_radio', 'Play in Radio')}
+                    </button>
                 </div>`;
             }
 
