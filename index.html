@@ -87,7 +87,7 @@
                     <div class="radio-selector">
                         <label for="track-select" data-i18n="sidebar_radio_select">Select Track:</label>
                         <select id="track-select" class="radio-track-select">
-                            <option value="">Loading tracks...</option>
+                            <option value="" data-i18n="sidebar_radio_loading">Loading tracks...</option>
                         </select>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                     drawing, and urban photography.</p>
 
                 <div id="latestAddition" class="gallery-item" style="max-width: 400px; margin: 20px auto;">
-                    <p align="center"><i>Loading latest addition...</i></p>
+                    <p align="center"><i data-i18n="index_latest_loading">Loading latest addition...</i></p>
                 </div>
                 <script>
                     (async function loadLatest() {
@@ -128,15 +128,16 @@
                             } catch (e) { /* skip missing files */ }
                         }
                         const box = document.getElementById('latestAddition');
+                        const t = (key, fallback) => (window.i18n && i18n.translations[key]) || fallback;
                         if (newest) {
                             box.innerHTML = `
-                                <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">⭐ LATEST ADDITION ⭐</p>
+                                <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">${t('index_latest_label', '⭐ LATEST ADDITION ⭐')}</p>
                                 <img src="${newest.url}" alt="${newest.title}">
                                 <p align="center"><i>"${newest.title}"${newest.medium ? ' (' + newest.medium + ')' : ''}</i></p>
-                                <p align="center" style="font-size: 10px; color: #666;">Added: ${newest.date} | ${newest.category}</p>
+                                <p align="center" style="font-size: 10px; color: #666;">${t('index_latest_added', 'Added:')} ${newest.date} | ${newest.category}</p>
                             `;
                         } else {
-                            box.innerHTML = '<p align="center"><i>No items in the gallery yet.</i></p>';
+                            box.innerHTML = `<p align="center"><i>${t('index_latest_empty', 'No items in the gallery yet.')}</i></p>`;
                         }
                     })();
                 </script>

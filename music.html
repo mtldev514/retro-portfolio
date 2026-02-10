@@ -98,8 +98,8 @@
         </div>
 
         <header>
-            <h1>🎵 Music</h1>
-            <p><i>Original Tracks & Compositions</i></p>
+            <h1 data-i18n="music_title">🎵 Music</h1>
+            <p><i data-i18n="music_subtitle">Original Tracks & Compositions</i></p>
             <nav>
                 <a href="index.html" data-i18n="nav_home">Home</a>
                 <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
@@ -155,7 +155,7 @@
                     <div class="radio-selector">
                         <label for="track-select" data-i18n="sidebar_radio_select">Select Track:</label>
                         <select id="track-select" class="radio-track-select">
-                            <option value="">Loading tracks...</option>
+                            <option value="" data-i18n="sidebar_radio_loading">Loading tracks...</option>
                         </select>
                     </div>
                 </div>
@@ -172,14 +172,14 @@
             </aside>
 
             <main class="main-content">
-            <h2>🎧 Tracks</h2>
+            <h2 data-i18n="music_tracks_heading">🎧 Tracks</h2>
 
             <div id="track-container">
-                <p class="empty-message">Loading tracks...</p>
+                <p class="empty-message" data-i18n="music_loading">Loading tracks...</p>
             </div>
 
             <div class="marquee-container" style="margin-top: 30px;">
-                <marquee direction="right">>>> NOW PLAYING <<< ORIGINAL COMPOSITIONS <<< LISTEN & ENJOY 2026
+                <marquee direction="right" data-i18n="music_marquee">>>> NOW PLAYING <<< ORIGINAL COMPOSITIONS <<< LISTEN & ENJOY 2026
                         <<<</marquee>
             </div>
 
@@ -202,7 +202,8 @@
                 const tracks = await res.json();
 
                 if (!tracks || tracks.length === 0) {
-                    container.innerHTML = '<p class="empty-message">No tracks uploaded yet. Add music through the admin dashboard!</p>';
+                    const msg = (window.i18n && i18n.translations.music_no_tracks) || 'No tracks uploaded yet. Add music through the admin dashboard!';
+                    container.innerHTML = `<p class="empty-message">${msg}</p>`;
                     return;
                 }
 
@@ -221,7 +222,7 @@
                                     ${track.date ? `<span>📅 ${track.date}</span>` : ''}
                                 </div>
                                 ${track.description ? `<p class="track-description">"${track.description}"</p>` : ''}
-                                ${track.url ? `<div class="track-player"><audio controls preload="none"><source src="${track.url}">Your browser does not support audio.</audio></div>` : ''}
+                                ${track.url ? `<div class="track-player"><audio controls preload="none"><source src="${track.url}">${(window.i18n && i18n.translations.music_audio_unsupported) || 'Your browser does not support audio.'}</audio></div>` : ''}
                             </div>
                         </li>
                     `;
@@ -229,7 +230,8 @@
                 html += '</ul>';
                 container.innerHTML = html;
             } catch (e) {
-                container.innerHTML = '<p class="empty-message">Could not load tracks.</p>';
+                const errMsg = (window.i18n && i18n.translations.music_load_error) || 'Could not load tracks.';
+                container.innerHTML = `<p class="empty-message">${errMsg}</p>`;
             }
         })();
     </script>
