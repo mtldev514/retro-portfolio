@@ -1,10 +1,25 @@
 [
     {
         "id": "art_1770744060",
-        "title": "Canapé vert",
+        "title": {
+            "en": "Canapé vert",
+            "fr": "Canapé vert",
+            "mx": "Sofá verde",
+            "ht": "Kanape vèt"
+        },
         "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770744058/portfolio/art/xf4lc7bjpebfpgt9jhop.jpg",
         "date": "2026-02-10",
-        "medium": "Acrylic",
-        "description": "A very old memory. We are playing in our childhood bedroom."
+        "medium": {
+            "en": "Acrylic",
+            "fr": "Acrylique",
+            "mx": "Acrílico",
+            "ht": "Akrilik"
+        },
+        "description": {
+            "en": "A very old memory. We are playing in our childhood bedroom.",
+            "fr": "Un très vieux souvenir. Nous jouons dans notre chambre d'enfance.",
+            "mx": "Un recuerdo muy antiguo. Estamos jugando en nuestra habitación de infancia.",
+            "ht": "Yon souvni byen lontan. Nou t ap jwe nan chanm timoun nou an."
+        }
     }
 ]

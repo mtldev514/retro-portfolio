@@ -74,5 +74,6 @@
     "index_latest_label": "⭐ ÚLTIMA ADICIÓN ⭐",
     "index_latest_added": "Agregado:",
     "index_latest_empty": "No hay elementos en la galería todavía.",
-    "sidebar_radio_loading": "Cargando pistas..."
+    "sidebar_radio_loading": "Cargando pistas...",
+    "sidebar_radio_no_tracks": "No hay pistas disponibles"
 }

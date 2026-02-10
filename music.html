@@ -185,6 +185,59 @@
 
             <p align="center" style="margin-top: 20px;"><a href="index.html" class="btn" data-i18n="gallery_back">Back
                     to Home</a></p>
+
+            <script>
+                (async function loadTracks() {
+                    const container = document.getElementById('track-container');
+                    const tf = (field) => {
+                        if (!field) return '';
+                        if (typeof field === 'object' && !Array.isArray(field)) {
+                            const lang = (window.i18n && i18n.currentLang) || 'en';
+                            return field[lang] || field.en || '';
+                        }
+                        return field;
+                    };
+                    try {
+                        const res = await fetch('data/music.json');
+                        const tracks = await res.json();
+
+                        if (!tracks || tracks.length === 0) {
+                            const msg = (window.i18n && i18n.translations.music_no_tracks) || 'No tracks uploaded yet. Add music through the admin dashboard!';
+                            container.innerHTML = `<p class="empty-message">${msg}</p>`;
+                            return;
+                        }
+
+                        // Sort by date, newest first
+                        tracks.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+                        let html = '<ul class="track-list">';
+                        tracks.forEach(track => {
+                            const title = tf(track.title);
+                            const genre = tf(track.genre);
+                            const description = tf(track.description);
+                            html += `
+                                <li class="track-item">
+                                    <div class="track-icon">🎵</div>
+                                    <div class="track-info">
+                                        <p class="track-title">${title}</p>
+                                        <div class="track-meta">
+                                            ${genre ? `<span>🎸 ${genre}</span>` : ''}
+                                            ${track.date ? `<span>📅 ${track.date}</span>` : ''}
+                                        </div>
+                                        ${description ? `<p class="track-description">"${description}"</p>` : ''}
+                                        ${track.url ? `<div class="track-player"><audio controls preload="none"><source src="${track.url}">${(window.i18n && i18n.translations.music_audio_unsupported) || 'Your browser does not support audio.'}</audio></div>` : ''}
+                                    </div>
+                                </li>
+                            `;
+                        });
+                        html += '</ul>';
+                        container.innerHTML = html;
+                    } catch (e) {
+                        const errMsg = (window.i18n && i18n.translations.music_load_error) || 'Could not load tracks.';
+                        container.innerHTML = `<p class="empty-message">${errMsg}</p>`;
+                    }
+                })();
+            </script>
         </main>
         </div>
 
@@ -193,48 +246,6 @@
             <p><span data-i18n="footer_last_updated">Last Updated:</span> 10 Feb 2026</p>
         </footer>
     </div>
-
-    <script>
-        (async function loadTracks() {
-            const container = document.getElementById('track-container');
-            try {
-                const res = await fetch('data/music.json');
-                const tracks = await res.json();
-
-                if (!tracks || tracks.length === 0) {
-                    const msg = (window.i18n && i18n.translations.music_no_tracks) || 'No tracks uploaded yet. Add music through the admin dashboard!';
-                    container.innerHTML = `<p class="empty-message">${msg}</p>`;
-                    return;
-                }
-
-                // Sort by date, newest first
-                tracks.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-
-                let html = '<ul class="track-list">';
-                tracks.forEach(track => {
-                    html += `
-                        <li class="track-item">
-                            <div class="track-icon">🎵</div>
-                            <div class="track-info">
-                                <p class="track-title">${track.title}</p>
-                                <div class="track-meta">
-                                    ${track.genre ? `<span>🎸 ${track.genre}</span>` : ''}
-                                    ${track.date ? `<span>📅 ${track.date}</span>` : ''}
-                                </div>
-                                ${track.description ? `<p class="track-description">"${track.description}"</p>` : ''}
-                                ${track.url ? `<div class="track-player"><audio controls preload="none"><source src="${track.url}">${(window.i18n && i18n.translations.music_audio_unsupported) || 'Your browser does not support audio.'}</audio></div>` : ''}
-                            </div>
-                        </li>
-                    `;
-                });
-                html += '</ul>';
-                container.innerHTML = html;
-            } catch (e) {
-                const errMsg = (window.i18n && i18n.translations.music_load_error) || 'Could not load tracks.';
-                container.innerHTML = `<p class="empty-message">${errMsg}</p>`;
-            }
-        })();
-    </script>
 </body>
 
 </html>

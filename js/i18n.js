@@ -54,6 +54,16 @@ const i18n = {
         await this.loadTranslations(lang);
         this.updateDOM();
         this.updateSwitcherUI();
+        // Rebuild media playlist names for new language
+        if (window.media && media.rawTracks.length > 0) {
+            media.buildPlaylist();
+            media.updateTrackDisplay();
+            media.populateTrackSelector();
+        }
+        // Re-render gallery for new language
+        if (window.renderer) {
+            renderer.init();
+        }
     }
 };
 

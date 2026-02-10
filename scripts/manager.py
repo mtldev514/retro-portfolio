@@ -64,19 +64,25 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
     else:
         data = []
 
-    # 5. Create new entry
+    # 5. Create new entry with multilingual fields
+    def make_multilingual(value):
+        """Wrap a single-language value as a multilingual object."""
+        if not value:
+            return None
+        return {"en": value, "fr": value, "mx": value, "ht": value}
+
     new_entry = {
         "id": f"{category}_{int(datetime.now().timestamp())}",
-        "title": title,
+        "title": make_multilingual(title),
         "url": media_url,
         "date": datetime.now().strftime("%Y-%m-%d")
     }
     if medium:
-        new_entry["medium"] = medium
+        new_entry["medium"] = make_multilingual(medium)
     if genre:
-        new_entry["genre"] = genre
+        new_entry["genre"] = make_multilingual(genre)
     if description:
-        new_entry["description"] = description
+        new_entry["description"] = make_multilingual(description)
 
     data.append(new_entry)
 

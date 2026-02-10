@@ -319,33 +319,47 @@
             log(msg, 'red');
         }
 
+        // Resolve a multilingual field to its English value (for admin editing)
+        function resolveField(field) {
+            if (!field) return '';
+            if (typeof field === 'object' && !Array.isArray(field)) return field.en || '';
+            return field;
+        }
+
+        // Current item data, stored for saving back with all languages preserved
+        let currentItem = null;
+
         function populateForm(item, cat) {
+            currentItem = item;
             document.getElementById('loading').style.display = 'none';
             document.getElementById('editForm').style.display = 'block';
 
+            const titleStr = resolveField(item.title);
+            const idStr = item.id || (typeof item.title === 'string' ? item.title : titleStr);
+
             document.getElementById('editCategory').value = cat.toUpperCase();
-            document.getElementById('editId').value = item.id || item.title;
+            document.getElementById('editId').value = idStr;
             document.getElementById('editDate').value = item.date || 'N/A';
-            document.getElementById('editTitle').value = item.title;
+            document.getElementById('editTitle').value = titleStr;
             document.getElementById('editUrl').value = item.url || '';
 
-            document.getElementById('windowTitle').innerText = `EDITING: ${item.title}`;
-            document.getElementById('statusText').innerText = `Editing ${cat}/${item.id || item.title}`;
+            document.getElementById('windowTitle').innerText = `EDITING: ${titleStr}`;
+            document.getElementById('statusText').innerText = `Editing ${cat}/${idStr}`;
 
             // Show medium field for art/sculpting
             if (cat === 'art' || cat === 'sculpting') {
                 document.getElementById('mediumGroup').style.display = 'block';
-                document.getElementById('editMedium').value = item.medium || '';
+                document.getElementById('editMedium').value = resolveField(item.medium);
             }
 
             // Show genre field for music/video
             if (cat === 'music' || cat === 'video') {
                 document.getElementById('genreGroup').style.display = 'block';
-                document.getElementById('editGenre').value = item.genre || '';
+                document.getElementById('editGenre').value = resolveField(item.genre);
             }
 
             // Always populate description
-            document.getElementById('editDescription').value = item.description || '';
+            document.getElementById('editDescription').value = resolveField(item.description);
 
             // Show image preview for visual categories
             if (item.url && (cat === 'art' || cat === 'photography' || cat === 'sculpting')) {
@@ -359,7 +373,16 @@
                 document.getElementById('audioPreview').src = item.url;
             }
 
-            log(`Item loaded successfully: "${item.title}"`, 'cyan');
+            log(`Item loaded successfully: "${titleStr}"`, 'cyan');
+        }
+
+        // Build a multilingual update: set the 'en' value, preserve other langs from the original
+        function makeMultilingualUpdate(originalField, newEnValue) {
+            if (typeof originalField === 'object' && originalField !== null && !Array.isArray(originalField)) {
+                return { ...originalField, en: newEnValue };
+            }
+            // If original was a plain string, convert to multilingual
+            return { en: newEnValue, fr: newEnValue, mx: newEnValue, ht: newEnValue };
         }
 
         // Form submission
@@ -367,23 +390,23 @@
             e.preventDefault();
 
             const updates = {
-                title: document.getElementById('editTitle').value
+                title: makeMultilingualUpdate(currentItem.title, document.getElementById('editTitle').value)
             };
 
             // Include medium if visible
             const mediumGroup = document.getElementById('mediumGroup');
             if (mediumGroup.style.display !== 'none') {
-                updates.medium = document.getElementById('editMedium').value;
+                updates.medium = makeMultilingualUpdate(currentItem.medium, document.getElementById('editMedium').value);
             }
 
             // Include genre if visible
             const genreGroup = document.getElementById('genreGroup');
             if (genreGroup.style.display !== 'none') {
-                updates.genre = document.getElementById('editGenre').value;
+                updates.genre = makeMultilingualUpdate(currentItem.genre, document.getElementById('editGenre').value);
             }
 
             // Always include description
-            updates.description = document.getElementById('editDescription').value;
+            updates.description = makeMultilingualUpdate(currentItem.description, document.getElementById('editDescription').value);
 
             log('Saving changes...', 'yellow');
 

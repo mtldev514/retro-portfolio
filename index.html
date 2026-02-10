@@ -129,11 +129,21 @@
                         }
                         const box = document.getElementById('latestAddition');
                         const t = (key, fallback) => (window.i18n && i18n.translations[key]) || fallback;
+                        const tf = (field) => {
+                            if (!field) return '';
+                            if (typeof field === 'object' && !Array.isArray(field)) {
+                                const lang = (window.i18n && i18n.currentLang) || 'en';
+                                return field[lang] || field.en || '';
+                            }
+                            return field;
+                        };
                         if (newest) {
+                            const title = tf(newest.title);
+                            const medium = tf(newest.medium);
                             box.innerHTML = `
                                 <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">${t('index_latest_label', '⭐ LATEST ADDITION ⭐')}</p>
-                                <img src="${newest.url}" alt="${newest.title}">
-                                <p align="center"><i>"${newest.title}"${newest.medium ? ' (' + newest.medium + ')' : ''}</i></p>
+                                <img src="${newest.url}" alt="${title}">
+                                <p align="center"><i>"${title}"${medium ? ' (' + medium + ')' : ''}</i></p>
                                 <p align="center" style="font-size: 10px; color: #666;">${t('index_latest_added', 'Added:')} ${newest.date} | ${newest.category}</p>
                             `;
                         } else {

@@ -74,5 +74,6 @@
     "index_latest_label": "⭐ DERNIÈRE AFFAIRE AJOUTÉE ⭐",
     "index_latest_added": "Ajouté l' :",
     "index_latest_empty": "Y'a rien dans la galerie encore.",
-    "sidebar_radio_loading": "Ça charge les pièces..."
+    "sidebar_radio_loading": "Ça charge les pièces...",
+    "sidebar_radio_no_tracks": "Y'a pas de pièces"
 }

@@ -2,6 +2,20 @@
  * Render Engine for Alex's dynamic galleries
  */
 const renderer = {
+    /**
+     * Resolve a translatable field.
+     * If the field is an object with lang keys, return the value for the current language (fallback to 'en').
+     * If it's a plain string (backward compat), return it as-is.
+     */
+    t(field) {
+        if (!field) return '';
+        if (typeof field === 'object' && !Array.isArray(field)) {
+            const lang = (window.i18n && i18n.currentLang) || 'en';
+            return field[lang] || field.en || '';
+        }
+        return field;
+    },
+
     async init() {
         const path = window.location.pathname;
         let dataFile = '';
@@ -45,21 +59,21 @@ const renderer = {
         const div = document.createElement('div');
         div.className = 'gallery-item';
 
-        // Format Date (Simple)
         const dateStr = item.date ? item.date : 'N/A';
+        const title = this.t(item.title);
+        const description = this.t(item.description);
+        const medium = this.t(item.medium);
 
-        // Visibility Emoji
         let visibilityEmoji = '';
         if (item.category === 'projects') {
             visibilityEmoji = item.visibility === 'private' ? ' 🔒' : ' 🔓';
         }
 
-        // Project specific: Use description instead of medium if available
-        const subTitle = item.category === 'projects' ? item.description : (item.medium ? `(${item.medium})` : '');
+        const subTitle = item.category === 'projects' ? description : (medium ? `(${medium})` : '');
 
         div.innerHTML = `
-            ${item.url && item.category !== 'projects' ? `<img src="${item.url}" alt="${item.title}">` : ''}
-            <h3 align="center">${item.title}${visibilityEmoji}</h3>
+            ${item.url && item.category !== 'projects' ? `<img src="${item.url}" alt="${title}">` : ''}
+            <h3 align="center">${title}${visibilityEmoji}</h3>
             ${subTitle ? `<p align="center"><i>${subTitle}</i></p>` : ''}
             ${item.url && item.category === 'projects' ? `<p align="center"><a href="${item.url}" target="_blank" data-i18n="projects_view_code">View Code</a></p>` : ''}
             <p align="center" class="item-date">

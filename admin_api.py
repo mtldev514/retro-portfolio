@@ -127,13 +127,16 @@ def sync_github():
         response.raise_for_status()
         repos = response.json()
         
+        no_desc = {"en": "No description provided.", "fr": "Aucune description fournie.", "mx": "No se proporcionó descripción.", "ht": "Pa gen deskripsyon."}
         projects = []
         for repo in repos:
             # Filter if needed (repo must be owned by the user if we used /user/repos)
             if not token or repo['owner']['login'].lower() == username.lower():
+                desc_text = repo['description']
+                description = {"en": desc_text, "fr": desc_text, "mx": desc_text, "ht": desc_text} if desc_text else no_desc
                 projects.append({
                     "title": repo['name'],
-                    "description": repo['description'] or "No description provided.",
+                    "description": description,
                     "url": repo['html_url'],
                     "visibility": "private" if repo['private'] else "public",
                     "date": repo['updated_at'].split('T')[0],

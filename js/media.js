@@ -7,6 +7,16 @@ const media = {
     audio: new Audio(),
     currentTrackIndex: 0,
     playlist: [],
+    rawTracks: [],
+
+    tf(field) {
+        if (!field) return '';
+        if (typeof field === 'object' && !Array.isArray(field)) {
+            const lang = (window.i18n && i18n.currentLang) || 'en';
+            return field[lang] || field.en || '';
+        }
+        return field;
+    },
 
     async init() {
         await this.loadPlaylist();
@@ -16,15 +26,24 @@ const media = {
         console.log(`Media controller initialized with ${this.playlist.length} tracks`);
     },
 
+    buildPlaylist() {
+        this.playlist = this.rawTracks.map(t => {
+            const title = this.tf(t.title);
+            const genre = this.tf(t.genre);
+            return {
+                name: title + (genre ? ` [${genre}]` : ''),
+                src: t.url
+            };
+        });
+    },
+
     async loadPlaylist() {
         try {
             const res = await fetch('data/music.json');
             const tracks = await res.json();
             if (tracks && tracks.length > 0) {
-                this.playlist = tracks.map(t => ({
-                    name: t.title + (t.genre ? ` [${t.genre}]` : ''),
-                    src: t.url
-                }));
+                this.rawTracks = tracks;
+                this.buildPlaylist();
             }
         } catch (e) {
             console.log('Could not load music.json');
@@ -35,6 +54,13 @@ const media = {
         const trackSelect = document.querySelector('.radio-track-select');
         if (!trackSelect) return;
         trackSelect.innerHTML = '';
+        if (this.playlist.length === 0) {
+            const opt = document.createElement('option');
+            opt.value = '';
+            opt.textContent = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
+            trackSelect.appendChild(opt);
+            return;
+        }
         this.playlist.forEach((track, i) => {
             const opt = document.createElement('option');
             opt.value = i;
@@ -108,8 +134,11 @@ const media = {
 
     updateTrackDisplay() {
         const marquee = document.querySelector('.radio-track-name');
-        if (marquee && this.playlist.length > 0) {
+        if (!marquee) return;
+        if (this.playlist.length > 0) {
             marquee.innerText = this.playlist[this.currentTrackIndex].name;
+        } else {
+            marquee.innerText = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
         }
     }
 };

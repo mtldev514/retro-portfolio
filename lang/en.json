@@ -74,5 +74,6 @@
     "index_latest_label": "⭐ LATEST ADDITION ⭐",
     "index_latest_added": "Added:",
     "index_latest_empty": "No items in the gallery yet.",
-    "sidebar_radio_loading": "Loading tracks..."
+    "sidebar_radio_loading": "Loading tracks...",
+    "sidebar_radio_no_tracks": "No tracks available"
 }

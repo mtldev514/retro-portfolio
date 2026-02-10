@@ -484,11 +484,12 @@
                         div.style.alignItems = 'center';
                         div.style.fontSize = '12px';
 
-                        const id = item.id || item.title;
+                        const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
+                        const id = item.id || titleStr;
 
                         const info = document.createElement('div');
                         info.style.flex = '1';
-                        info.innerHTML = `<b>${item.title}</b> <span style="color: #666;">(${item.date || 'N/A'})</span>`;
+                        info.innerHTML = `<b>${titleStr}</b> <span style="color: #666;">(${item.date || 'N/A'})</span>`;
                         div.appendChild(info);
 
                         const actions = document.createElement('div');
