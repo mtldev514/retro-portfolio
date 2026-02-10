@@ -2,7 +2,7 @@
     "nav_home": "Accueil",
     "nav_art": "Art (Peinture/Dessin)",
     "nav_photo": "Photographie",
-    "nav_street": "Vie Urbaine",
+    "nav_sculpting": "Sculpture",
     "nav_projects": "Projets",
     "header_title": "Le Portfolio Artistique d'Alex",
     "header_subtitle": "Célébrer la Beauté par la Peinture, le Crayon et l'Objectif",
@@ -53,5 +53,10 @@
     "projects_view_code": "Voir le code",
     "sidebar_radio_select": "Choisir la piste :",
     "sidebar_video_title": "Tube Rétro",
-    "sidebar_video_note": "Clic pour Lecture/Pause"
+    "sidebar_video_note": "Clic pour Lecture/Pause",
+    "sculpting_title": "Galerie de Sculpture",
+    "sculpting_subtitle": "Œuvres en Argile, Pierre et Métal",
+    "sculpting_intro": "Explorer la forme et l'espace à travers des médiums tactiles.",
+    "photo_consolidated_title": "Portefeuille de Photographie",
+    "photo_consolidated_subtitle": "Des Paysages à la Vie Urbaine"
 }

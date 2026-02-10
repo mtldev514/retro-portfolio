@@ -2,7 +2,7 @@
     "nav_home": "Paj Akèy",
     "nav_art": "Atizay (Penti/Desen)",
     "nav_photo": "Fotografi",
-    "nav_street": "Lavi nan Ri",
+    "nav_sculpting": "Eskilti",
     "nav_projects": "Pwojè yo",
     "header_title": "Pòtfolyo Atistik Alex",
     "header_subtitle": "Selebre Bote atravè Penti, Kreyon, ak Lantiy",
@@ -53,5 +53,10 @@
     "projects_view_code": "Wè kòd",
     "sidebar_radio_select": "Chwazi tras la:",
     "sidebar_video_title": "Tib Retro",
-    "sidebar_video_note": "Klike pou Jwe/Pòz"
+    "sidebar_video_note": "Klike pou Jwe/Pòz",
+    "sculpting_title": "Galeri Eskilti",
+    "sculpting_subtitle": "Travay nan Ajil, Wòch, ak Metal",
+    "sculpting_intro": "Eksplore fòm ak espas atravè medya tactile.",
+    "photo_consolidated_title": "Pòtfolyo Fotografi",
+    "photo_consolidated_subtitle": "Soti nan Peyizaj rive nan Lavi nan Ri"
 }

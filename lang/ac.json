@@ -2,7 +2,7 @@
     "nav_home": "Accueil",
     "nav_art": "Art (Peinture/Dessin)",
     "nav_photo": "Photographie",
-    "nav_street": "La Vie de par chez nous",
+    "nav_sculpting": "Sculpture",
     "nav_projects": "Mes pwojets de code",
     "header_title": "Le Portfolio à Alex",
     "header_subtitle": "Célébrer la beauté par la peinture, le crayon pis l'objectif",
@@ -53,5 +53,10 @@
     "projects_view_code": "Wouère le code",
     "sidebar_radio_select": "Choisis ta musique :",
     "sidebar_video_title": "La p'tite TV",
-    "sidebar_video_note": "Clique pour jouer/arrêter"
+    "sidebar_video_note": "Clique pour jouer/arrêter",
+    "sculpting_title": "Galerie de Sculpture",
+    "sculpting_subtitle": "Travail sus la terre pis la roche",
+    "sculpting_intro": "Donner des formes au vide avec des patentes tactiles.",
+    "photo_consolidated_title": "Mon album de photos",
+    "photo_consolidated_subtitle": "Du bois jusque dans les rues"
 }

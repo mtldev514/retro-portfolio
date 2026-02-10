@@ -2,7 +2,7 @@
     "nav_home": "Home",
     "nav_art": "Art (Paint/Draw)",
     "nav_photo": "Photography",
-    "nav_street": "Street Life",
+    "nav_sculpting": "Sculpting",
     "nav_projects": "Projects",
     "header_title": "Alex's Artistic Portfolio",
     "header_subtitle": "Celebrating Beauty through Paint, Pencil, and Lens",
@@ -53,5 +53,10 @@
     "projects_view_code": "View Source",
     "sidebar_radio_select": "Select Track:",
     "sidebar_video_title": "Retro Tube",
-    "sidebar_video_note": "Click to Play/Pause"
+    "sidebar_video_note": "Click to Play/Pause",
+    "sculpting_title": "Sculpting Gallery",
+    "sculpting_subtitle": "3D Works in Clay, Stone, and Metal",
+    "sculpting_intro": "Exploring form and space through tactile mediums.",
+    "photo_consolidated_title": "Photography Portfolio",
+    "photo_consolidated_subtitle": "From Landscapes to Urban Life"
 }

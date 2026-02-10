@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="photo_title">Photography Portfolio</title>
+    <title data-i18n="photo_consolidated_title">Photography Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="js/i18n.js" defer></script>
     <script src="js/router.js" defer></script>
@@ -12,38 +12,38 @@
 
 <body>
     <div class="container">
+        <!-- Lang Switcher (Simplified for SPA) -->
         <div class="lang-switcher">
             <button class="lang-btn"><span class="lang-flag">🇬🇧</span> English</button>
             <div class="lang-dropdown">
                 <div class="lang-option" onclick="i18n.changeLang('fr')"><span class="lang-flag">🇫🇷</span> French
-                    (France)</div>
+                </div>
                 <div class="lang-option" onclick="i18n.changeLang('en')"><span class="lang-flag">🇬🇧</span> English
-                    (England)</div>
+                </div>
                 <div class="lang-option" onclick="i18n.changeLang('mx')"><span class="lang-flag">🇲🇽</span> Spanish
-                    (Mexico)</div>
+                </div>
                 <div class="lang-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span> Haitian
-                    Creole (Haiti)</div>
-                <div class="lang-option" onclick="i18n.changeLang('qc')"><span class="lang-flag">⚜️</span> Joual
-                    (Quebec)</div>
+                    Creole</div>
+                <div class="lang-option" onclick="i18n.changeLang('qc')"><span class="lang-flag">⚜️</span> Joual</div>
                 <div class="lang-option" onclick="i18n.changeLang('ac')"><span class="lang-flag">🇨🇦</span> Acadian
-                    (Canada)</div>
+                </div>
             </div>
         </div>
 
         <header>
-            <h1 data-i18n="photo_title">Photography</h1>
-            <p><i data-i18n="photo_subtitle">Capturing Moments in Time</i></p>
+            <h1 data-i18n="photo_consolidated_title">Photography</h1>
+            <p><i data-i18n="photo_consolidated_subtitle">From Landscapes to Urban Life</i></p>
             <nav>
                 <a href="index.html" data-i18n="nav_home">Home</a>
                 <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
                 <a href="photography.html" data-i18n="nav_photo">Photography</a>
-                <a href="street-photography.html" data-i18n="nav_street">Street Life</a>
+                <a href="sculpting.html" data-i18n="nav_sculpting">Sculpting</a>
                 <a href="projects.html" data-i18n="nav_projects">Projects</a>
             </nav>
         </header>
 
         <main class="main-content">
-            <h2 data-i18n="photo_collections">Collections</h2>
+            <h2 data-i18n="photo_nature">Nature & Landscapes</h2>
             <p data-i18n="photo_intro">My lens focuses on the quiet beauty of nature and the stillness of the world.</p>
 
             <div class="gallery-grid">
@@ -61,11 +61,34 @@
                 </div>
             </div>
 
-            <p>Check out my specialized <a href="street-photography.html" data-i18n="nav_street">Street Photography</a>
-                section for more urban
-                work.</p>
+            <hr>
 
-            <p align="center"><a href="index.html" data-i18n="gallery_back">Back to Home</a></p>
+            <h2 data-i18n="street_candid">Candid Urban Moments</h2>
+            <p data-i18n="street_intro">Street photography is about finding beauty in the chaos. It's the art of the
+                decisive moment.</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="street_photography_urban_life.png" alt="Street Photography 1">
+                    <p align="center">Intersection Rhythm</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="street_placeholder_2.png" alt="Street Photography 2">
+                    <p align="center">Shadows of the Subway</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="street_placeholder_3.png" alt="Street Photography 3">
+                    <p align="center">The Rain Walkers</p>
+                </div>
+            </div>
+
+            <div class="marquee-container" style="margin-top: 30px;">
+                <marquee direction="right" data-i18n="street_marquee">>>> EXPLORING THE STREETS <<< CAPTURING THE UNSEEN
+                        <<< STREET LIFE 2026 <<<</marquee>
+            </div>
+
+            <p align="center" style="margin-top: 20px;"><a href="index.html" class="btn" data-i18n="gallery_back">Back
+                    to Home</a></p>
         </main>
 
         <footer class="footer">

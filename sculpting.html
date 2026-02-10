@@ -4,70 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="street_title">The Street Life - Street Photography</title>
+    <title data-i18n="sculpting_title">Sculpting Gallery</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/i18n.js" defer></script>
     <script src="js/router.js" defer></script>
 </head>
 
 <body>
     <div class="container">
+        <!-- Lang Switcher -->
         <div class="lang-switcher">
             <button class="lang-btn"><span class="lang-flag">🇬🇧</span> English</button>
             <div class="lang-dropdown">
                 <div class="lang-option" onclick="i18n.changeLang('fr')"><span class="lang-flag">🇫🇷</span> French
-                    (France)</div>
+                </div>
                 <div class="lang-option" onclick="i18n.changeLang('en')"><span class="lang-flag">🇬🇧</span> English
-                    (England)</div>
+                </div>
                 <div class="lang-option" onclick="i18n.changeLang('mx')"><span class="lang-flag">🇲🇽</span> Spanish
-                    (Mexico)</div>
+                </div>
                 <div class="lang-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span> Haitian
-                    Creole (Haiti)</div>
-                <div class="lang-option" onclick="i18n.changeLang('qc')"><span class="lang-flag">⚜️</span> Joual
-                    (Quebec)</div>
+                    Creole</div>
+                <div class="lang-option" onclick="i18n.changeLang('qc')"><span class="lang-flag">⚜️</span> Joual</div>
                 <div class="lang-option" onclick="i18n.changeLang('ac')"><span class="lang-flag">🇨🇦</span> Acadian
-                    (Canada)</div>
+                </div>
             </div>
         </div>
 
         <header>
-            <h1 data-i18n="street_title">The Street Life</h1>
-            <p><i data-i18n="street_subtitle">Unfiltered Moments from the Urban Jungle</i></p>
+            <h1 data-i18n="sculpting_title">Sculpting Gallery</h1>
+            <p><i data-i18n="sculpting_subtitle">3D Works in Clay, Stone, and Metal</i></p>
             <nav>
                 <a href="index.html" data-i18n="nav_home">Home</a>
                 <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
                 <a href="photography.html" data-i18n="nav_photo">Photography</a>
-                <a href="street-photography.html" data-i18n="nav_street">Street Life</a>
+                <a href="sculpting.html" data-i18n="nav_sculpting">Sculpting</a>
                 <a href="projects.html" data-i18n="nav_projects">Projects</a>
             </nav>
         </header>
 
         <main class="main-content">
-            <h2 data-i18n="street_candid">Candid Urban Moments</h2>
-            <p data-i18n="street_intro">Street photography is about finding beauty in the chaos. It's the art of the
-                decisive moment.</p>
+            <h2 data-i18n="sculpting_title">Sculpting</h2>
+            <p data-i18n="sculpting_intro">Exploring form and space through tactile mediums.</p>
 
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="street_photography_urban_life.png" alt="Street Photography 1">
-                    <p align="center">Intersection Rhythm</p>
+                    <img src="https://via.placeholder.com/300x400/8b4513/FFFFFF?text=The+Thinker" alt="Sculpture 1">
+                    <h3 align="center">The Thinker (Clay)</h3>
                 </div>
                 <div class="gallery-item">
-                    <img src="street_placeholder_2.png" alt="Street Photography 2">
-                    <p align="center">Shadows of the Subway</p>
+                    <img src="https://via.placeholder.com/300x400/708090/FFFFFF?text=Modern+Form" alt="Sculpture 2">
+                    <h3 align="center">Modern Form (Steel)</h3>
                 </div>
                 <div class="gallery-item">
-                    <img src="street_placeholder_3.png" alt="Street Photography 3">
-                    <p align="center">The Rain Walkers</p>
+                    <img src="https://via.placeholder.com/300x400/f5f5dc/000000?text=Echoes" alt="Sculpture 3">
+                    <h3 align="center">Echoes (Marble)</h3>
                 </div>
             </div>
 
-            <div class="marquee-container" style="margin-top: 30px;">
-                <marquee direction="right" data-i18n="street_marquee">>>> EXPLORING THE STREETS <<< CAPTURING THE UNSEEN
-                        <<< STREET LIFE 2026 <<<</marquee>
-            </div>
-
-            <p align="center"><a href="index.html" data-i18n="gallery_back">Back to Home</a></p>
+            <p align="center" style="margin-top: 30px;">
+                <a href="index.html" class="btn" data-i18n="gallery_back">Back to Home</a>
+            </p>
         </main>
 
         <footer class="footer">
