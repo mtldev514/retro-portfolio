@@ -233,6 +233,11 @@
                     <input type="text" id="editMedium">
                 </div>
 
+                <div class="form-group" id="genreGroup" style="display: none;">
+                    <label>Genre / Style:</label>
+                    <input type="text" id="editGenre">
+                </div>
+
                 <div class="form-group" id="descriptionGroup">
                     <label>Description:</label>
                     <textarea id="editDescription"></textarea>
@@ -246,6 +251,11 @@
                 <div id="previewGroup" class="preview-box" style="display: none;">
                     <p style="font-size: 10px; margin: 0 0 5px; font-weight: bold;">PREVIEW</p>
                     <img id="previewImg" src="" alt="Preview">
+                </div>
+
+                <div id="audioPreviewGroup" class="preview-box" style="display: none;">
+                    <p style="font-size: 10px; margin: 0 0 5px; font-weight: bold;">🎵 AUDIO PREVIEW</p>
+                    <audio id="audioPreview" controls style="width: 100%;"></audio>
                 </div>
 
                 <div class="button-bar">
@@ -328,6 +338,12 @@
                 document.getElementById('editMedium').value = item.medium || '';
             }
 
+            // Show genre field for music/video
+            if (cat === 'music' || cat === 'video') {
+                document.getElementById('genreGroup').style.display = 'block';
+                document.getElementById('editGenre').value = item.genre || '';
+            }
+
             // Always populate description
             document.getElementById('editDescription').value = item.description || '';
 
@@ -335,6 +351,12 @@
             if (item.url && (cat === 'art' || cat === 'photography' || cat === 'sculpting')) {
                 document.getElementById('previewGroup').style.display = 'block';
                 document.getElementById('previewImg').src = item.url;
+            }
+
+            // Show audio preview for music
+            if (item.url && cat === 'music') {
+                document.getElementById('audioPreviewGroup').style.display = 'block';
+                document.getElementById('audioPreview').src = item.url;
             }
 
             log(`Item loaded successfully: "${item.title}"`, 'cyan');
@@ -352,6 +374,12 @@
             const mediumGroup = document.getElementById('mediumGroup');
             if (mediumGroup.style.display !== 'none') {
                 updates.medium = document.getElementById('editMedium').value;
+            }
+
+            // Include genre if visible
+            const genreGroup = document.getElementById('genreGroup');
+            if (genreGroup.style.display !== 'none') {
+                updates.genre = document.getElementById('editGenre').value;
             }
 
             // Always include description
