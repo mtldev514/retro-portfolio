@@ -272,8 +272,9 @@ nav a:active {
     border-style: inset;
 }
 
-color: #ff00ff;
-/* Retro Magenta */
+.social-links a:hover i {
+    color: #ff00ff;
+    /* Retro Magenta */
 }
 
 /* Radio Enhancements */
