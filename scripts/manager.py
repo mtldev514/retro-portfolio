@@ -1,6 +1,7 @@
 import os
 import json
 import argparse
+import re
 from datetime import datetime
 import cloudinary
 import cloudinary.uploader
@@ -17,70 +18,84 @@ cloudinary.config(
     secure=True
 )
 
-def add_item(file_path, title, category, medium=None):
-    """Uploads image to Cloudinary and updates the local JSON database."""
-    print(f"--- Adding new item: {title} ---")
+JSON_MAP = {
+    "art": "data/art.json",
+    "photography": "data/photography.json",
+    "sculpting": "data/sculpting.json",
+    "projects": "data/projects.json",
+    "music": "data/music.json",
+    "video": "data/video.json"
+}
+
+def upload_and_save(file_path, title, category, medium=None, genre=None):
+    """Core logic to upload file and update JSON database."""
+    print(f"--- Processing: {title} ({category}) ---")
     
-    # 1. Upload to Cloudinary
+    # 1. Determine resource type for Cloudinary
+    resource_type = "auto"
+    if category == "music":
+        resource_type = "video" # Cloudinary handles audio as video resource type
+    elif category == "video":
+        resource_type = "video"
+
+    # 2. Upload to Cloudinary
     print(f"Uploading {file_path} to Cloudinary...")
-    upload_result = cloudinary.uploader.upload(file_path, folder=f"portfolio/{category}")
-    image_url = upload_result.get("secure_url")
-    print(f"Success! Image URL: {image_url}")
+    upload_result = cloudinary.uploader.upload(
+        file_path, 
+        folder=f"portfolio/{category}",
+        resource_type=resource_type
+    )
+    media_url = upload_result.get("secure_url")
+    print(f"Success! URL: {media_url}")
 
-    # 2. Determine JSON file
-    json_map = {
-        "art": "data/art.json",
-        "photography": "data/photography.json",
-        "sculpting": "data/sculpting.json",
-        "projects": "data/projects.json"
-    }
-    
-    json_path = json_map.get(category)
+    # 3. Determine JSON file
+    json_path = JSON_MAP.get(category)
     if not json_path:
-        print(f"Error: Category '{category}' not found.")
-        return
+        raise ValueError(f"Category '{category}' is invalid.")
 
-    # 3. Load existing data
+    # 4. Load existing data
     if os.path.exists(json_path):
-        with open(json_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                content = f.read().strip()
+                data = json.loads(content) if content else []
+        except json.JSONDecodeError:
+            data = []
     else:
         data = []
 
-    # 4. Create new entry
+    # 5. Create new entry
     new_entry = {
         "id": f"{category}_{int(datetime.now().timestamp())}",
         "title": title,
-        "url": image_url,
+        "url": media_url,
         "date": datetime.now().strftime("%Y-%m-%d")
     }
     if medium:
         new_entry["medium"] = medium
+    if genre:
+        new_entry["genre"] = genre
 
     data.append(new_entry)
 
-    # 5. Save back to JSON
+    # 6. Save back to JSON
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
     print(f"Updated {json_path}")
 
-    # 6. Update "Last Updated" globally (optional but nice)
+    # 7. Update "Last Updated" globally
     update_site_timestamp()
+    return new_entry
 
 def update_site_timestamp():
-    """Updates the '10 Feb 2026' string in all HTML files to the current date."""
+    """Updates the 'Last Updated' string in all HTML files."""
     now = datetime.now().strftime("%d %b %Y")
-    print(f"Updating site-wide 'Last Updated' to {now}...")
-    
     html_files = ["index.html", "gallery.html", "photography.html", "sculpting.html", "projects.html"]
     for file_name in html_files:
         if os.path.exists(file_name):
             with open(file_name, "r", encoding="utf-8") as f:
                 content = f.read()
             
-            # Simple replacement logic (assuming the format is consistent)
-            # This is a bit naive but works for our retro site
-            import re
             new_content = re.sub(r'Last Updated:</span> \d{1,2} \w{3} \d{4}', f'Last Updated:</span> {now}', content)
             
             with open(file_name, "w", encoding="utf-8") as f:
@@ -88,14 +103,14 @@ def update_site_timestamp():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Alex's Portfolio Content Manager")
-    parser.add_argument("--file", help="Path to the image/media file")
-    parser.add_argument("--title", help="Title of the work")
-    parser.add_argument("--cat", choices=["art", "photography", "sculpting", "projects"], help="Category")
-    parser.add_argument("--medium", help="Medium (optional, e.g., 'Oil', 'Clay')")
+    parser.add_argument("--file", required=True, help="Path to the media file")
+    parser.add_argument("--title", required=True, help="Title of the work")
+    parser.add_argument("--cat", required=True, choices=list(JSON_MAP.keys()), help="Category")
+    parser.add_argument("--medium", help="Medium (for art/sculpting)")
+    parser.add_argument("--genre", help="Genre (for music/video)")
 
     args = parser.parse_args()
-
-    if args.file and args.title and args.cat:
-        add_item(args.file, args.title, args.cat, args.medium)
-    else:
-        print("Usage: python scripts/manager.py --file path/to/art.jpg --title 'My Title' --cat art [--medium 'Text']")
+    try:
+        upload_and_save(args.file, args.title, args.cat, args.medium, args.genre)
+    except Exception as e:
+        print(f"Error: {e}")

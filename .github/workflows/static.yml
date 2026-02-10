@@ -31,12 +31,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Remove Admin Tools (Local Use Only)
+        run: |
+          rm admin.html admin_api.py
+          echo "Admin tools removed from deployment package."
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          # Upload repo content without admin files
           path: "."
       - name: Deploy to GitHub Pages
         id: deployment

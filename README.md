@@ -57,6 +57,11 @@ Your portfolio is perfect for **GitHub Pages**.
 - **Dating**: Update the `Last Updated` date in the footers and add an `Added on` label to your new work for that classic feel.
 
 ## 🛠️ Content Management (Dynamic)
+ 
+ You can now add new content without touching the HTML code!
+
+> [!IMPORTANT]  
+> **Security Note:** The admin dashboard (`admin.html`) and backend API (`admin_api.py`) are strictly for **local use only**. They allow modification of your data files and are excluded from production deployments via `.gitignore`. Do not publish these files to a public web server.
 
 You can now add new content without touching the HTML code!
 

@@ -2,3 +2,9 @@
 node_modules/
 dist/
 .env
+.venv/
+__pycache__/
+
+# Local Temp Files
+temp_uploads/
+temp_test.*
