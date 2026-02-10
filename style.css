@@ -25,6 +25,67 @@ body {
     border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
     box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
     padding: 20px;
+    position: relative; /* Added for absolute positioning of lang switcher */
+}
+
+/* Language Switcher */
+.lang-switcher {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.lang-btn {
+    background: #ddd;
+    border: 2px outset #fff;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.lang-btn:active {
+    border-style: inset;
+}
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #eee;
+    border: 2px outset #fff;
+    width: 180px;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+}
+
+.lang-switcher:hover .lang-dropdown {
+    display: block;
+}
+
+.lang-option {
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.lang-option:hover {
+    background: #000080;
+    color: #fff;
+}
+
+.lang-flag {
+    font-size: 16px;
 }
 
 header {

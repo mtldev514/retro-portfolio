@@ -10,6 +10,29 @@
 
 <body>
     <div class="container">
+        <div class="lang-switcher">
+            <button class="lang-btn"><span class="lang-flag">🇫🇷</span> French</button>
+            <div class="lang-dropdown">
+                <div class="lang-option" onclick="changeLang('🇫🇷', 'French')"><span class="lang-flag">🇫🇷</span>
+                    French (France)</div>
+                <div class="lang-option" onclick="changeLang('🇬🇧', 'English')"><span class="lang-flag">🇬🇧</span>
+                    English (England)</div>
+                <div class="lang-option" onclick="changeLang('🇲🇽', 'Spanish')"><span class="lang-flag">🇲🇽</span>
+                    Spanish (Mexico)</div>
+                <div class="lang-option" onclick="changeLang('🇭🇹', 'Creole')"><span class="lang-flag">🇭🇹</span>
+                    Haitian Creole (Haiti)</div>
+                <div class="lang-option" onclick="changeLang('⚜️', 'Joual')"><span class="lang-flag">⚜️</span> Joual
+                    (Quebec)</div>
+                <div class="lang-option" onclick="changeLang('🇨🇦', 'Acadian')"><span class="lang-flag">🇨🇦</span>
+                    Acadian (Canada)</div>
+            </div>
+        </div>
+
+        <script>
+            function changeLang(flag, name) {
+                document.querySelector('.lang-btn').innerHTML = `<span class="lang-flag">${flag}</span> ${name}`;
+            }
+        </script>
         <header>
             <h1>Photography</h1>
             <p><i>Capturing Moments in Time</i></p>
