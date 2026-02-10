@@ -3,6 +3,7 @@
     "nav_art": "Art (Paint/Draw)",
     "nav_photo": "Photography",
     "nav_street": "Street Life",
+    "nav_projects": "Projects",
     "header_title": "Alex's Artistic Portfolio",
     "header_subtitle": "Celebrating Beauty through Paint, Pencil, and Lens",
     "marquee": "*** WELCOME TO MY NEW PORTFOLIO SITE! STAY AWHILE AND BROWSE THE GALLERIES *** UPDATED: FEB 2026 ***",
@@ -14,6 +15,8 @@
     "sidebar_status_title": "Status",
     "sidebar_status_available": "Available for Commissions!",
     "sidebar_construction": "Site under construction!",
+    "sidebar_radio_title": "Alex's Radio",
+    "sidebar_radio_playing": "Now Playing:",
     "footer_copy": "© 2026 Alex's Art. All rights reserved.",
     "footer_browser": "Best viewed in Netscape Navigator or Internet Explorer 6.0",
     "footer_visitors": "Visitors:",
@@ -43,5 +46,9 @@
     "photo_intro": "My lens focuses on the quiet beauty of nature and the stillness of the world.",
     "street_candid": "Candid Urban Moments",
     "street_intro": "Street photography is about finding beauty in the chaos. It's the art of the decisive moment.",
-    "street_marquee": ">>> EXPLORING THE STREETS <<< CAPTURING THE UNSEEN <<< STREET LIFE 2026 <<<"
+    "street_marquee": ">>> EXPLORING THE STREETS <<< CAPTURING THE UNSEEN <<< STREET LIFE 2026 <<<",
+    "projects_title": "IT & Coding Projects",
+    "projects_subtitle": "Digital works and software experiments",
+    "projects_intro": "When I'm not painting, I'm building things with code.",
+    "projects_view_code": "View Source"
 }

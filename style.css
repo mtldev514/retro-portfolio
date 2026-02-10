@@ -210,6 +210,68 @@ nav a:active {
     /* Classic Navy */
 }
 
+/* Radio Player */
+.radio-player {
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    padding: 10px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+}
+
+.radio-display {
+    background: #000;
+    color: #00ff00;
+    padding: 5px;
+    border: 2px inset #808080;
+    margin-bottom: 10px;
+    font-size: 11px;
+}
+
+.radio-track-name {
+    width: 100%;
+}
+
+.radio-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.radio-btn {
+    background: #d0d0d0;
+    border: 2px outset #fff;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.radio-btn:active {
+    border-style: inset;
+}
+
+.radio-volume {
+    width: 100%;
+    margin-top: 5px;
+    height: 5px;
+}
+
+.btn {
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    padding: 5px 15px;
+    border: 2px outset #fff;
+    background: #ddd;
+    display: inline-block;
+}
+
+.btn:active {
+    border-style: inset;
+}
+
 .social-links a:hover i {
     color: #ff00ff;
     /* Retro Magenta */

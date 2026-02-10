@@ -3,6 +3,7 @@
     "nav_art": "Arte (Pintura/Dibujo)",
     "nav_photo": "Fotografía",
     "nav_street": "Vida Urbana",
+    "nav_projects": "Proyectos",
     "header_title": "Portafolio Artístico de Alex",
     "header_subtitle": "Celebrando la Belleza a través de la Pintura, el Lápiz y el Lente",
     "marquee": "*** ¡BIENVENIDO A MI NUEVO SITIO PORTAFOLIO! QUÉDATE UN RATO Y EXPLORA LAS GALERÍAS *** ACTUALIZADO: FEB 2026 ***",
@@ -14,6 +15,8 @@
     "sidebar_status_title": "Estado",
     "sidebar_status_available": "¡Disponible para encargos!",
     "sidebar_construction": "¡Sitio en construcción!",
+    "sidebar_radio_title": "La Radio de Alex",
+    "sidebar_radio_playing": "Reproduciendo:",
     "footer_copy": "© 2026 Alex's Art. Todos los derechos reservados.",
     "footer_browser": "Mejor visto en Netscape Navigator o Internet Explorer 6.0",
     "footer_visitors": "Visitantes:",
@@ -43,5 +46,9 @@
     "photo_intro": "Mi lente se centra en la belleza tranquila de la naturaleza y la quietud del mundo.",
     "street_candid": "Momentos urbanos espontáneos",
     "street_intro": "La fotografía de calle trata de encontrar la belleza en el caos. Es el arte del momento decisivo.",
-    "street_marquee": ">>> EXPLORANDO LAS CALLES <<< CAPTURANDO LO INVISIBLE <<< VIDA URBANA 2026 <<<"
+    "street_marquee": ">>> EXPLORANDO LAS CALLES <<< CAPTURANDO LO INVISIBLE <<< VIDA URBANA 2026 <<<",
+    "projects_title": "Proyectos de TI",
+    "projects_subtitle": "Obras digitales y experimentos de software",
+    "projects_intro": "Cuando no estoy pintando, estoy construyendo cosas con código.",
+    "projects_view_code": "Ver código"
 }

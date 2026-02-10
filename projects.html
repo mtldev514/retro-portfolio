@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="projects_title">IT & Coding Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/i18n.js" defer></script>
+    <script src="js/router.js" defer></script>
+</head>
+
+<body>
+    <!-- App Shell (Loaded by router.js or direct access) -->
+    <div class="container">
+        <!-- The header/sidebar are kept from the initial load, 
+             but we include them for direct page access too. -->
+        <main class="main-content">
+            <h2 data-i18n="projects_title">IT & Coding Projects</h2>
+            <p data-i18n="projects_intro">When I'm not painting, I'm building things with code.</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/200x150/000080/FFFFFF?text=Retro+CMS" alt="Project 1">
+                    <h3 align="center">Retro CMS</h3>
+                    <p align="center"><small>A PHP-based content manager with a 90s twist.</small></p>
+                    <p align="center"><a href="#" class="btn" data-i18n="projects_view_code">View Source</a></p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/200x150/ff00ff/FFFFFF?text=JS+Engine" alt="Project 2">
+                    <h3 align="center">Shader Engine</h3>
+                    <p align="center"><small>WebGL experiments with pixel art shaders.</small></p>
+                    <p align="center"><a href="#" class="btn" data-i18n="projects_view_code">View Source</a></p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/200x150/00ff00/000000?text=Portfolio+v1" alt="Project 3">
+                    <h3 align="center">Portfolio v1</h3>
+                    <p align="center"><small>My first ever website (archived).</small></p>
+                    <p align="center"><a href="#" class="btn" data-i18n="projects_view_code">View Source</a></p>
+                </div>
+            </div>
+
+            <p align="center" style="margin-top: 30px;">
+                <a href="index.html" class="btn" data-i18n="gallery_back">Back to Home</a>
+            </p>
+        </main>
+    </div>
+</body>
+
+</html>
