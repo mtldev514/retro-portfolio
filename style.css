@@ -142,14 +142,16 @@ nav a:active {
 }
 
 .sidebar {
-    flex: 1;
+    width: 220px;
+    min-width: 220px;
     background: var(--purple);
     border: 2px inset #fff;
     padding: 10px;
 }
 
-.main-content {
-    flex: 3;
+#app {
+    flex: 1;
+    min-width: 0;
 }
 
 .gallery-grid {

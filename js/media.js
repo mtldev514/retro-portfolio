@@ -143,4 +143,5 @@ const media = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => media.init());
+// media.init() is called by the router during boot — no auto-run needed
+window.media = media;

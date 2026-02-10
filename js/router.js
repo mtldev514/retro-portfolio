@@ -14,8 +14,14 @@ const router = {
 
     currentRoute: null,
 
-    init() {
-        // Intercept all internal link clicks
+    async init() {
+        // 1. Load translations FIRST so all subsequent renders have i18n data
+        if (window.i18n) {
+            await i18n.init();
+            console.log('i18n initialized');
+        }
+
+        // 2. Intercept all internal link clicks
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (link && link.href && link.href.startsWith(window.location.origin) && !link.getAttribute('target')) {
@@ -24,14 +30,27 @@ const router = {
             }
         });
 
-        // Handle browser back/forward
+        // 3. Handle browser back/forward
         window.addEventListener('popstate', () => {
             this.loadPage(window.location.pathname);
         });
 
-        // Load initial page based on current URL
-        this.loadPage(window.location.pathname);
+        // 4. Check for GitHub Pages SPA redirect
+        const redirectPath = sessionStorage.getItem('spa-redirect');
+        if (redirectPath) {
+            sessionStorage.removeItem('spa-redirect');
+            window.history.replaceState({}, '', redirectPath);
+        }
+
+        // 5. Load initial page based on current URL (or restored redirect path)
+        await this.loadPage(window.location.pathname);
         console.log('Router initialized');
+
+        // 5. Init media controller AFTER DOM is populated
+        if (window.media) {
+            await media.init();
+            console.log('Media initialized');
+        }
     },
 
     resolveRouteKey(url) {
@@ -113,5 +132,5 @@ const router = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => router.init());
+document.addEventListener('DOMContentLoaded', () => router.init());  // Single boot entry point
 window.router = router;

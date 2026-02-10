@@ -69,3 +69,4 @@ const i18n = {
 };
 
 // i18n.init() is called by the router during boot — no auto-run needed
+window.i18n = i18n;
