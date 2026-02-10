@@ -1,0 +1,123 @@
+:root {
+    --pink: #FFD1DC;
+    --blue: #B0E0E6;
+    --purple: #E6E6FA;
+    --dark-text: #333;
+    --white: #fff;
+    --border-light: #fdfdfd;
+    --border-dark: #808080;
+}
+
+body {
+    background-color: var(--blue);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4YyKAAAABlBMVEUAAAD///+l2Z/dAAAAbUlEQVR42u3TQQqAIBBF0d9F979mRREInAiaEPR9FzM6eA4A+K8iSioqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqiioqqiiioooAAAAAElFTkSuQmCC'); /* Subtle tiled pattern */
+    font-family: "Verdana", sans-serif;
+    color: var(--dark-text);
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--white);
+    border: 3px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+    padding: 20px;
+}
+
+header {
+    background-color: var(--pink);
+    border: 2px inset var(--white);
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #cc6699;
+    text-shadow: 2px 2px 0px #fff;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background: #eee;
+    padding: 10px;
+    border: 2px outset #fff;
+    margin-top: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 2px outset #fff;
+    background: #ddd;
+}
+
+nav a:active {
+    border-style: inset;
+}
+
+.marquee-container {
+    background: #000;
+    color: #0f0;
+    padding: 5px;
+    font-family: "Courier New", monospace;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    flex: 1;
+    background: var(--purple);
+    border: 2px inset #fff;
+    padding: 10px;
+}
+
+.main-content {
+    flex: 3;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item {
+    border: 4px ridge var(--pink);
+    padding: 5px;
+    background: #fff;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    border-top: 1px dashed #999;
+    padding-top: 10px;
+}
+
+.visitor-counter {
+    background: #000;
+    color: #f00;
+    padding: 2px 5px;
+    font-family: "Digital-7", monospace;
+    border: 1px solid #555;
+}
