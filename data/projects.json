@@ -13,19 +13,6 @@
         "category": "projects"
     },
     {
-        "title": "openclaw",
-        "description": {
-            "en": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
-            "fr": "Votre assistant IA personnel. Tout OS. Toute plateforme. À la manière du homard. 🦞 ",
-            "mx": "Tu asistente personal de IA. Cualquier SO. Cualquier plataforma. A lo langosta. 🦞 ",
-            "ht": "Asistan IA pèsonèl ou. Nenpòt OS. Nenpòt Platfòm. Fason oma a. 🦞 "
-        },
-        "url": "https://github.com/mtldev514/openclaw",
-        "visibility": "public",
-        "date": "2026-02-04",
-        "category": "projects"
-    },
-    {
         "title": "carabiner",
         "description": {
             "en": "No description provided.",

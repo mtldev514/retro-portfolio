@@ -1,6 +1,6 @@
 /**
- * Media Controller for Alex's Portfolio
- * Manages audio playlist and video player
+ * Winamp-style Media Controller for Alex's Portfolio
+ * Manages audio playlist with seek, time display, and mini visualizer
  * Loads tracks dynamically from data/music.json
  */
 const media = {
@@ -8,6 +8,7 @@ const media = {
     currentTrackIndex: 0,
     playlist: [],
     rawTracks: [],
+    vizInterval: null,
 
     tf(field) {
         if (!field) return '';
@@ -23,7 +24,8 @@ const media = {
         this.setupEventListeners();
         this.updateTrackDisplay();
         this.populateTrackSelector();
-        console.log(`Media controller initialized with ${this.playlist.length} tracks`);
+        this.startViz();
+        console.log(`Winamp initialized with ${this.playlist.length} tracks`);
     },
 
     buildPlaylist() {
@@ -51,35 +53,42 @@ const media = {
     },
 
     populateTrackSelector() {
-        const trackSelect = document.querySelector('.radio-track-select');
-        if (!trackSelect) return;
-        trackSelect.innerHTML = '';
+        const list = document.getElementById('radio-tracklist');
+        if (!list) return;
+        list.innerHTML = '';
         if (this.playlist.length === 0) {
-            const opt = document.createElement('option');
-            opt.value = '';
-            opt.textContent = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
-            trackSelect.appendChild(opt);
+            const empty = document.createElement('div');
+            empty.className = 'winamp-pl-item winamp-pl-empty';
+            empty.textContent = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
+            list.appendChild(empty);
             return;
         }
         this.playlist.forEach((track, i) => {
-            const opt = document.createElement('option');
-            opt.value = i;
-            opt.textContent = track.name;
-            trackSelect.appendChild(opt);
+            const item = document.createElement('div');
+            item.className = 'winamp-pl-item';
+            if (i === this.currentTrackIndex) item.classList.add('active');
+            item.dataset.index = i;
+            item.innerHTML = `<span class="winamp-pl-num">${i + 1}.</span> ${track.name}`;
+            item.ondblclick = () => this.switchTrack(i);
+            item.onclick = () => {
+                // Single click = select, highlight
+                list.querySelectorAll('.winamp-pl-item.selected').forEach(el => el.classList.remove('selected'));
+                item.classList.add('selected');
+            };
+            list.appendChild(item);
         });
     },
 
     setupEventListeners() {
-        const playBtn = document.querySelector('.radio-play');
-        const pauseBtn = document.querySelector('.radio-pause');
-        const stopBtn = document.querySelector('.radio-stop');
+        const playPauseBtn = document.querySelector('.radio-playpause');
+        const prevBtn = document.querySelector('.radio-prev');
+        const nextBtn = document.querySelector('.radio-next');
         const volumeSlider = document.querySelector('.radio-volume');
-        const trackSelect = document.querySelector('.radio-track-select');
-        const video = document.querySelector('.retro-video');
+        const seekBar = document.getElementById('winamp-seek');
 
-        if (playBtn) playBtn.onclick = () => this.play();
-        if (pauseBtn) pauseBtn.onclick = () => this.pause();
-        if (stopBtn) stopBtn.onclick = () => this.stop();
+        if (playPauseBtn) playPauseBtn.onclick = () => this.togglePlayPause();
+        if (prevBtn) prevBtn.onclick = () => this.prev();
+        if (nextBtn) nextBtn.onclick = () => this.next();
 
         if (volumeSlider) {
             volumeSlider.oninput = (e) => {
@@ -87,59 +96,143 @@ const media = {
             };
         }
 
-        if (trackSelect) {
-            trackSelect.onchange = (e) => {
-                this.switchTrack(parseInt(e.target.value));
+        // Seek bar
+        if (seekBar) {
+            seekBar.oninput = (e) => {
+                if (this.audio.duration) {
+                    this.audio.currentTime = (e.target.value / 100) * this.audio.duration;
+                }
             };
         }
 
-        if (video) {
-            video.onclick = () => {
-                if (video.paused) video.play();
-                else video.pause();
-            };
-        }
+        // Update time and seek position
+        this.audio.ontimeupdate = () => {
+            const timeEl = document.getElementById('winamp-time');
+            if (timeEl) {
+                const m = Math.floor(this.audio.currentTime / 60);
+                const s = Math.floor(this.audio.currentTime % 60);
+                timeEl.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+            const seek = document.getElementById('winamp-seek');
+            if (seek && this.audio.duration) {
+                seek.value = (this.audio.currentTime / this.audio.duration) * 100;
+            }
+        };
+
+        // Sync playing class and button icon with actual audio state
+        this.audio.onplay = () => {
+            this.setPlayingState(true);
+            this.updatePlayPauseIcon(true);
+        };
+        this.audio.onpause = () => {
+            this.setPlayingState(false);
+            this.updatePlayPauseIcon(false);
+        };
 
         // Auto-advance to next track
-        this.audio.onended = () => {
-            const next = (this.currentTrackIndex + 1) % this.playlist.length;
-            this.switchTrack(next);
-        };
+        this.audio.onended = () => this.next();
+    },
+
+    setPlayingState(isPlaying) {
+        const winamp = document.querySelector('.winamp');
+        if (winamp) winamp.classList.toggle('playing', isPlaying);
+    },
+
+    togglePlayPause() {
+        if (this.audio.paused) {
+            this.play();
+        } else {
+            this.audio.pause();
+        }
     },
 
     play() {
-        if (!this.audio.src) this.switchTrack(0);
-        this.audio.play();
+        if (!this.audio.src && this.playlist.length > 0) this.switchTrack(0);
+        const p = this.audio.play();
+        if (p && p.catch) p.catch(e => console.warn('Play blocked:', e));
+        this.setPlayingState(true);
     },
 
-    pause() {
-        this.audio.pause();
+    updatePlayPauseIcon(isPlaying) {
+        const btn = document.querySelector('.radio-playpause');
+        if (!btn) return;
+        const icon = btn.querySelector('i');
+        if (!icon) return;
+        icon.className = isPlaying ? 'fa fa-pause' : 'fa fa-play';
+        btn.title = isPlaying ? 'Pause' : 'Play';
     },
 
-    stop() {
-        this.audio.pause();
-        this.audio.currentTime = 0;
+    prev() {
+        if (this.playlist.length === 0) return;
+        const prev = (this.currentTrackIndex - 1 + this.playlist.length) % this.playlist.length;
+        this.switchTrack(prev);
+    },
+
+    next() {
+        if (this.playlist.length === 0) return;
+        const next = (this.currentTrackIndex + 1) % this.playlist.length;
+        this.switchTrack(next);
     },
 
     switchTrack(index) {
         this.currentTrackIndex = index;
         const track = this.playlist[index];
+        if (!track) return;
         this.audio.src = track.src;
         this.updateTrackDisplay();
         this.play();
-        // Sync selector
-        const trackSelect = document.querySelector('.radio-track-select');
-        if (trackSelect) trackSelect.value = index;
+        // Highlight active track in playlist
+        const list = document.getElementById('radio-tracklist');
+        if (list) {
+            list.querySelectorAll('.winamp-pl-item').forEach(el => {
+                el.classList.toggle('active', parseInt(el.dataset.index) === index);
+            });
+            // Scroll active into view
+            const activeEl = list.querySelector('.winamp-pl-item.active');
+            if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+        }
     },
 
     updateTrackDisplay() {
         const marquee = document.querySelector('.radio-track-name');
         if (!marquee) return;
         if (this.playlist.length > 0) {
-            marquee.innerText = this.playlist[this.currentTrackIndex].name;
+            const idx = this.currentTrackIndex + 1;
+            marquee.innerText = `${idx}. ${this.playlist[this.currentTrackIndex].name}`;
         } else {
             marquee.innerText = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
         }
+    },
+
+    // Mini fake visualizer (random bars, Winamp style)
+    startViz() {
+        const viz = document.getElementById('winamp-viz');
+        if (!viz) return;
+
+        // Create 12 bars
+        viz.innerHTML = '';
+        for (let i = 0; i < 12; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'winamp-viz-bar';
+            viz.appendChild(bar);
+        }
+
+        const bars = viz.querySelectorAll('.winamp-viz-bar');
+
+        // Animate based on play state
+        const animate = () => {
+            bars.forEach(bar => {
+                let h;
+                if (!this.audio.paused && this.audio.src) {
+                    h = Math.random() * 100;
+                } else {
+                    h = 3;
+                }
+                bar.style.height = h + '%';
+            });
+        };
+
+        this.vizInterval = setInterval(animate, 120);
     }
 };
 

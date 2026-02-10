@@ -242,10 +242,35 @@
                     </div>
 
                     <div style="flex: 1;">
-                        <div class="form-group">
-                            <label>Select File:</label>
-                            <input type="file" id="file" name="file" required>
-                            <p style="font-size: 11px; color: #444;">Supports JPG, PNG, MP3, MP4, etc.</p>
+                        <div id="sourceToggle" style="display: none; margin-bottom: 10px;">
+                            <label style="font-size: 11px; font-weight: bold;">Audio Source:</label>
+                            <div style="display: flex; gap: 5px; margin-top: 3px;">
+                                <button type="button" id="srcBtnUrl" class="action" style="margin:0; padding:4px 10px; font-size:11px; font-weight:bold; background:#e0e0ff;" onclick="setSourceMode('url')">🔗 Paste URL</button>
+                                <button type="button" id="srcBtnFile" class="action" style="margin:0; padding:4px 10px; font-size:11px;" onclick="setSourceMode('file')">📁 Upload File</button>
+                            </div>
+                        </div>
+
+                        <div id="fileUploadSection">
+                            <div class="form-group">
+                                <label>Select File:</label>
+                                <input type="file" id="file" name="file">
+                                <p style="font-size: 11px; color: #444;">Supports JPG, PNG, MP3, MP4, etc.</p>
+                            </div>
+                        </div>
+
+                        <div id="urlInputSection" style="display: none;">
+                            <div class="form-group">
+                                <label>Direct Audio URL:</label>
+                                <input type="text" id="directUrl" name="directUrl" placeholder="https://archive.org/download/my-album/track.mp3">
+                            </div>
+                            <div style="background: #fffff0; padding: 8px; border: 1px solid #cc9; font-size: 10px; margin-bottom: 10px;">
+                                <b>🎵 Where to host your audio:</b><br><br>
+                                <b>Internet Archive</b> (free, unlimited)<br>
+                                → <a href="https://archive.org/create" target="_blank">archive.org/create</a> → Upload → Copy file URL<br><br>
+                                <b>GitHub Releases</b> (free, in your repo)<br>
+                                → Repo → Releases → New → Attach .mp3 → Copy URL<br>
+                                <code style="font-size: 9px; background:#eee; padding:1px 3px;">github.com/.../releases/download/tag/file.mp3</code>
+                            </div>
                         </div>
 
                         <div style="background: #eee; padding: 10px; border: 1px dashed #808080;">
@@ -259,7 +284,7 @@
                 </div>
 
                 <div style="text-align: right;">
-                    <button type="submit" class="action">UPLOAD TO CLOUDINARY</button>
+                    <button type="submit" class="action" id="submitBtn">UPLOAD MEDIA</button>
                 </div>
             </form>
         </div>
@@ -348,10 +373,50 @@
             if (tabId === 'manage') loadContent();
         }
 
+        let sourceMode = 'file'; // 'file' or 'url'
+
         function toggleFields() {
             const cat = document.getElementById('category').value;
             document.getElementById('mediumGroup').style.display = (cat === 'art' || cat === 'sculpting') ? 'block' : 'none';
             document.getElementById('genreGroup').style.display = (cat === 'music' || cat === 'video') ? 'block' : 'none';
+
+            // Show source toggle for music (Cloudinary doesn't support audio on free plan)
+            const toggle = document.getElementById('sourceToggle');
+            if (cat === 'music') {
+                toggle.style.display = 'block';
+                setSourceMode('file'); // Default to file upload (GitHub Releases handles audio)
+            } else {
+                toggle.style.display = 'none';
+                setSourceMode('file');
+            }
+        }
+
+        function setSourceMode(mode) {
+            sourceMode = mode;
+            const fileSection = document.getElementById('fileUploadSection');
+            const urlSection = document.getElementById('urlInputSection');
+            const srcBtnFile = document.getElementById('srcBtnFile');
+            const srcBtnUrl = document.getElementById('srcBtnUrl');
+
+            const submitBtn = document.getElementById('submitBtn');
+            if (mode === 'url') {
+                fileSection.style.display = 'none';
+                urlSection.style.display = 'block';
+                srcBtnUrl.style.background = '#e0e0ff';
+                srcBtnUrl.style.fontWeight = 'bold';
+                srcBtnFile.style.background = '';
+                srcBtnFile.style.fontWeight = 'normal';
+                document.getElementById('file').removeAttribute('required');
+                if (submitBtn) submitBtn.innerText = 'ADD TRACK FROM URL';
+            } else {
+                fileSection.style.display = 'block';
+                urlSection.style.display = 'none';
+                srcBtnFile.style.background = '#e0e0ff';
+                srcBtnFile.style.fontWeight = 'bold';
+                srcBtnUrl.style.background = '';
+                srcBtnUrl.style.fontWeight = 'normal';
+                if (submitBtn) submitBtn.innerText = 'UPLOAD MEDIA';
+            }
         }
 
         // File preview
@@ -375,22 +440,70 @@
         document.getElementById('uploadForm').onsubmit = async (e) => {
             e.preventDefault();
             const consoleBox = document.getElementById('console');
-            consoleBox.innerHTML += `<br>> Starting upload sequence for "${document.getElementById('title').value}"...`;
+            const title = document.getElementById('title').value;
 
-            const formData = new FormData(e.target);
-            try {
-                const response = await fetch(`${API_URL}/api/upload`, {
-                    method: 'POST',
-                    body: formData
-                });
-                const result = await response.json();
-                if (result.success) {
-                    consoleBox.innerHTML += `<br><span style="color: yellow">> SUCCESS! Media available at: ${result.data.url}</span>`;
-                } else {
-                    consoleBox.innerHTML += `<br><span style="color: red">> ERROR: ${result.error}</span>`;
+            if (sourceMode === 'url') {
+                // URL mode — save directly without Cloudinary
+                const url = document.getElementById('directUrl').value.trim();
+                if (!url) {
+                    consoleBox.innerHTML += `<br><span style="color: red">> ERROR: Please paste an audio URL.</span>`;
+                    return;
                 }
-            } catch (err) {
-                consoleBox.innerHTML += `<br><span style="color: red">> NETWORK ERROR: ${err.message}</span>`;
+
+                consoleBox.innerHTML += `<br>> Adding "${title}" from URL...`;
+
+                try {
+                    const response = await fetch(`${API_URL}/api/upload-url`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            url: url,
+                            title: title,
+                            category: document.getElementById('category').value,
+                            genre: document.getElementById('genre').value,
+                            description: document.getElementById('description').value
+                        })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        consoleBox.innerHTML += `<br><span style="color: yellow">> SUCCESS! Track "${title}" added.</span>`;
+                        consoleBox.innerHTML += `<br><span style="color: cyan">> URL: ${url}</span>`;
+                        consoleBox.innerHTML += `<br><span style="color: lime">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
+                        // Show audio preview
+                        const preview = document.getElementById('preview');
+                        preview.innerHTML = `<audio controls src="${url}" style="width:100%"></audio>`;
+                    } else {
+                        consoleBox.innerHTML += `<br><span style="color: red">> ERROR: ${result.error}</span>`;
+                    }
+                } catch (err) {
+                    consoleBox.innerHTML += `<br><span style="color: red">> NETWORK ERROR: ${err.message}</span>`;
+                }
+            } else {
+                // File upload mode — Cloudinary
+                const fileInput = document.getElementById('file');
+                if (!fileInput.files.length) {
+                    consoleBox.innerHTML += `<br><span style="color: red">> ERROR: Please select a file.</span>`;
+                    return;
+                }
+
+                consoleBox.innerHTML += `<br>> Starting upload sequence for "${title}"...`;
+
+                const formData = new FormData(e.target);
+                try {
+                    const response = await fetch(`${API_URL}/api/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        consoleBox.innerHTML += `<br><span style="color: yellow">> SUCCESS! Media available at: ${result.data.url}</span>`;
+                        consoleBox.innerHTML += `<br><span style="color: lime">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
+                    } else {
+                        consoleBox.innerHTML += `<br><span style="color: red">> ERROR: ${result.error}</span>`;
+                    }
+                } catch (err) {
+                    consoleBox.innerHTML += `<br><span style="color: red">> NETWORK ERROR: ${err.message}</span>`;
+                }
             }
         };
 

@@ -50,7 +50,6 @@
 
         <header>
             <h1 id="page-title" data-i18n="header_title">Alex's Artistic Portfolio</h1>
-            <p id="page-subtitle"><i data-i18n="header_subtitle">Celebrating Beauty through Paint, Pencil, and Lens</i></p>
             <nav>
                 <a href="index.html" data-i18n="nav_home">Home</a>
                 <a href="gallery.html" data-i18n="nav_art">Art (Paint/Draw)</a>
@@ -69,26 +68,43 @@
 
         <div class="content">
             <aside class="sidebar">
-                <div class="radio-player">
-                    <h3 data-i18n="sidebar_radio_title">Alex's Radio</h3>
-                    <div class="radio-display">
-                        <div class="radio-track-info">
-                            <span data-i18n="sidebar_radio_playing">Now Playing:</span><br>
-                            <marquee behavior="scroll" direction="left" class="radio-track-name">Retro Hits Mix 2026.mp3
-                            </marquee>
+                <div class="winamp">
+                    <div class="winamp-titlebar">
+                        <span class="winamp-grip"></span>
+                        <span class="winamp-title" data-i18n="sidebar_radio_title">Alex's Radio</span>
+                        <span class="winamp-grip"></span>
+                    </div>
+                    <div class="winamp-display">
+                        <div class="winamp-viz" id="winamp-viz"></div>
+                        <div class="winamp-info">
+                            <div class="winamp-bitrate"><span class="winamp-kbps">192</span>kbps</div>
+                            <div class="winamp-freq"><span class="winamp-khz">44</span>kHz</div>
                         </div>
+                        <div class="winamp-ticker">
+                            <marquee behavior="scroll" direction="left" scrollamount="2" class="radio-track-name">Alex's Radio - Winamp 2.91</marquee>
+                        </div>
+                        <div class="winamp-time" id="winamp-time">00:00</div>
                     </div>
-                    <div class="radio-controls">
-                        <button class="radio-btn radio-play"><i class="fa fa-play"></i></button>
-                        <button class="radio-btn radio-pause"><i class="fa fa-pause"></i></button>
-                        <button class="radio-btn radio-stop"><i class="fa fa-stop"></i></button>
-                        <input type="range" class="radio-volume" value="80">
+                    <div class="winamp-transport">
+                        <button class="winamp-btn radio-prev" title="Previous"><i class="fa fa-step-backward"></i></button>
+                        <button class="winamp-btn radio-playpause" title="Play"><i class="fa fa-play"></i></button>
+                        <button class="winamp-btn radio-next" title="Next"><i class="fa fa-step-forward"></i></button>
                     </div>
-                    <div class="radio-selector">
-                        <label for="track-select" data-i18n="sidebar_radio_select">Select Track:</label>
-                        <select id="track-select" class="radio-track-select">
-                            <option value="" data-i18n="sidebar_radio_loading">Loading tracks...</option>
-                        </select>
+                    <div class="winamp-volume-row">
+                        <i class="fa fa-volume-down winamp-vol-icon"></i>
+                        <input type="range" class="winamp-volume radio-volume" value="80" min="0" max="100">
+                        <i class="fa fa-volume-up winamp-vol-icon"></i>
+                    </div>
+                    <div class="winamp-seek-row">
+                        <input type="range" class="winamp-seek" id="winamp-seek" value="0" min="0" max="100">
+                    </div>
+                    <div class="winamp-playlist-titlebar">
+                        <span class="winamp-grip-sm"></span>
+                        <span class="winamp-pl-title">PLAYLIST</span>
+                        <span class="winamp-grip-sm"></span>
+                    </div>
+                    <div class="winamp-playlist" id="radio-tracklist">
+                        <div class="winamp-pl-item winamp-pl-empty" data-i18n="sidebar_radio_loading">Loading tracks...</div>
                     </div>
                 </div>
             </aside>

@@ -55,6 +55,32 @@ def upload_file():
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
+@app.route('/api/upload-url', methods=['POST'])
+def upload_from_url():
+    """Add a media entry using a direct URL (no Cloudinary upload).
+    For audio hosted on Internet Archive, GitHub Releases, etc."""
+    data = request.json
+    url = data.get('url')
+    title = data.get('title')
+    category = data.get('category')
+    genre = data.get('genre')
+    medium = data.get('medium')
+    description = data.get('description')
+
+    if not url or not title or not category:
+        return jsonify({"error": "URL, Title, and Category are required"}), 400
+
+    try:
+        result = manager.save_from_url(
+            url, title, category,
+            medium=medium,
+            genre=genre,
+            description=description
+        )
+        return jsonify({"success": True, "data": result})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/translations', methods=['GET'])
 def get_translations():
     lang_dir = 'lang'
