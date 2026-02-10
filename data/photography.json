@@ -1,0 +1,16 @@
+[
+    {
+        "id": "photo_1",
+        "title": "Mist Over the Pines",
+        "category": "Nature",
+        "url": "photography_landscape_misty.png",
+        "date": "2026-02-02"
+    },
+    {
+        "id": "photo_2",
+        "title": "Intersection Rhythm",
+        "category": "Street",
+        "url": "street_photography_urban_life.png",
+        "date": "2026-02-06"
+    }
+]

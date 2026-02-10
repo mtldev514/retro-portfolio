@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/i18n.js" defer></script>
+    <script src="js/render.js" defer></script>
     <script src="js/router.js" defer></script>
 </head>
 
@@ -47,25 +48,8 @@
             <h2 data-i18n="sculpting_title">Sculpting</h2>
             <p data-i18n="sculpting_intro">Exploring form and space through tactile mediums.</p>
 
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x400/8b4513/FFFFFF?text=The+Thinker" alt="Sculpture 1">
-                    <h3 align="center">The Thinker (Clay)</h3>
-                    <p align="center" class="item-date"><span data-i18n="gallery_added_on">Added on:</span> 09 Feb 2026
-                    </p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x400/708090/FFFFFF?text=Modern+Form" alt="Sculpture 2">
-                    <h3 align="center">Modern Form (Steel)</h3>
-                    <p align="center" class="item-date"><span data-i18n="gallery_added_on">Added on:</span> 10 Feb 2026
-                    </p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x400/f5f5dc/000000?text=Echoes" alt="Sculpture 3">
-                    <h3 align="center">Echoes (Marble)</h3>
-                    <p align="center" class="item-date"><span data-i18n="gallery_added_on">Added on:</span> 10 Feb 2026
-                    </p>
-                </div>
+            <div id="gallery-container" class="gallery-grid">
+                <!-- Data will be loaded dynamically by render.js -->
             </div>
 
             <p align="center" style="margin-top: 30px;">

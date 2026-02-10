@@ -7,6 +7,7 @@
     <title data-i18n="gallery_title">Art Gallery - Paint & Pencil</title>
     <link rel="stylesheet" href="style.css">
     <script src="js/i18n.js" defer></script>
+    <script src="js/render.js" defer></script>
     <script src="js/router.js" defer></script>
 </head>
 
@@ -47,27 +48,8 @@
             <p data-i18n="gallery_intro">Exploring the boundary between reality and imagination through traditional
                 techniques.</p>
 
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="painting_abstract_pastel_1770727576366.png" alt="Painting 1">
-                    <p align="center">Morning Dreams</p>
-                    <p align="center" class="item-date"><span data-i18n="gallery_added_on">Added on:</span> 01 Feb 2026
-                    </p>
-                </div>
-                <div class="gallery-item">
-                    <img src="drawing_charcoal_portrait.png" alt="Drawing 1">
-                    <p align="center">Soul of the Silent (Charcoal)</p>
-                    <p align="center" class="item-date"><span data-i18n="gallery_added_on">Added on:</span> 05 Feb 2026
-                    </p>
-                </div>
-                <div class="gallery-item">
-                    <img src="painting_placeholder_2.png" alt="Painting 2">
-                    <p align="center">Lavender Fields</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="drawing_placeholder_2.png" alt="Drawing 2">
-                    <p align="center">The Watcher</p>
-                </div>
+            <div id="gallery-container" class="gallery-grid">
+                <!-- Data will be loaded dynamically by render.js -->
             </div>
 
             <p align="center"><a href="index.html" data-i18n="gallery_back">Back to Home</a></p>

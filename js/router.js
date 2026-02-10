@@ -49,6 +49,11 @@ const router = {
                     window.i18n.updateDOM();
                 }
 
+                // Re-init renderer for dynamic content
+                if (window.renderer) {
+                    window.renderer.init();
+                }
+
                 // Scroll to top
                 window.scrollTo(0, 0);
             }

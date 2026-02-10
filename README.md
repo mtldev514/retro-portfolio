@@ -56,5 +56,26 @@ Your portfolio is perfect for **GitHub Pages**.
 - **Updating Content**: Add your new art to the `gallery-grid` in the relevant `.html` file.
 - **Dating**: Update the `Last Updated` date in the footers and add an `Added on` label to your new work for that classic feel.
 
+## 🛠️ Content Management (Dynamic)
+
+You can now add new content without touching the HTML code!
+
+### Preparation:
+1.  Copy `.env.template` to `.env`.
+2.  Fill in your **Cloudinary** credentials (`CLOUD_NAME`, `API_KEY`, `API_SECRET`).
+
+### Adding Art/Photos:
+Run the management script from your terminal:
+```bash
+python3 scripts/manager.py --file "path/to/my_art.jpg" --title "L'éveil" --cat "art" --medium "Oil on Canvas"
+```
+#### Options:
+- `--file`: Path to the image on your computer.
+- `--title`: The name of the work.
+- `--cat`: Category (`art`, `photography`, `sculpting`, `projects`).
+- `--medium`: (Optional) The materials used.
+
+The script will upload the file, update the JSON database, and refresh the "Last Updated" date on the whole site!
+
 ---
 *Best viewed in Netscape Navigator or Internet Explorer 6.0* 🌐

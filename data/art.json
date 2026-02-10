@@ -1,0 +1,16 @@
+[
+    {
+        "id": "painting_1",
+        "title": "Morning Dreams",
+        "medium": "Oil on Canvas",
+        "url": "painting_abstract_pastel_1770727576366.png",
+        "date": "2026-02-01"
+    },
+    {
+        "id": "drawing_1",
+        "title": "Soul of the Silent",
+        "medium": "Charcoal",
+        "url": "drawing_charcoal_portrait.png",
+        "date": "2026-02-05"
+    }
+]
