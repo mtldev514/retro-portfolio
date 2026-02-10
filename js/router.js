@@ -4,12 +4,12 @@
  */
 const router = {
     routes: {
-        'index.html':        { page: 'pages/home.html',         title: 'header_title',             subtitle: 'header_subtitle' },
-        'gallery.html':      { page: 'pages/gallery.html',      title: 'gallery_title',            subtitle: 'gallery_subtitle' },
-        'photography.html':  { page: 'pages/photography.html',  title: 'photo_consolidated_title', subtitle: 'photo_consolidated_subtitle' },
-        'sculpting.html':    { page: 'pages/sculpting.html',    title: 'sculpting_title',          subtitle: 'sculpting_subtitle' },
-        'music.html':        { page: 'pages/music.html',        title: 'music_title',              subtitle: 'music_subtitle' },
-        'projects.html':     { page: 'pages/projects.html',     title: 'projects_title',           subtitle: null },
+        'index.html':        { page: 'pages/home.html',         subtitle: 'header_subtitle' },
+        'gallery.html':      { page: 'pages/gallery.html',      subtitle: 'gallery_subtitle' },
+        'photography.html':  { page: 'pages/photography.html',  subtitle: 'photo_consolidated_subtitle' },
+        'sculpting.html':    { page: 'pages/sculpting.html',    subtitle: 'sculpting_subtitle' },
+        'music.html':        { page: 'pages/music.html',        subtitle: 'music_subtitle' },
+        'projects.html':     { page: 'pages/projects.html',     subtitle: 'projects_subtitle' },
     },
 
     currentRoute: null,
@@ -109,14 +109,9 @@ const router = {
     },
 
     updateHeader(route) {
-        const h1 = document.getElementById('page-title');
+        // h1 stays untouched — always "Alex's Artistic Portfolio" (translated by i18n.updateDOM)
+        // Only the subtitle changes per page
         const subtitleP = document.getElementById('page-subtitle');
-
-        if (h1) {
-            h1.setAttribute('data-i18n', route.title);
-            const translated = (window.i18n && i18n.translations[route.title]);
-            h1.innerText = translated || route.title;
-        }
 
         if (subtitleP) {
             if (route.subtitle) {
