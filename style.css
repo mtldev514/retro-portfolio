@@ -10,7 +10,8 @@
 
 body {
     background-color: var(--blue);
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4YyKAAAABlBMVEUAAAD///+l2Z/dAAAAbUlEQVR42u3TQQqAIBBF0d9F979mRREInAiaEPR9FzM6eA4A+K8iSioqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqiioqqiiioooAAAAAElFTkSuQmCC'); /* Subtle tiled pattern */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4YyKAAAABlBMVEUAAAD///+l2Z/dAAAAbUlEQVR42u3TQQqAIBBF0d9F979mRREInAiaEPR9FzM6eA4A+K8iSioqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqqqiiiooqiioqqiiioooAAAAAElFTkSuQmCC');
+    /* Subtle tiled pattern */
     font-family: "Verdana", sans-serif;
     color: var(--dark-text);
     margin: 0;
@@ -23,9 +24,10 @@ body {
     background-color: var(--white);
     border: 3px solid;
     border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
-    box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    position: relative; /* Added for absolute positioning of lang switcher */
+    position: relative;
+    /* Added for absolute positioning of lang switcher */
 }
 
 /* Language Switcher */
@@ -61,7 +63,7 @@ body {
     background: #eee;
     border: 2px outset #fff;
     width: 180px;
-    box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
 .lang-switcher:hover .lang-dropdown {
@@ -181,4 +183,34 @@ nav a:active {
     padding: 2px 5px;
     font-family: "Digital-7", monospace;
     border: 1px solid #555;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+
+.social-links li {
+    margin-bottom: 8px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.social-links i {
+    font-size: 1.2em;
+    width: 20px;
+    text-align: center;
+    color: #000080;
+    /* Classic Navy */
+}
+
+.social-links a:hover i {
+    color: #ff00ff;
+    /* Retro Magenta */
 }
