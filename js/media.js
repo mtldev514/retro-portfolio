@@ -1,20 +1,54 @@
 /**
  * Media Controller for Alex's Portfolio
  * Manages audio playlist and video player
+ * Loads tracks dynamically from data/music.json
  */
 const media = {
     audio: new Audio(),
     currentTrackIndex: 0,
-    playlist: [
+    playlist: [],
+    defaultPlaylist: [
         { name: "Retro Hits Mix 2026.mp3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
         { name: "Cyberpunk Dreams.mp3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
         { name: "Vaporwave Vibes.mp3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
     ],
 
-    init() {
+    async init() {
+        await this.loadPlaylist();
         this.setupEventListeners();
         this.updateTrackDisplay();
-        console.log('Media controller initialized');
+        this.populateTrackSelector();
+        console.log(`Media controller initialized with ${this.playlist.length} tracks`);
+    },
+
+    async loadPlaylist() {
+        try {
+            const res = await fetch('data/music.json');
+            const tracks = await res.json();
+            if (tracks && tracks.length > 0) {
+                this.playlist = tracks.map(t => ({
+                    name: t.title + (t.genre ? ` [${t.genre}]` : ''),
+                    src: t.url
+                }));
+                return;
+            }
+        } catch (e) {
+            console.log('Could not load music.json, using defaults');
+        }
+        // Fallback to defaults if no uploaded tracks
+        this.playlist = this.defaultPlaylist;
+    },
+
+    populateTrackSelector() {
+        const trackSelect = document.querySelector('.radio-track-select');
+        if (!trackSelect) return;
+        trackSelect.innerHTML = '';
+        this.playlist.forEach((track, i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = track.name;
+            trackSelect.appendChild(opt);
+        });
     },
 
     setupEventListeners() {
@@ -47,6 +81,12 @@ const media = {
                 else video.pause();
             };
         }
+
+        // Auto-advance to next track
+        this.audio.onended = () => {
+            const next = (this.currentTrackIndex + 1) % this.playlist.length;
+            this.switchTrack(next);
+        };
     },
 
     play() {
@@ -69,11 +109,14 @@ const media = {
         this.audio.src = track.src;
         this.updateTrackDisplay();
         this.play();
+        // Sync selector
+        const trackSelect = document.querySelector('.radio-track-select');
+        if (trackSelect) trackSelect.value = index;
     },
 
     updateTrackDisplay() {
         const marquee = document.querySelector('.radio-track-name');
-        if (marquee) {
+        if (marquee && this.playlist.length > 0) {
             marquee.innerText = this.playlist[this.currentTrackIndex].name;
         }
     }
