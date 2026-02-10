@@ -44,6 +44,13 @@ const router = {
             if (newMain && currentMain) {
                 currentMain.innerHTML = newMain.innerHTML;
 
+                // Re-execute inline scripts from the swapped content
+                currentMain.querySelectorAll('script').forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    oldScript.replaceWith(newScript);
+                });
+
                 // Re-apply translations
                 if (window.i18n) {
                     window.i18n.updateDOM();
