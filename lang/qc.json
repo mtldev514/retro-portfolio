@@ -60,5 +60,19 @@
     "sculpting_subtitle": "Affaires en terre pis en roche",
     "sculpting_intro": "Gosser des formes pis de l'espace avec mes mains.",
     "photo_consolidated_title": "Mes p'tites photos",
-    "photo_consolidated_subtitle": "De la garnotte à la grande ville"
+    "photo_consolidated_subtitle": "De la garnotte à la grande ville",
+    "nav_music": "Musique",
+    "music_title": "🎵 Musique",
+    "music_subtitle": "Mes tunes originales",
+    "music_tracks_heading": "🎧 Les tunes",
+    "music_loading": "Ça load...",
+    "music_marquee": ">>> ÇA JOUE LÀ <<< COMPOSITIONS MAISON <<< ÉCOUTE PIS TRIPPE 2026 <<<",
+    "music_no_tracks": "Y'a pas encore de tunes. Rajoutes-en dans le panneau admin !",
+    "music_load_error": "Ça a pas marché pour charger les tunes.",
+    "music_audio_unsupported": "Ton browser supporte pas le son.",
+    "index_latest_loading": "Ça load le dernier ajout...",
+    "index_latest_label": "⭐ DERNIÈRE AFFAIRE AJOUTÉE ⭐",
+    "index_latest_added": "Mis là l' :",
+    "index_latest_empty": "Y'a rien dans la galerie encore.",
+    "sidebar_radio_loading": "Ça load les tunes..."
 }

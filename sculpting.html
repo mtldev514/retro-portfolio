@@ -10,6 +10,7 @@
     <script src="js/i18n.js" defer></script>
     <script src="js/render.js" defer></script>
     <script src="js/router.js" defer></script>
+    <script src="js/media.js" defer></script>
 </head>
 
 <body>
@@ -42,7 +43,68 @@
             </nav>
         </header>
 
-        <main class="main-content">
+        <div class="marquee-container">
+            <marquee scrollamount="5" data-i18n="marquee">*** WELCOME TO MY NEW PORTFOLIO SITE! STAY AWHILE AND BROWSE
+                THE GALLERIES ***
+                UPDATED: FEB 2026 ***</marquee>
+        </div>
+
+        <div class="content">
+            <aside class="sidebar">
+                <h3 data-i18n="sidebar_about_title">About Me</h3>
+                <p data-i18n="sidebar_about_text">Hello! I am Alex, an artist based in the city. I love capturing the
+                    essence of life in all its forms.
+                </p>
+                <h3 data-i18n="sidebar_links_title">Links</h3>
+                <ul class="social-links">
+                    <li><a href="https://github.com/mtldev514" target="_blank"><i class="fa fa-github"></i> <span
+                                data-i18n="sidebar_github">My GitHub</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/alexcatus/?locale=fr_FR" target="_blank"><i
+                                class="fa fa-linkedin"></i> <span data-i18n="sidebar_linkedin">My LinkedIn</span></a>
+                    </li>
+                </ul>
+                <hr>
+                <h3 data-i18n="sidebar_status_title">Status</h3>
+                <p><span data-i18n="sidebar_status_available">Available for Commissions!</span></p>
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJqNGp4ZzRnd3NqZzRnd3NqZzRnd3NqZzRnd3NqZzRnd3NqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxP5OqPxF8Q/giphy.gif"
+                    alt="Under Construction" style="width: 100px;">
+                <p><small data-i18n="sidebar_construction">Site under construction!</small></p>
+                <hr>
+                <div class="radio-player">
+                    <h3 data-i18n="sidebar_radio_title">Alex's Radio</h3>
+                    <div class="radio-display">
+                        <div class="radio-track-info">
+                            <span data-i18n="sidebar_radio_playing">Now Playing:</span><br>
+                            <marquee behavior="scroll" direction="left" class="radio-track-name">Retro Hits Mix 2026.mp3
+                            </marquee>
+                        </div>
+                    </div>
+                    <div class="radio-controls">
+                        <button class="radio-btn radio-play"><i class="fa fa-play"></i></button>
+                        <button class="radio-btn radio-pause"><i class="fa fa-pause"></i></button>
+                        <button class="radio-btn radio-stop"><i class="fa fa-stop"></i></button>
+                        <input type="range" class="radio-volume" value="80">
+                    </div>
+                    <div class="radio-selector">
+                        <label for="track-select" data-i18n="sidebar_radio_select">Select Track:</label>
+                        <select id="track-select" class="radio-track-select">
+                            <option value="">Loading tracks...</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="video-section">
+                    <h3 data-i18n="sidebar_video_title">Retro Tube</h3>
+                    <div class="video-frame">
+                        <video class="retro-video" loop muted>
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay" data-i18n="sidebar_video_note">Click to Play/Pause</div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main-content">
             <h2 data-i18n="sculpting_title">Sculpting</h2>
             <p data-i18n="sculpting_intro">Exploring form and space through tactile mediums.</p>
 
@@ -54,6 +116,7 @@
                 <a href="index.html" class="btn" data-i18n="gallery_back">Back to Home</a>
             </p>
         </main>
+        </div>
 
         <footer class="footer">
             <p data-i18n="footer_copy">&copy; 2026 Alex's Art. All rights reserved.</p>

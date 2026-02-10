@@ -60,5 +60,19 @@
     "sculpting_subtitle": "Obras en Arcilla, Piedra y Metal",
     "sculpting_intro": "Explorando la forma y el espacio a través de medios táctiles.",
     "photo_consolidated_title": "Portafolio de Fotografía",
-    "photo_consolidated_subtitle": "Gente y Ciudades — La vida callejera a través del lente"
+    "photo_consolidated_subtitle": "Gente y Ciudades — La vida callejera a través del lente",
+    "nav_music": "Música",
+    "music_title": "🎵 Música",
+    "music_subtitle": "Pistas y Composiciones Originales",
+    "music_tracks_heading": "🎧 Pistas",
+    "music_loading": "Cargando pistas...",
+    "music_marquee": ">>> REPRODUCIENDO <<< COMPOSICIONES ORIGINALES <<< ESCUCHAR & DISFRUTAR 2026 <<<",
+    "music_no_tracks": "¡No hay pistas aún. Agrega música desde el panel de administración!",
+    "music_load_error": "No se pudieron cargar las pistas.",
+    "music_audio_unsupported": "Tu navegador no soporta audio.",
+    "index_latest_loading": "Cargando última adición...",
+    "index_latest_label": "⭐ ÚLTIMA ADICIÓN ⭐",
+    "index_latest_added": "Agregado:",
+    "index_latest_empty": "No hay elementos en la galería todavía.",
+    "sidebar_radio_loading": "Cargando pistas..."
 }

@@ -60,5 +60,19 @@
     "sculpting_subtitle": "3D Works in Clay, Stone, and Metal",
     "sculpting_intro": "Exploring form and space through tactile mediums.",
     "photo_consolidated_title": "Photography Portfolio",
-    "photo_consolidated_subtitle": "People & Cities — Street Life Through the Lens"
+    "photo_consolidated_subtitle": "People & Cities — Street Life Through the Lens",
+    "nav_music": "Music",
+    "music_title": "🎵 Music",
+    "music_subtitle": "Original Tracks & Compositions",
+    "music_tracks_heading": "🎧 Tracks",
+    "music_loading": "Loading tracks...",
+    "music_marquee": ">>> NOW PLAYING <<< ORIGINAL COMPOSITIONS <<< LISTEN & ENJOY 2026 <<<",
+    "music_no_tracks": "No tracks uploaded yet. Add music through the admin dashboard!",
+    "music_load_error": "Could not load tracks.",
+    "music_audio_unsupported": "Your browser does not support audio.",
+    "index_latest_loading": "Loading latest addition...",
+    "index_latest_label": "⭐ LATEST ADDITION ⭐",
+    "index_latest_added": "Added:",
+    "index_latest_empty": "No items in the gallery yet.",
+    "sidebar_radio_loading": "Loading tracks..."
 }

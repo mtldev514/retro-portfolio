@@ -60,5 +60,19 @@
     "sculpting_subtitle": "Œuvres en Argile, Pierre et Métal",
     "sculpting_intro": "Explorer la forme et l'espace à travers des médiums tactiles.",
     "photo_consolidated_title": "Portefeuille de Photographie",
-    "photo_consolidated_subtitle": "Gens & Villes — La vie de rue à travers l'objectif"
+    "photo_consolidated_subtitle": "Gens & Villes — La vie de rue à travers l'objectif",
+    "nav_music": "Musique",
+    "music_title": "🎵 Musique",
+    "music_subtitle": "Morceaux et Compositions Originaux",
+    "music_tracks_heading": "🎧 Morceaux",
+    "music_loading": "Chargement des morceaux...",
+    "music_marquee": ">>> EN LECTURE <<< COMPOSITIONS ORIGINALES <<< ÉCOUTER & PROFITER 2026 <<<",
+    "music_no_tracks": "Aucun morceau ajouté. Ajoutez de la musique via le panneau d'administration !",
+    "music_load_error": "Impossible de charger les morceaux.",
+    "music_audio_unsupported": "Votre navigateur ne supporte pas l'audio.",
+    "index_latest_loading": "Chargement du dernier ajout...",
+    "index_latest_label": "⭐ DERNIER AJOUT ⭐",
+    "index_latest_added": "Ajouté le :",
+    "index_latest_empty": "Aucun élément dans la galerie pour le moment.",
+    "sidebar_radio_loading": "Chargement des pistes..."
 }

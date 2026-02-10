@@ -60,5 +60,19 @@
     "sculpting_subtitle": "Travail sus la terre pis la roche",
     "sculpting_intro": "Donner des formes au vide avec des patentes tactiles.",
     "photo_consolidated_title": "Mon album de photos",
-    "photo_consolidated_subtitle": "Du bois jusque dans les rues"
+    "photo_consolidated_subtitle": "Du bois jusque dans les rues",
+    "nav_music": "Musique",
+    "music_title": "🎵 Musique",
+    "music_subtitle": "Mes pièces de musique originales",
+    "music_tracks_heading": "🎧 Les pièces",
+    "music_loading": "Ça s'en vient...",
+    "music_marquee": ">>> ÇA JOUE ASTEURE <<< COMPOSITIONS MAISON <<< ÉCOUTE PIS PROFITE 2026 <<<",
+    "music_no_tracks": "Y'a pas de pièces encore. Rajoutes-en dans le panneau admin !",
+    "music_load_error": "Ça pas pu charger les pièces.",
+    "music_audio_unsupported": "Ton navigateur supporte pas le son.",
+    "index_latest_loading": "Ça charge le dernier ajout...",
+    "index_latest_label": "⭐ DERNIÈRE AFFAIRE AJOUTÉE ⭐",
+    "index_latest_added": "Ajouté l' :",
+    "index_latest_empty": "Y'a rien dans la galerie encore.",
+    "sidebar_radio_loading": "Ça charge les pièces..."
 }
