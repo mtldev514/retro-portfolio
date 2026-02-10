@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EDIT ITEM - ALEX-CONTROL-PANEL V1.0</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --win-bg: #c0c0c0;
+            --win-blue: #000080;
+            --win-text: #000;
+            --win-border-light: #fff;
+            --win-border-dark: #808080;
+        }
+
+        body {
+            background-color: #3a6ea5;
+            font-family: 'MS Sans Serif', 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--win-text);
+        }
+
+        .window {
+            width: 700px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            padding: 2px;
+        }
+
+        .title-bar {
+            background: var(--win-blue);
+            color: white;
+            padding: 3px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .title-bar-controls button {
+            width: 16px;
+            height: 14px;
+            font-size: 9px;
+            padding: 0;
+            margin-left: 2px;
+            background: var(--win-bg);
+            border: 1px solid;
+            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
+        }
+
+        .edit-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 5px;
+            border: 2px solid;
+            border-color: var(--win-border-dark) var(--win-border-light) var(--win-border-light) var(--win-border-dark);
+            box-sizing: border-box;
+            background: white;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .form-group textarea {
+            height: 60px;
+            resize: vertical;
+        }
+
+        .form-group .readonly {
+            background: #eee;
+            color: #555;
+        }
+
+        .preview-box {
+            border: 2px inset var(--win-border-dark);
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-box img {
+            max-width: 300px;
+            max-height: 200px;
+        }
+
+        .button-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid var(--win-border-dark);
+        }
+
+        .button-bar button {
+            padding: 6px 20px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .button-bar button:active {
+            border-color: var(--win-border-dark) var(--win-border-light) var(--win-border-light) var(--win-border-dark);
+        }
+
+        .button-bar .save-btn {
+            background: #e0e0ff;
+        }
+
+        .status-bar {
+            margin-top: 10px;
+            padding: 3px 5px;
+            background: var(--win-bg);
+            border-top: 1px solid var(--win-border-dark);
+            font-size: 12px;
+        }
+
+        .console {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            height: 80px;
+            overflow-y: auto;
+            margin-top: 15px;
+            font-size: 12px;
+            border: 2px inset var(--win-border-dark);
+        }
+
+        #loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+        }
+
+        #editForm {
+            display: none;
+        }
+
+        #errorBox {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .info-row .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="window">
+        <div class="title-bar">
+            <span id="windowTitle">EDIT ITEM</span>
+            <div class="title-bar-controls">
+                <button>_</button>
+                <button>[]</button>
+                <button onclick="window.location.href='admin.html'">X</button>
+            </div>
+        </div>
+
+        <div class="edit-body">
+            <div id="loading">
+                ⏳ Loading item data...
+            </div>
+
+            <div id="errorBox">
+                <p>❌ ERROR: Could not load item.</p>
+                <p style="font-size: 12px;" id="errorMsg"></p>
+                <br>
+                <button type="button" onclick="window.location.href='admin.html'"
+                    style="padding: 5px 20px; cursor: pointer;">Back to Dashboard</button>
+            </div>
+
+            <form id="editForm">
+                <div class="info-row">
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <input type="text" id="editCategory" class="readonly" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>ID:</label>
+                        <input type="text" id="editId" class="readonly" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Date Added:</label>
+                        <input type="text" id="editDate" class="readonly" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+
+                <div class="form-group" id="mediumGroup" style="display: none;">
+                    <label>Medium:</label>
+                    <input type="text" id="editMedium">
+                </div>
+
+                <div class="form-group" id="descriptionGroup" style="display: none;">
+                    <label>Description:</label>
+                    <textarea id="editDescription"></textarea>
+                </div>
+
+                <div class="form-group" id="urlGroup">
+                    <label>URL / Source:</label>
+                    <input type="text" id="editUrl" class="readonly" readonly>
+                </div>
+
+                <div id="previewGroup" class="preview-box" style="display: none;">
+                    <p style="font-size: 10px; margin: 0 0 5px; font-weight: bold;">PREVIEW</p>
+                    <img id="previewImg" src="" alt="Preview">
+                </div>
+
+                <div class="button-bar">
+                    <button type="button" onclick="window.location.href='admin.html'">Cancel</button>
+                    <button type="submit" class="save-btn">💾 Save Changes</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="console" id="console">
+            [EDIT-MODE] Initializing...
+        </div>
+
+        <div class="status-bar">
+            Editor V1.0 | <span id="statusText">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5001';
+
+        // Parse URL params
+        const params = new URLSearchParams(window.location.search);
+        const category = params.get('category');
+        const itemId = params.get('id');
+
+        const consoleBox = document.getElementById('console');
+
+        function log(msg, color = '#0f0') {
+            consoleBox.innerHTML += `<br><span style="color: ${color}">> ${msg}</span>`;
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        async function loadItem() {
+            if (!category || !itemId) {
+                showError('Missing category or id in URL parameters.');
+                return;
+            }
+
+            log(`Fetching ${category}/${itemId}...`);
+
+            try {
+                const res = await fetch(`${API_URL}/api/content/item?category=${encodeURIComponent(category)}&id=${encodeURIComponent(itemId)}`);
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    showError(data.error || 'Unknown error');
+                    return;
+                }
+
+                populateForm(data.item, data.category);
+            } catch (err) {
+                showError('Network error: Could not reach the admin API at ' + API_URL);
+            }
+        }
+
+        function showError(msg) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('errorBox').style.display = 'block';
+            document.getElementById('errorMsg').innerText = msg;
+            log(msg, 'red');
+        }
+
+        function populateForm(item, cat) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+
+            document.getElementById('editCategory').value = cat.toUpperCase();
+            document.getElementById('editId').value = item.id || item.title;
+            document.getElementById('editDate').value = item.date || 'N/A';
+            document.getElementById('editTitle').value = item.title;
+            document.getElementById('editUrl').value = item.url || '';
+
+            document.getElementById('windowTitle').innerText = `EDITING: ${item.title}`;
+            document.getElementById('statusText').innerText = `Editing ${cat}/${item.id || item.title}`;
+
+            // Show medium field for art/sculpting
+            if (cat === 'art' || cat === 'sculpting') {
+                document.getElementById('mediumGroup').style.display = 'block';
+                document.getElementById('editMedium').value = item.medium || '';
+            }
+
+            // Show description field for projects
+            if (cat === 'projects') {
+                document.getElementById('descriptionGroup').style.display = 'block';
+                document.getElementById('editDescription').value = item.description || '';
+            }
+
+            // Show image preview for visual categories
+            if (item.url && (cat === 'art' || cat === 'photography' || cat === 'sculpting')) {
+                document.getElementById('previewGroup').style.display = 'block';
+                document.getElementById('previewImg').src = item.url;
+            }
+
+            log(`Item loaded successfully: "${item.title}"`, 'cyan');
+        }
+
+        // Form submission
+        document.getElementById('editForm').onsubmit = async (e) => {
+            e.preventDefault();
+
+            const updates = {
+                title: document.getElementById('editTitle').value
+            };
+
+            // Include medium if visible
+            const mediumGroup = document.getElementById('mediumGroup');
+            if (mediumGroup.style.display !== 'none') {
+                updates.medium = document.getElementById('editMedium').value;
+            }
+
+            // Include description if visible
+            const descGroup = document.getElementById('descriptionGroup');
+            if (descGroup.style.display !== 'none') {
+                updates.description = document.getElementById('editDescription').value;
+            }
+
+            log('Saving changes...', 'yellow');
+
+            try {
+                const res = await fetch(`${API_URL}/api/content/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category,
+                        id: itemId,
+                        updates
+                    })
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    log('Changes saved successfully!', 'lime');
+                    document.getElementById('statusText').innerText = 'Saved! Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = 'admin.html#manage';
+                    }, 1000);
+                } else {
+                    log('Error: ' + (result.error || 'Unknown'), 'red');
+                }
+            } catch (err) {
+                log('Network error: ' + err.message, 'red');
+            }
+        };
+
+        // Auto-load
+        loadItem();
+    </script>
+</body>
+
+</html>

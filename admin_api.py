@@ -163,6 +163,27 @@ def get_all_content():
             content[cat] = []
     return jsonify(content)
 
+@app.route('/api/content/item', methods=['GET'])
+def get_single_item():
+    category = request.args.get('category')
+    item_id = request.args.get('id')
+
+    if not category or not item_id:
+        return jsonify({"error": "Category and ID are required"}), 400
+
+    json_path = manager.JSON_MAP.get(category)
+    if not json_path or not os.path.exists(json_path):
+        return jsonify({"error": f"Invalid category or file not found: {category}"}), 404
+
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data_list = json.load(f)
+
+    for item in data_list:
+        if item.get('id') == item_id or (category == 'projects' and item.get('title') == item_id):
+            return jsonify({"success": True, "item": item, "category": category})
+
+    return jsonify({"error": "Item not found"}), 404
+
 @app.route('/api/content/delete', methods=['POST'])
 def delete_content():
     data = request.json
