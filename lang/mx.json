@@ -50,5 +50,8 @@
     "projects_title": "Proyectos de TI",
     "projects_subtitle": "Obras digitales y experimentos de software",
     "projects_intro": "Cuando no estoy pintando, estoy construyendo cosas con código.",
-    "projects_view_code": "Ver código"
+    "projects_view_code": "Ver código",
+    "sidebar_radio_select": "Seleccionar pista:",
+    "sidebar_video_title": "Tubo Retro",
+    "sidebar_video_note": "Clic para Play/Pausa"
 }

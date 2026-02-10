@@ -50,5 +50,8 @@
     "projects_title": "IT & Coding Projects",
     "projects_subtitle": "Digital works and software experiments",
     "projects_intro": "When I'm not painting, I'm building things with code.",
-    "projects_view_code": "View Source"
+    "projects_view_code": "View Source",
+    "sidebar_radio_select": "Select Track:",
+    "sidebar_video_title": "Retro Tube",
+    "sidebar_video_note": "Click to Play/Pause"
 }

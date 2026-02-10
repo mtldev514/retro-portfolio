@@ -50,5 +50,8 @@
     "projects_title": "Projets Informatiques",
     "projects_subtitle": "Créations numériques et expériences logicielles",
     "projects_intro": "Quand je ne peins pas, je construis des choses avec du code.",
-    "projects_view_code": "Voir le code"
+    "projects_view_code": "Voir le code",
+    "sidebar_radio_select": "Choisir la piste :",
+    "sidebar_video_title": "Tube Rétro",
+    "sidebar_video_note": "Clic pour Lecture/Pause"
 }

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/i18n.js" defer></script>
     <script src="js/router.js" defer></script>
+    <script src="js/media.js" defer></script>
 </head>
 
 <body>
@@ -80,10 +81,28 @@
                         </div>
                     </div>
                     <div class="radio-controls">
-                        <button class="radio-btn"><i class="fa fa-play"></i></button>
-                        <button class="radio-btn"><i class="fa fa-pause"></i></button>
-                        <button class="radio-btn"><i class="fa fa-stop"></i></button>
-                        <input type="range" class="radio-volume">
+                        <button class="radio-btn radio-play"><i class="fa fa-play"></i></button>
+                        <button class="radio-btn radio-pause"><i class="fa fa-pause"></i></button>
+                        <button class="radio-btn radio-stop"><i class="fa fa-stop"></i></button>
+                        <input type="range" class="radio-volume" value="80">
+                    </div>
+                    <div class="radio-selector">
+                        <label for="track-select" data-i18n="sidebar_radio_select">Select Track:</label>
+                        <select id="track-select" class="radio-track-select">
+                            <option value="0">Retro Hits Mix</option>
+                            <option value="1">Cyberpunk Dreams</option>
+                            <option value="2">Vaporwave Vibes</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="video-section">
+                    <h3 data-i18n="sidebar_video_title">Retro Tube</h3>
+                    <div class="video-frame">
+                        <video class="retro-video" loop muted>
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay" data-i18n="sidebar_video_note">Click to Play/Pause</div>
                     </div>
                 </div>
             </aside>
