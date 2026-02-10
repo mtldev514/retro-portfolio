@@ -233,7 +233,7 @@
                     <input type="text" id="editMedium">
                 </div>
 
-                <div class="form-group" id="descriptionGroup" style="display: none;">
+                <div class="form-group" id="descriptionGroup">
                     <label>Description:</label>
                     <textarea id="editDescription"></textarea>
                 </div>
@@ -328,11 +328,8 @@
                 document.getElementById('editMedium').value = item.medium || '';
             }
 
-            // Show description field for projects
-            if (cat === 'projects') {
-                document.getElementById('descriptionGroup').style.display = 'block';
-                document.getElementById('editDescription').value = item.description || '';
-            }
+            // Always populate description
+            document.getElementById('editDescription').value = item.description || '';
 
             // Show image preview for visual categories
             if (item.url && (cat === 'art' || cat === 'photography' || cat === 'sculpting')) {
@@ -357,11 +354,8 @@
                 updates.medium = document.getElementById('editMedium').value;
             }
 
-            // Include description if visible
-            const descGroup = document.getElementById('descriptionGroup');
-            if (descGroup.style.display !== 'none') {
-                updates.description = document.getElementById('editDescription').value;
-            }
+            // Always include description
+            updates.description = document.getElementById('editDescription').value;
 
             log('Saving changes...', 'yellow');
 

@@ -114,10 +114,37 @@
                     traditional painting, charcoal
                     drawing, and urban photography.</p>
 
-                <div class="gallery-item" style="max-width: 400px; margin: 20px auto;">
-                    <img src="painting_abstract_pastel_1770727576366.png" alt="Featured Work: Abstract Pastel">
-                    <p align="center"><i data-i18n="index_featured">Featured: "Morning Dreams" (Oil on Canvas)</i></p>
+                <div id="latestAddition" class="gallery-item" style="max-width: 400px; margin: 20px auto;">
+                    <p align="center"><i>Loading latest addition...</i></p>
                 </div>
+                <script>
+                    (async function loadLatest() {
+                        const categories = ['art', 'photography', 'sculpting'];
+                        let newest = null;
+                        for (const cat of categories) {
+                            try {
+                                const res = await fetch(`data/${cat}.json`);
+                                const items = await res.json();
+                                for (const item of items) {
+                                    if (item.url && item.date && (!newest || item.date > newest.date)) {
+                                        newest = { ...item, category: cat };
+                                    }
+                                }
+                            } catch (e) { /* skip missing files */ }
+                        }
+                        const box = document.getElementById('latestAddition');
+                        if (newest) {
+                            box.innerHTML = `
+                                <p style="font-size: 10px; text-align: center; margin: 0 0 5px; font-weight: bold;">⭐ LATEST ADDITION ⭐</p>
+                                <img src="${newest.url}" alt="${newest.title}">
+                                <p align="center"><i>"${newest.title}"${newest.medium ? ' (' + newest.medium + ')' : ''}</i></p>
+                                <p align="center" style="font-size: 10px; color: #666;">Added: ${newest.date} | ${newest.category}</p>
+                            `;
+                        } else {
+                            box.innerHTML = '<p align="center"><i>No items in the gallery yet.</i></p>';
+                        }
+                    })();
+                </script>
 
                 <p data-i18n="index_look_around">Feel free to look around! Every image tells a different story.</p>
 

@@ -28,6 +28,7 @@ def upload_file():
     category = request.form.get('category')
     medium = request.form.get('medium')
     genre = request.form.get('genre')
+    description = request.form.get('description')
 
     if not title or not category:
         return jsonify({"error": "Title and Category are required"}), 400
@@ -43,7 +44,8 @@ def upload_file():
             title, 
             category, 
             medium=medium, 
-            genre=genre
+            genre=genre,
+            description=description
         )
         return jsonify({"success": True, "data": result})
     except Exception as e:

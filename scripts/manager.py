@@ -27,7 +27,7 @@ JSON_MAP = {
     "video": "data/video.json"
 }
 
-def upload_and_save(file_path, title, category, medium=None, genre=None):
+def upload_and_save(file_path, title, category, medium=None, genre=None, description=None):
     """Core logic to upload file and update JSON database."""
     print(f"--- Processing: {title} ({category}) ---")
     
@@ -75,6 +75,8 @@ def upload_and_save(file_path, title, category, medium=None, genre=None):
         new_entry["medium"] = medium
     if genre:
         new_entry["genre"] = genre
+    if description:
+        new_entry["description"] = description
 
     data.append(new_entry)
 
@@ -108,9 +110,10 @@ if __name__ == "__main__":
     parser.add_argument("--cat", required=True, choices=list(JSON_MAP.keys()), help="Category")
     parser.add_argument("--medium", help="Medium (for art/sculpting)")
     parser.add_argument("--genre", help="Genre (for music/video)")
+    parser.add_argument("--description", help="Description of the work")
 
     args = parser.parse_args()
     try:
-        upload_and_save(args.file, args.title, args.cat, args.medium, args.genre)
+        upload_and_save(args.file, args.title, args.cat, args.medium, args.genre, args.description)
     except Exception as e:
         print(f"Error: {e}")
