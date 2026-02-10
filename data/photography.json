@@ -1,16 +1,14 @@
 [
     {
-        "id": "photo_1",
+        "id": "photography_1770738078",
         "title": "Mist Over the Pines",
-        "category": "Nature",
-        "url": "photography_landscape_misty.png",
-        "date": "2026-02-02"
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770738077/portfolio/photography/r3pzuuhiaehre7uu5wpj.jpg",
+        "date": "2026-02-10"
     },
     {
-        "id": "photo_2",
+        "id": "photography_1770738079",
         "title": "Intersection Rhythm",
-        "category": "Street",
-        "url": "street_photography_urban_life.png",
-        "date": "2026-02-06"
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770738078/portfolio/photography/vxmqak6eu9mqw0nra37d.jpg",
+        "date": "2026-02-10"
     }
 ]

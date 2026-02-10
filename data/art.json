@@ -1,16 +1,16 @@
 [
     {
-        "id": "painting_1",
+        "id": "art_1770738075",
         "title": "Morning Dreams",
-        "medium": "Oil on Canvas",
-        "url": "painting_abstract_pastel_1770727576366.png",
-        "date": "2026-02-01"
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770738075/portfolio/art/zgxnudryb6jo2vmrc6dw.jpg",
+        "date": "2026-02-10",
+        "medium": "Oil on Canvas"
     },
     {
-        "id": "drawing_1",
+        "id": "art_1770738077",
         "title": "Soul of the Silent",
-        "medium": "Charcoal",
-        "url": "drawing_charcoal_portrait.png",
-        "date": "2026-02-05"
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770738076/portfolio/art/eoahpfzpkonx1tdxm2ro.jpg",
+        "date": "2026-02-10",
+        "medium": "Charcoal"
     }
 ]
