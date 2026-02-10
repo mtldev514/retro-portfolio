@@ -7,11 +7,6 @@ const media = {
     audio: new Audio(),
     currentTrackIndex: 0,
     playlist: [],
-    defaultPlaylist: [
-        { name: "Retro Hits Mix 2026.mp3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-        { name: "Cyberpunk Dreams.mp3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-        { name: "Vaporwave Vibes.mp3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
-    ],
 
     async init() {
         await this.loadPlaylist();
@@ -30,13 +25,10 @@ const media = {
                     name: t.title + (t.genre ? ` [${t.genre}]` : ''),
                     src: t.url
                 }));
-                return;
             }
         } catch (e) {
-            console.log('Could not load music.json, using defaults');
+            console.log('Could not load music.json');
         }
-        // Fallback to defaults if no uploaded tracks
-        this.playlist = this.defaultPlaylist;
     },
 
     populateTrackSelector() {

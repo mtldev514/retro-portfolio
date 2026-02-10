@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "id": "music_default_2",
+        "title": "Test",
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        "date": "2026-02-10",
+        "genre": "Cyberpunk",
+        "description": "Dark ambient electronic sounds from a neon-lit future."
+    },
+    {
+        "id": "music_default_3",
+        "title": "Vaporwave Vibes",
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        "date": "2026-02-10",
+        "genre": "Vaporwave",
+        "description": "Slowed-down nostalgia and dreamy aesthetics."
+    }
+]
