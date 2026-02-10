@@ -38,12 +38,10 @@ const i18n = {
 
     updateSwitcherUI() {
         const langMap = {
-            'en': { flag: '🇬🇧', name: 'English' },
-            'fr': { flag: '🇫🇷', name: 'French' },
+            'en': { flag: '🇬🇧🇨🇦', name: 'English' },
+            'fr': { flag: '⚜️🇨🇦', name: 'French' },
             'mx': { flag: '🇲🇽', name: 'Spanish' },
-            'ht': { flag: '🇭🇹', name: 'Creole' },
-            'qc': { flag: '⚜️', name: 'Joual' },
-            'ac': { flag: '🇨🇦', name: 'Acadian' }
+            'ht': { flag: '🇭🇹', name: 'Creole' }
         };
         const active = langMap[this.currentLang];
         if (active) {
