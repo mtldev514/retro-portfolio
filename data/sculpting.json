@@ -1,1 +1,50 @@
-[]
+[
+    {
+        "id": "sculpting_1770790787",
+        "title": {
+            "en": "PXL 20250412 174523985",
+            "fr": "PXL 20250412 174523985",
+            "mx": "PXL 20250412 174523985",
+            "ht": "PXL 20250412 174523985"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790787/portfolio/sculpting/j3zfa5d9cdzogup8lzua.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "sculpting_1770790788",
+        "title": {
+            "en": "PXL 20241219 202042726",
+            "fr": "PXL 20241219 202042726",
+            "mx": "PXL 20241219 202042726",
+            "ht": "PXL 20241219 202042726"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790788/portfolio/sculpting/lhngsza3taic3xs3ky7w.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "sculpting_1770790789",
+        "title": {
+            "en": "PXL 20241130 212523012.MP",
+            "fr": "PXL 20241130 212523012.MP",
+            "mx": "PXL 20241130 212523012.MP",
+            "ht": "PXL 20241130 212523012.MP"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790788/portfolio/sculpting/shtv3rgpvci76t2sa9n7.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "sculpting_1770790790",
+        "title": {
+            "en": "PXL 20241207 233739216",
+            "fr": "PXL 20241207 233739216",
+            "mx": "PXL 20241207 233739216",
+            "ht": "PXL 20241207 233739216"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790789/portfolio/sculpting/m3utkjjp9tmcmcrxthuf.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    }
+]

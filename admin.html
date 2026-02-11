@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>ALEX-CONTROL-PANEL V1.0</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="fonts.css">
 </head>
 
@@ -29,96 +30,22 @@
 
         <!-- UPLOAD TAB -->
         <div id="upload" class="tab-content active">
-            <form id="uploadForm">
-                <div class="admin-flex-row">
-                    <div class="admin-flex-col">
-                        <div class="form-group">
-                            <label>Title:</label>
-                            <input type="text" id="title" name="title" placeholder="E.g. Morning Dreams" required>
-                        </div>
+            <div id="bulkDropZone" class="bulk-drop-zone">
+                <p style="font-size: 14px; font-weight: bold;">DROP FILES HERE</p>
+                <p class="admin-muted">or click to browse — images + audio supported</p>
+                <input type="file" id="bulkFileInput" multiple accept="image/*,audio/*" style="display:none;">
+            </div>
 
-                        <div class="form-group">
-                            <label>Category:</label>
-                            <select id="category" name="category" onchange="toggleFields()" required>
-                                <option value="painting">Painting</option>
-                                <option value="drawing">Drawing</option>
-                                <option value="photography">Photography</option>
-                                <option value="sculpting">Sculpting</option>
-                                <option value="music">Music/Audio</option>
-                                <option value="projects">Projects</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" id="mediumGroup">
-                            <label>Medium:</label>
-                            <input type="text" id="medium" name="medium" placeholder="E.g. Oil on Canvas">
-                        </div>
-
-                        <div class="form-group" id="genreGroup" style="display: none;">
-                            <label>Genre/Style:</label>
-                            <input type="text" id="genre" name="genre" placeholder="E.g. Synthwave">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Creation Date:</label>
-                            <input type="date" id="created" name="created" style="font-family: inherit; font-size: 12px;">
-                            <p class="admin-muted">When was this work created? (Leave empty for today)</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description:</label>
-                            <textarea id="description" name="description" rows="2"
-                                placeholder="Brief description of the work"
-                                style="width: 100%; font-family: inherit; font-size: 12px;"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="admin-flex-col">
-                        <div id="sourceToggle" style="display: none; margin-bottom: 10px;">
-                            <label style="font-size: 11px; font-weight: bold;">Audio Source:</label>
-                            <div style="display: flex; gap: 5px; margin-top: 3px;">
-                                <button type="button" id="srcBtnUrl" class="action src-btn-active" style="margin:0; padding:4px 10px; font-size:11px;" onclick="setSourceMode('url')">🔗 Paste URL</button>
-                                <button type="button" id="srcBtnFile" class="action" style="margin:0; padding:4px 10px; font-size:11px;" onclick="setSourceMode('file')">📁 Upload File</button>
-                            </div>
-                        </div>
-
-                        <div id="fileUploadSection">
-                            <div class="form-group">
-                                <label>Select File:</label>
-                                <input type="file" id="file" name="file">
-                                <p class="admin-muted">Supports JPG, PNG, MP3, MP4, etc.</p>
-                            </div>
-                        </div>
-
-                        <div id="urlInputSection" style="display: none;">
-                            <div class="form-group">
-                                <label>Direct Audio URL:</label>
-                                <input type="text" id="directUrl" name="directUrl" placeholder="https://archive.org/download/my-album/track.mp3">
-                            </div>
-                            <div class="admin-hint">
-                                <b>🎵 Where to host your audio:</b><br><br>
-                                <b>Internet Archive</b> (free, unlimited)<br>
-                                → <a href="https://archive.org/create" target="_blank">archive.org/create</a> → Upload → Copy file URL<br><br>
-                                <b>GitHub Releases</b> (free, in your repo)<br>
-                                → Repo → Releases → New → Attach .mp3 → Copy URL<br>
-                                <code>github.com/.../releases/download/tag/file.mp3</code>
-                            </div>
-                        </div>
-
-                        <div class="admin-preview-area">
-                            <p align="center" style="margin: 0; font-size: 12px; font-weight: bold;">PREVIEW AREA</p>
-                            <div id="preview"
-                                style="height: 120px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                                <span class="admin-muted">No file selected</span>
-                            </div>
-                        </div>
+            <div id="bulkQueue" class="bulk-queue" style="display:none;">
+                <div class="admin-flex-between" style="margin-bottom: 8px;">
+                    <b id="bulkCount">0 files queued</b>
+                    <div style="display: flex; gap: 5px;">
+                        <button type="button" class="action" style="margin:0; font-size:11px;" onclick="clearBulkQueue()">Clear All</button>
+                        <button type="button" class="action src-btn-active" style="margin:0; font-size:11px;" id="bulkUploadBtn" onclick="startBulkUpload()">UPLOAD ALL</button>
                     </div>
                 </div>
-
-                <div class="admin-text-right">
-                    <button type="submit" class="action" id="submitBtn">UPLOAD MEDIA</button>
-                </div>
-            </form>
+                <div id="bulkItems" class="bulk-items"></div>
+            </div>
         </div>
 
         <!-- MANAGE CONTENT TAB -->
@@ -204,136 +131,186 @@
             if (tabId === 'manage') loadContent();
         }
 
-        let sourceMode = 'file'; // 'file' or 'url'
+        // ── Bulk Upload ──
+        const AUDIO_EXTS = ['.mp3', '.wav', '.ogg', '.flac', '.m4a', '.aac'];
+        const IMAGE_CATS = ['painting', 'drawing', 'photography', 'sculpting'];
+        let bulkFiles = []; // { file, isAudio, title, category }
 
-        function toggleFields() {
-            const cat = document.getElementById('category').value;
-            document.getElementById('mediumGroup').style.display = (cat === 'painting' || cat === 'drawing' || cat === 'sculpting') ? 'block' : 'none';
-            document.getElementById('genreGroup').style.display = (cat === 'music') ? 'block' : 'none';
+        const dropZone = document.getElementById('bulkDropZone');
+        const fileInput = document.getElementById('bulkFileInput');
 
-            // Show source toggle for music (Cloudinary doesn't support audio on free plan)
-            const toggle = document.getElementById('sourceToggle');
-            if (cat === 'music') {
-                toggle.style.display = 'block';
-                setSourceMode('file'); // Default to file upload (GitHub Releases handles audio)
-            } else {
-                toggle.style.display = 'none';
-                setSourceMode('file');
-            }
-        }
-
-        function setSourceMode(mode) {
-            sourceMode = mode;
-            const fileSection = document.getElementById('fileUploadSection');
-            const urlSection = document.getElementById('urlInputSection');
-            const srcBtnFile = document.getElementById('srcBtnFile');
-            const srcBtnUrl = document.getElementById('srcBtnUrl');
-
-            const submitBtn = document.getElementById('submitBtn');
-            if (mode === 'url') {
-                fileSection.style.display = 'none';
-                urlSection.style.display = 'block';
-                srcBtnUrl.classList.add('src-btn-active');
-                srcBtnFile.classList.remove('src-btn-active');
-                document.getElementById('file').removeAttribute('required');
-                if (submitBtn) submitBtn.innerText = 'ADD TRACK FROM URL';
-            } else {
-                fileSection.style.display = 'block';
-                urlSection.style.display = 'none';
-                srcBtnFile.classList.add('src-btn-active');
-                srcBtnUrl.classList.remove('src-btn-active');
-                if (submitBtn) submitBtn.innerText = 'UPLOAD MEDIA';
-            }
-        }
-
-        // File preview
-        document.getElementById('file').onchange = function (e) {
-            const preview = document.getElementById('preview');
-            const file = e.target.files[0];
-            if (file) {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = function (re) {
-                        preview.innerHTML = `<img src="${re.target.result}" style="max-height: 100%; max-width: 100%">`;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.innerHTML = `<span class="admin-file-type">[${file.type}] file ready</span>`;
-                }
-            }
-        };
-
-        // Form Submission
-        document.getElementById('uploadForm').onsubmit = async (e) => {
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+        dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            const consoleBox = document.getElementById('console');
-            const title = document.getElementById('title').value;
+            dropZone.classList.remove('drag-over');
+            addFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener('change', (e) => { addFiles(e.target.files); fileInput.value = ''; });
 
-            if (sourceMode === 'url') {
-                // URL mode — save directly without Cloudinary
-                const url = document.getElementById('directUrl').value.trim();
-                if (!url) {
-                    consoleBox.innerHTML += `<br><span class="con-error">> ERROR: Please paste an audio URL.</span>`;
-                    return;
-                }
-
-                consoleBox.innerHTML += `<br>> Adding "${title}" from URL...`;
-
-                try {
-                    const response = await fetch(`${API_URL}/api/upload-url`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            url: url,
-                            title: title,
-                            category: document.getElementById('category').value,
-                            genre: document.getElementById('genre').value,
-                            description: document.getElementById('description').value,
-                            created: document.getElementById('created').value
-                        })
-                    });
-                    const result = await response.json();
-                    if (result.success) {
-                        consoleBox.innerHTML += `<br><span class="con-hi">> SUCCESS! Track "${title}" added.</span>`;
-                        consoleBox.innerHTML += `<br><span class="con-info">> URL: ${url}</span>`;
-                        consoleBox.innerHTML += `<br><span class="con-success">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
-                        // Show audio preview
-                        const preview = document.getElementById('preview');
-                        preview.innerHTML = `<audio controls src="${url}" style="width:100%"></audio>`;
-                    } else {
-                        consoleBox.innerHTML += `<br><span class="con-error">> ERROR: ${result.error}</span>`;
-                    }
-                } catch (err) {
-                    consoleBox.innerHTML += `<br><span class="con-error">> NETWORK ERROR: ${err.message}</span>`;
-                }
-            } else {
-                // File upload mode — Cloudinary
-                const fileInput = document.getElementById('file');
-                if (!fileInput.files.length) {
-                    consoleBox.innerHTML += `<br><span class="con-error">> ERROR: Please select a file.</span>`;
-                    return;
-                }
-
-                consoleBox.innerHTML += `<br>> Starting upload sequence for "${title}"...`;
-
-                const formData = new FormData(e.target);
-                try {
-                    const response = await fetch(`${API_URL}/api/upload`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    const result = await response.json();
-                    if (result.success) {
-                        consoleBox.innerHTML += `<br><span class="con-hi">> SUCCESS! Media available at: ${result.data.url}</span>`;
-                        consoleBox.innerHTML += `<br><span class="con-success">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
-                    } else {
-                        consoleBox.innerHTML += `<br><span class="con-error">> ERROR: ${result.error}</span>`;
-                    }
-                } catch (err) {
-                    consoleBox.innerHTML += `<br><span class="con-error">> NETWORK ERROR: ${err.message}</span>`;
-                }
+        function addFiles(fileList) {
+            for (const file of fileList) {
+                const ext = '.' + file.name.split('.').pop().toLowerCase();
+                const isAudio = AUDIO_EXTS.includes(ext);
+                const baseName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+                bulkFiles.push({
+                    file,
+                    isAudio,
+                    title: baseName,
+                    category: isAudio ? 'music' : 'painting'
+                });
             }
-        };
+            renderBulkQueue();
+        }
+
+        function renderBulkQueue() {
+            const queue = document.getElementById('bulkQueue');
+            const items = document.getElementById('bulkItems');
+            const count = document.getElementById('bulkCount');
+
+            if (bulkFiles.length === 0) {
+                queue.style.display = 'none';
+                return;
+            }
+            queue.style.display = 'block';
+            count.textContent = `${bulkFiles.length} file${bulkFiles.length > 1 ? 's' : ''} queued`;
+
+            items.innerHTML = '';
+            bulkFiles.forEach((entry, i) => {
+                const div = document.createElement('div');
+                div.className = 'bulk-item';
+
+                // Thumbnail
+                const thumb = document.createElement('div');
+                thumb.className = 'bulk-thumb';
+                if (entry.isAudio) {
+                    thumb.innerHTML = '<span style="font-size:24px;">&#9835;</span>';
+                } else {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(entry.file);
+                    thumb.appendChild(img);
+                }
+
+                // Fields
+                const fields = document.createElement('div');
+                fields.className = 'bulk-fields';
+
+                // Title
+                const titleInput = document.createElement('input');
+                titleInput.type = 'text';
+                titleInput.value = entry.title;
+                titleInput.placeholder = 'Title';
+                titleInput.onchange = () => { bulkFiles[i].title = titleInput.value; };
+
+                // Category
+                const catSelect = document.createElement('select');
+                if (entry.isAudio) {
+                    catSelect.innerHTML = '<option value="music">Music</option>';
+                    catSelect.disabled = true;
+                } else {
+                    IMAGE_CATS.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c;
+                        opt.textContent = c.charAt(0).toUpperCase() + c.slice(1);
+                        if (c === entry.category) opt.selected = true;
+                        catSelect.appendChild(opt);
+                    });
+                    catSelect.onchange = () => { bulkFiles[i].category = catSelect.value; };
+                }
+
+                fields.appendChild(titleInput);
+                fields.appendChild(catSelect);
+
+                // Remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'bulk-remove';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.onclick = () => { bulkFiles.splice(i, 1); renderBulkQueue(); };
+
+                // Status indicator
+                const status = document.createElement('span');
+                status.className = 'bulk-status';
+                status.id = `bulk-status-${i}`;
+
+                div.appendChild(thumb);
+                div.appendChild(fields);
+                div.appendChild(status);
+                div.appendChild(removeBtn);
+                items.appendChild(div);
+            });
+        }
+
+        function clearBulkQueue() {
+            bulkFiles = [];
+            renderBulkQueue();
+        }
+
+        async function startBulkUpload() {
+            if (bulkFiles.length === 0) return;
+
+            const consoleBox = document.getElementById('console');
+            const uploadBtn = document.getElementById('bulkUploadBtn');
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'UPLOADING...';
+
+            consoleBox.innerHTML += `<br>> Starting bulk upload of ${bulkFiles.length} file(s)...`;
+
+            const formData = new FormData();
+            bulkFiles.forEach((entry, i) => {
+                formData.append(`file_${i}`, entry.file);
+                formData.append(`title_${i}`, entry.title);
+                formData.append(`category_${i}`, entry.category);
+            });
+
+            // Mark all as uploading
+            bulkFiles.forEach((_, i) => {
+                const s = document.getElementById(`bulk-status-${i}`);
+                if (s) s.textContent = '...';
+            });
+
+            try {
+                const res = await fetch(`${API_URL}/api/upload-bulk`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await res.json();
+
+                // Mark individual results
+                (result.results || []).forEach(r => {
+                    const idx = bulkFiles.findIndex(f => f.file.name === r.file);
+                    if (idx >= 0) {
+                        const s = document.getElementById(`bulk-status-${idx}`);
+                        if (s) { s.textContent = 'OK'; s.classList.add('con-success'); }
+                    }
+                });
+                (result.errors || []).forEach(r => {
+                    const idx = bulkFiles.findIndex(f => f.file.name === r.file);
+                    if (idx >= 0) {
+                        const s = document.getElementById(`bulk-status-${idx}`);
+                        if (s) { s.textContent = 'FAIL'; s.classList.add('con-error'); }
+                    }
+                });
+
+                consoleBox.innerHTML += `<br><span class="con-success">> Bulk upload complete: ${result.uploaded} uploaded, ${result.failed} failed.</span>`;
+
+                if (result.uploaded > 0) {
+                    setTimeout(() => {
+                        bulkFiles = bulkFiles.filter((_, i) => {
+                            const s = document.getElementById(`bulk-status-${i}`);
+                            return s && !s.classList.contains('con-success');
+                        });
+                        renderBulkQueue();
+                    }, 2000);
+                }
+            } catch (err) {
+                consoleBox.innerHTML += `<br><span class="con-error">> NETWORK ERROR: ${err.message}</span>`;
+            }
+
+            uploadBtn.disabled = false;
+            uploadBtn.textContent = 'UPLOAD ALL';
+        }
 
         async function loadTranslations() {
             const lang = document.getElementById('langSelect').value;

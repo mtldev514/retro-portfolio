@@ -57,6 +57,53 @@ def upload_file():
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
+@app.route('/api/upload-bulk', methods=['POST'])
+def upload_bulk():
+    """Handle bulk file uploads. Each file is sent with per-file metadata
+    encoded as form fields: category_0, title_0, medium_0, etc."""
+    results = []
+    errors = []
+    file_keys = [k for k in request.files if k.startswith('file_')]
+    file_keys.sort(key=lambda k: int(k.split('_')[1]))
+
+    for key in file_keys:
+        idx = key.split('_')[1]
+        file = request.files[key]
+        title = request.form.get(f'title_{idx}', file.filename)
+        category = request.form.get(f'category_{idx}')
+        medium = request.form.get(f'medium_{idx}')
+        genre = request.form.get(f'genre_{idx}')
+        description = request.form.get(f'description_{idx}')
+        created = request.form.get(f'created_{idx}')
+
+        if not category:
+            errors.append({"file": file.filename, "error": "Missing category"})
+            continue
+
+        temp_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(temp_path)
+
+        try:
+            result = manager.upload_and_save(
+                temp_path, title, category,
+                medium=medium, genre=genre,
+                description=description, created=created
+            )
+            results.append({"file": file.filename, "success": True, "data": result})
+        except Exception as e:
+            errors.append({"file": file.filename, "error": str(e)})
+        finally:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+
+    return jsonify({
+        "success": len(errors) == 0,
+        "uploaded": len(results),
+        "failed": len(errors),
+        "results": results,
+        "errors": errors
+    })
+
 @app.route('/api/upload-url', methods=['POST'])
 def upload_from_url():
     """Add a media entry using a direct URL (no Cloudinary upload).

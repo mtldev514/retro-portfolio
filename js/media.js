@@ -162,9 +162,11 @@ const media = {
     updatePlayPauseIcon(isPlaying) {
         const btn = document.querySelector('.radio-playpause');
         if (!btn) return;
-        const icon = btn.querySelector('i');
-        if (!icon) return;
-        icon.className = isPlaying ? 'fa fa-pause' : 'fa fa-play';
+        const svg = btn.querySelector('svg');
+        if (!svg) return;
+        const playPath = 'M8 5v14l11-7z';
+        const pausePath = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+        svg.querySelector('path').setAttribute('d', isPlaying ? pausePath : playPath);
         btn.title = isPlaying ? 'Pause' : 'Play';
     },
 
