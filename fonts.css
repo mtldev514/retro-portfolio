@@ -36,4 +36,4 @@ body {
 
 /* Terminal — sharper text */
 .terminal-body   { font-size: 12px; }
-.terminal-line   { text-shadow: 0 0 2px rgba(0,255,0,0.2); }
+.terminal-line   { text-shadow: 0 0 2px var(--term-glow, rgba(0,255,0,0.2)); }

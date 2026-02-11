@@ -150,7 +150,7 @@ const renderer = {
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
                     ${hasImage ? `<img src="${item.url}" alt="${title}">` : `<div class="card-icon">${icon}</div>`}
-                    <h3 align="center">${hasImage ? `<span class="category-icon">${icon}</span> ` : ''}${title}</h3>
+                    <h3 align="center">${title}</h3>
                     ${subTitle ? `<p align="center" class="gallery-subtitle">${subTitle}</p>` : ''}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
