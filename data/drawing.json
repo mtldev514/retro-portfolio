@@ -1,31 +1,14 @@
 [
     {
-        "id": "drawing_1770765131",
+        "id": "drawing_1770792209",
         "title": {
-            "en": "test",
-            "fr": "test",
-            "ht": "test",
-            "mx": "test"
+            "en": "PXL 20260129 013016523",
+            "fr": "PXL 20260129 013016523",
+            "mx": "PXL 20260129 013016523",
+            "ht": "PXL 20260129 013016523"
         },
-        "url": "https://github.com/mtldev514/retro-portfolio/releases/download/media/1770765128_STE-027.png",
-        "date": "2026-02-10",
-        "genre": {
-            "en": "test",
-            "fr": "test",
-            "ht": "test",
-            "mx": "test"
-        },
-        "description": {
-            "en": "test",
-            "fr": "test",
-            "ht": "test",
-            "mx": "test"
-        },
-        "lyrics": {
-            "en": "",
-            "fr": "",
-            "ht": "",
-            "mx": ""
-        }
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770792209/portfolio/drawing/hwyhievyjz1wwho3iugt.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
     }
 ]

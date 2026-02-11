@@ -1,1 +1,770 @@
-[]
+[
+    {
+        "id": "photography_1770791755",
+        "title": {
+            "en": "DSCF0006 20260210",
+            "fr": "DSCF0006 20260210",
+            "mx": "DSCF0006 20260210",
+            "ht": "DSCF0006 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791754/portfolio/painting/kuwgpnttzhcqfuwdgmtk.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791756",
+        "title": {
+            "en": "DSCF0017 copie 20260209",
+            "fr": "DSCF0017 copie 20260209",
+            "mx": "DSCF0017 copie 20260209",
+            "ht": "DSCF0017 copie 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791755/portfolio/painting/tzltpliitr87ts3nbabq.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791757",
+        "title": {
+            "en": "DSCF0019 20260210",
+            "fr": "DSCF0019 20260210",
+            "mx": "DSCF0019 20260210",
+            "ht": "DSCF0019 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791756/portfolio/painting/md7z04wufhrwhcncsgf6.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791758",
+        "title": {
+            "en": "DSCF0023 20260210",
+            "fr": "DSCF0023 20260210",
+            "mx": "DSCF0023 20260210",
+            "ht": "DSCF0023 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791757/portfolio/painting/faiu4i5j4mw3jldcfnes.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791758",
+        "title": {
+            "en": "DSCF0026 20260210",
+            "fr": "DSCF0026 20260210",
+            "mx": "DSCF0026 20260210",
+            "ht": "DSCF0026 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791758/portfolio/painting/yw7e2n1vzyns3l8jkonz.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791759",
+        "title": {
+            "en": "DSCF0028 20260210",
+            "fr": "DSCF0028 20260210",
+            "mx": "DSCF0028 20260210",
+            "ht": "DSCF0028 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791759/portfolio/painting/x4zypraimen7mz67ripj.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791760",
+        "title": {
+            "en": "DSCF0036 20260210",
+            "fr": "DSCF0036 20260210",
+            "mx": "DSCF0036 20260210",
+            "ht": "DSCF0036 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791759/portfolio/painting/dzwqouypcq7x0gyunfeo.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791761",
+        "title": {
+            "en": "DSCF0044 20260210",
+            "fr": "DSCF0044 20260210",
+            "mx": "DSCF0044 20260210",
+            "ht": "DSCF0044 20260210"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791760/portfolio/painting/q7gpt82a8mjdvxqqsqpz.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791761",
+        "title": {
+            "en": "DSCF0069 20260209",
+            "fr": "DSCF0069 20260209",
+            "mx": "DSCF0069 20260209",
+            "ht": "DSCF0069 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791761/portfolio/painting/adoc59vkxv6xpxpynkut.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791762",
+        "title": {
+            "en": "DSCF0091 20260209",
+            "fr": "DSCF0091 20260209",
+            "mx": "DSCF0091 20260209",
+            "ht": "DSCF0091 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791761/portfolio/painting/i5xyqi5ff5ii9a485rxl.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791763",
+        "title": {
+            "en": "DSCF0110",
+            "fr": "DSCF0110",
+            "mx": "DSCF0110",
+            "ht": "DSCF0110"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791762/portfolio/painting/xjr572ykuoradqlwlaex.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791764",
+        "title": {
+            "en": "DSCF0113",
+            "fr": "DSCF0113",
+            "mx": "DSCF0113",
+            "ht": "DSCF0113"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791763/portfolio/painting/iosbatw283trizuzohud.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791765",
+        "title": {
+            "en": "DSCF0124",
+            "fr": "DSCF0124",
+            "mx": "DSCF0124",
+            "ht": "DSCF0124"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791764/portfolio/painting/snjre07368dchfrvjxa4.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791765",
+        "title": {
+            "en": "DSCF0132",
+            "fr": "DSCF0132",
+            "mx": "DSCF0132",
+            "ht": "DSCF0132"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791765/portfolio/painting/qsd57qbg7fnmeyknkuhm.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791766",
+        "title": {
+            "en": "DSCF0142",
+            "fr": "DSCF0142",
+            "mx": "DSCF0142",
+            "ht": "DSCF0142"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791765/portfolio/painting/ibseawlbhhfy6r82ozdn.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791767",
+        "title": {
+            "en": "DSCF0149",
+            "fr": "DSCF0149",
+            "mx": "DSCF0149",
+            "ht": "DSCF0149"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791766/portfolio/painting/czyhbmavzsjehgqok4sn.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791768",
+        "title": {
+            "en": "DSCF0163",
+            "fr": "DSCF0163",
+            "mx": "DSCF0163",
+            "ht": "DSCF0163"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791767/portfolio/painting/p0xipddwaaa00gfwdv3e.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791769",
+        "title": {
+            "en": "DSCF0173",
+            "fr": "DSCF0173",
+            "mx": "DSCF0173",
+            "ht": "DSCF0173"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791768/portfolio/painting/rney4udtx74d7aie5ula.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791769",
+        "title": {
+            "en": "DSCF0176",
+            "fr": "DSCF0176",
+            "mx": "DSCF0176",
+            "ht": "DSCF0176"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791769/portfolio/painting/akt2ejmlwnisuvxjyjnk.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791770",
+        "title": {
+            "en": "DSCF0187",
+            "fr": "DSCF0187",
+            "mx": "DSCF0187",
+            "ht": "DSCF0187"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791770/portfolio/painting/lrcvcmblbpnch0mtti4t.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791771",
+        "title": {
+            "en": "DSCF0197",
+            "fr": "DSCF0197",
+            "mx": "DSCF0197",
+            "ht": "DSCF0197"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791771/portfolio/painting/dozddh4desp8kavkicui.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791772",
+        "title": {
+            "en": "DSCF0212",
+            "fr": "DSCF0212",
+            "mx": "DSCF0212",
+            "ht": "DSCF0212"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791772/portfolio/painting/hn5uf842a1yrqdreo2tp.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791773",
+        "title": {
+            "en": "DSCF0218",
+            "fr": "DSCF0218",
+            "mx": "DSCF0218",
+            "ht": "DSCF0218"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791773/portfolio/painting/iwj2wrd9r44mvmgp7pvt.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791774",
+        "title": {
+            "en": "DSCF0226",
+            "fr": "DSCF0226",
+            "mx": "DSCF0226",
+            "ht": "DSCF0226"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791773/portfolio/painting/snnaqjzzwpakfp8knf8p.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791775",
+        "title": {
+            "en": "DSCF0240",
+            "fr": "DSCF0240",
+            "mx": "DSCF0240",
+            "ht": "DSCF0240"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791775/portfolio/painting/ylvhfjg86txlhig5bels.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791778",
+        "title": {
+            "en": "DSCF0257",
+            "fr": "DSCF0257",
+            "mx": "DSCF0257",
+            "ht": "DSCF0257"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791777/portfolio/painting/wqwwdiewzkophr7u3m3m.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791778",
+        "title": {
+            "en": "DSCF0367",
+            "fr": "DSCF0367",
+            "mx": "DSCF0367",
+            "ht": "DSCF0367"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791778/portfolio/painting/vu1kuqe2nff47iqiosay.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791780",
+        "title": {
+            "en": "DSCF0379",
+            "fr": "DSCF0379",
+            "mx": "DSCF0379",
+            "ht": "DSCF0379"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791779/portfolio/painting/xvtfjed65dlarmkpxinp.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791781",
+        "title": {
+            "en": "DSCF0391",
+            "fr": "DSCF0391",
+            "mx": "DSCF0391",
+            "ht": "DSCF0391"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791780/portfolio/painting/hkznzu7kdx4lvjkvceje.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791782",
+        "title": {
+            "en": "DSCF0394",
+            "fr": "DSCF0394",
+            "mx": "DSCF0394",
+            "ht": "DSCF0394"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791781/portfolio/painting/sdmn7cvhuu63t2kim5yz.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791783",
+        "title": {
+            "en": "DSCF0403",
+            "fr": "DSCF0403",
+            "mx": "DSCF0403",
+            "ht": "DSCF0403"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791782/portfolio/painting/va9vwttzdz9fvcqw00rm.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791790",
+        "title": {
+            "en": "DSCF0406",
+            "fr": "DSCF0406",
+            "mx": "DSCF0406",
+            "ht": "DSCF0406"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791784/portfolio/painting/enh1buz2imi1mqf9pqoo.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791791",
+        "title": {
+            "en": "DSCF0409",
+            "fr": "DSCF0409",
+            "mx": "DSCF0409",
+            "ht": "DSCF0409"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791790/portfolio/painting/uxv3zfwojbv5lpe3kyaj.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791791",
+        "title": {
+            "en": "DSCF0415",
+            "fr": "DSCF0415",
+            "mx": "DSCF0415",
+            "ht": "DSCF0415"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791791/portfolio/painting/bwgltflaqeeavtrnmerc.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791792",
+        "title": {
+            "en": "DSCF0418",
+            "fr": "DSCF0418",
+            "mx": "DSCF0418",
+            "ht": "DSCF0418"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791792/portfolio/painting/bdmqwad99kyl5i0pxlo5.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791793",
+        "title": {
+            "en": "DSCF0421",
+            "fr": "DSCF0421",
+            "mx": "DSCF0421",
+            "ht": "DSCF0421"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791792/portfolio/painting/mbcd04shmkckdxuqivx2.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791794",
+        "title": {
+            "en": "DSCF0431",
+            "fr": "DSCF0431",
+            "mx": "DSCF0431",
+            "ht": "DSCF0431"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791793/portfolio/painting/xuyocgxfco4yuk5tgchm.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791795",
+        "title": {
+            "en": "DSCF0433",
+            "fr": "DSCF0433",
+            "mx": "DSCF0433",
+            "ht": "DSCF0433"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791794/portfolio/painting/lotqzyoqgqzkekxx77bh.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791796",
+        "title": {
+            "en": "DSCF0436",
+            "fr": "DSCF0436",
+            "mx": "DSCF0436",
+            "ht": "DSCF0436"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791795/portfolio/painting/ogw79pdpmnyhsb87djmq.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791797",
+        "title": {
+            "en": "DSCF0449",
+            "fr": "DSCF0449",
+            "mx": "DSCF0449",
+            "ht": "DSCF0449"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791796/portfolio/painting/wyhapfm3mqzrhprvzyiz.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791798",
+        "title": {
+            "en": "DSCF0451",
+            "fr": "DSCF0451",
+            "mx": "DSCF0451",
+            "ht": "DSCF0451"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791797/portfolio/painting/l63c6bo8aadh1gkvlzzp.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791799",
+        "title": {
+            "en": "DSCF0464",
+            "fr": "DSCF0464",
+            "mx": "DSCF0464",
+            "ht": "DSCF0464"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791798/portfolio/painting/xs4bxwk6zr0r1ddjxahn.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791799",
+        "title": {
+            "en": "DSCF0469",
+            "fr": "DSCF0469",
+            "mx": "DSCF0469",
+            "ht": "DSCF0469"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791799/portfolio/painting/k9b7jbefz7hvo3smkpjo.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791800",
+        "title": {
+            "en": "DSCF0472",
+            "fr": "DSCF0472",
+            "mx": "DSCF0472",
+            "ht": "DSCF0472"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791800/portfolio/painting/avdch56bzmh9k7hw2aro.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791801",
+        "title": {
+            "en": "DSCF0488",
+            "fr": "DSCF0488",
+            "mx": "DSCF0488",
+            "ht": "DSCF0488"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791800/portfolio/painting/n2cltewpqgxjjs7nx1af.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791802",
+        "title": {
+            "en": "DSCF0504",
+            "fr": "DSCF0504",
+            "mx": "DSCF0504",
+            "ht": "DSCF0504"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791801/portfolio/painting/zwmdwvuophyn7k1mwadl.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791803",
+        "title": {
+            "en": "DSCF0513",
+            "fr": "DSCF0513",
+            "mx": "DSCF0513",
+            "ht": "DSCF0513"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791802/portfolio/painting/nne7isla75miq4npc3er.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791803",
+        "title": {
+            "en": "DSCF0517",
+            "fr": "DSCF0517",
+            "mx": "DSCF0517",
+            "ht": "DSCF0517"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791803/portfolio/painting/boi4ua4p1sorbrirsnal.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791804",
+        "title": {
+            "en": "DSCF0527",
+            "fr": "DSCF0527",
+            "mx": "DSCF0527",
+            "ht": "DSCF0527"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791804/portfolio/painting/mbsfqzfiy7s88whcl4gk.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791805",
+        "title": {
+            "en": "DSCF0530",
+            "fr": "DSCF0530",
+            "mx": "DSCF0530",
+            "ht": "DSCF0530"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791805/portfolio/painting/izbrvsaamnvwdvrdmyaa.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791806",
+        "title": {
+            "en": "DSCF0534",
+            "fr": "DSCF0534",
+            "mx": "DSCF0534",
+            "ht": "DSCF0534"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791805/portfolio/painting/avhalethqspzy77etajs.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791807",
+        "title": {
+            "en": "DSCF0536",
+            "fr": "DSCF0536",
+            "mx": "DSCF0536",
+            "ht": "DSCF0536"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791806/portfolio/painting/sjyocw8taxizwunsaeqt.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791808",
+        "title": {
+            "en": "DSCF0539",
+            "fr": "DSCF0539",
+            "mx": "DSCF0539",
+            "ht": "DSCF0539"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791807/portfolio/painting/camaksu5tu8swauitkzn.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791809",
+        "title": {
+            "en": "DSCF0554",
+            "fr": "DSCF0554",
+            "mx": "DSCF0554",
+            "ht": "DSCF0554"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791808/portfolio/painting/im1z6j99wvforjsbdi31.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791810",
+        "title": {
+            "en": "DSCF0555",
+            "fr": "DSCF0555",
+            "mx": "DSCF0555",
+            "ht": "DSCF0555"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791809/portfolio/painting/zzipuowzhcsedjaljivc.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791811",
+        "title": {
+            "en": "DSCF0558",
+            "fr": "DSCF0558",
+            "mx": "DSCF0558",
+            "ht": "DSCF0558"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791810/portfolio/painting/vltexheyzxbyo5vsg3wh.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791812",
+        "title": {
+            "en": "DSCF0564",
+            "fr": "DSCF0564",
+            "mx": "DSCF0564",
+            "ht": "DSCF0564"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791811/portfolio/painting/iznrorsoxpzzdxmuuelw.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791812",
+        "title": {
+            "en": "DSCF0572",
+            "fr": "DSCF0572",
+            "mx": "DSCF0572",
+            "ht": "DSCF0572"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791812/portfolio/painting/eniyfrk8zhrtk1eu6ktl.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791813",
+        "title": {
+            "en": "DSCF9856 20260209",
+            "fr": "DSCF9856 20260209",
+            "mx": "DSCF9856 20260209",
+            "ht": "DSCF9856 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791813/portfolio/painting/x1lrboxzutxvquypxxvh.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791814",
+        "title": {
+            "en": "DSCF9887 20260209",
+            "fr": "DSCF9887 20260209",
+            "mx": "DSCF9887 20260209",
+            "ht": "DSCF9887 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791813/portfolio/painting/vahbeh4ap5sgzvmgmoc3.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791815",
+        "title": {
+            "en": "DSCF9909 copie 20260209",
+            "fr": "DSCF9909 copie 20260209",
+            "mx": "DSCF9909 copie 20260209",
+            "ht": "DSCF9909 copie 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791814/portfolio/painting/vv1dklnmz3s68lfljifx.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791816",
+        "title": {
+            "en": "DSCF9917 20260209",
+            "fr": "DSCF9917 20260209",
+            "mx": "DSCF9917 20260209",
+            "ht": "DSCF9917 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791815/portfolio/painting/vafi8eu7dokeird5twv2.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791817",
+        "title": {
+            "en": "DSCF9927 20260209",
+            "fr": "DSCF9927 20260209",
+            "mx": "DSCF9927 20260209",
+            "ht": "DSCF9927 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791816/portfolio/painting/p3pahkt9xviodgawl9iu.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    },
+    {
+        "id": "photography_1770791818",
+        "title": {
+            "en": "DSCF9930 20260209",
+            "fr": "DSCF9930 20260209",
+            "mx": "DSCF9930 20260209",
+            "ht": "DSCF9930 20260209"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770791817/portfolio/painting/mkgzrnoixxmfpaobwiy0.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11"
+    }
+]

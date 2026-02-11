@@ -164,6 +164,10 @@
             renderBulkQueue();
         }
 
+        function bulkUpdateTitle(idx, val) { bulkFiles[idx].title = val; }
+        function bulkUpdateCat(idx, val) { bulkFiles[idx].category = val; }
+        function bulkRemove(idx) { bulkFiles.splice(idx, 1); renderBulkQueue(); }
+
         function renderBulkQueue() {
             const queue = document.getElementById('bulkQueue');
             const items = document.getElementById('bulkItems');
@@ -176,70 +180,32 @@
             queue.style.display = 'block';
             count.textContent = `${bulkFiles.length} file${bulkFiles.length > 1 ? 's' : ''} queued`;
 
-            items.innerHTML = '';
+            let html = '';
             bulkFiles.forEach((entry, i) => {
-                const div = document.createElement('div');
-                div.className = 'bulk-item';
+                const thumbContent = entry.isAudio
+                    ? '<span style="font-size:24px;">&#9835;</span>'
+                    : `<img src="${URL.createObjectURL(entry.file)}">`;
 
-                // Thumbnail
-                const thumb = document.createElement('div');
-                thumb.className = 'bulk-thumb';
+                let catOptions = '';
                 if (entry.isAudio) {
-                    thumb.innerHTML = '<span style="font-size:24px;">&#9835;</span>';
+                    catOptions = '<option value="music">Music</option>';
                 } else {
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(entry.file);
-                    thumb.appendChild(img);
+                    catOptions = IMAGE_CATS.map(c =>
+                        `<option value="${c}"${c === entry.category ? ' selected' : ''}>${c.charAt(0).toUpperCase() + c.slice(1)}</option>`
+                    ).join('');
                 }
 
-                // Fields
-                const fields = document.createElement('div');
-                fields.className = 'bulk-fields';
-
-                // Title
-                const titleInput = document.createElement('input');
-                titleInput.type = 'text';
-                titleInput.value = entry.title;
-                titleInput.placeholder = 'Title';
-                titleInput.onchange = () => { bulkFiles[i].title = titleInput.value; };
-
-                // Category
-                const catSelect = document.createElement('select');
-                if (entry.isAudio) {
-                    catSelect.innerHTML = '<option value="music">Music</option>';
-                    catSelect.disabled = true;
-                } else {
-                    IMAGE_CATS.forEach(c => {
-                        const opt = document.createElement('option');
-                        opt.value = c;
-                        opt.textContent = c.charAt(0).toUpperCase() + c.slice(1);
-                        if (c === entry.category) opt.selected = true;
-                        catSelect.appendChild(opt);
-                    });
-                    catSelect.onchange = () => { bulkFiles[i].category = catSelect.value; };
-                }
-
-                fields.appendChild(titleInput);
-                fields.appendChild(catSelect);
-
-                // Remove button
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.className = 'bulk-remove';
-                removeBtn.innerHTML = '&times;';
-                removeBtn.onclick = () => { bulkFiles.splice(i, 1); renderBulkQueue(); };
-
-                // Status indicator
-                const status = document.createElement('span');
-                status.className = 'bulk-status';
-                status.id = `bulk-status-${i}`;
-
-                div.appendChild(thumb);
-                div.appendChild(fields);
-                div.appendChild(status);
-                div.appendChild(removeBtn);
-                items.appendChild(div);
+                html += `<div class="bulk-item">
+                    <div class="bulk-thumb">${thumbContent}</div>
+                    <div class="bulk-fields">
+                        <input type="text" value="${entry.title.replace(/"/g, '&quot;')}" placeholder="Title" onchange="bulkUpdateTitle(${i}, this.value)">
+                        <select onchange="bulkUpdateCat(${i}, this.value)"${entry.isAudio ? ' disabled' : ''}>${catOptions}</select>
+                    </div>
+                    <span class="bulk-status" id="bulk-status-${i}"></span>
+                    <button type="button" class="bulk-remove" onclick="bulkRemove(${i})">&times;</button>
+                </div>`;
             });
+            items.innerHTML = html;
         }
 
         function clearBulkQueue() {
@@ -322,16 +288,15 @@
                 const all = await res.json();
                 const trans = all[lang];
 
-                grid.innerHTML = '';
+                let html = '';
                 Object.keys(trans).forEach(key => {
-                    const div = document.createElement('div');
-                    div.className = 'trans-item';
-                    div.innerHTML = `
+                    const safeVal = (trans[key] || '').replace(/"/g, '&quot;');
+                    html += `<div class="trans-item">
                         <label style="font-size: 10px;">${key}</label>
-                        <input type="text" value="${trans[key]}" onblur="updateTrans('${lang}', '${key}', this.value)">
-                    `;
-                    grid.appendChild(div);
+                        <input type="text" value="${safeVal}" onblur="updateTrans('${lang}', '${key}', this.value)">
+                    </div>`;
                 });
+                grid.innerHTML = html;
             } catch (err) {
                 grid.innerHTML = 'Error loading translations.';
             }
@@ -380,87 +345,63 @@
                 const res = await fetch(`${API_URL}/api/content`);
                 const all = await res.json();
 
-                list.innerHTML = '';
-
-                const processCategory = (category, items) => {
+                let html = '';
+                Object.keys(all).forEach(category => {
+                    const items = all[category];
                     if (cat !== 'all' && cat !== category) return;
                     if (!items || items.length === 0) return;
 
-                    const header = document.createElement('h4');
-                    header.className = 'content-header';
-                    header.innerText = category.toUpperCase();
-                    list.appendChild(header);
-
+                    html += `<h4 class="content-header">${category.toUpperCase()}</h4>`;
                     items.forEach(item => {
-                        const div = document.createElement('div');
-                        div.className = 'content-row';
-
                         const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
                         const id = item.id || titleStr;
-
-                        const info = document.createElement('div');
-                        info.style.flex = '1';
-                        info.innerHTML = `<b>${titleStr}</b> <span class="admin-muted">(${item.date || 'N/A'})</span>`;
-                        div.appendChild(info);
-
-                        const actions = document.createElement('div');
-
-                        const editBtn = document.createElement('button');
-                        editBtn.type = 'button';
-                        editBtn.innerText = 'Edit';
-                        editBtn.style.fontSize = '10px';
-                        editBtn.onclick = (e) => { e.stopPropagation(); editItem(category, id); };
-
-                        const deleteBtn = document.createElement('button');
-                        deleteBtn.type = 'button';
-                        deleteBtn.innerText = 'Delete';
-                        deleteBtn.style.fontSize = '10px';
-                        deleteBtn.className = 'con-error';
-                        deleteBtn.style.marginLeft = '5px';
-
-                        const statusSpan = document.createElement('span');
-                        statusSpan.style.fontSize = '9px';
-                        statusSpan.style.marginLeft = '5px';
-
-                        deleteBtn.onclick = (e) => {
-                            e.stopPropagation();
-                            if (deleteBtn.dataset.armed === 'true') {
-                                deleteItem(category, id, statusSpan);
-                            } else {
-                                deleteBtn.dataset.armed = 'true';
-                                deleteBtn.innerText = 'Sure?';
-                                deleteBtn.style.fontWeight = 'bold';
-                                statusSpan.innerHTML = '<span class="con-warn">click again to confirm</span>';
-                                setTimeout(() => {
-                                    deleteBtn.dataset.armed = 'false';
-                                    deleteBtn.innerText = 'Delete';
-                                    deleteBtn.style.fontWeight = 'normal';
-                                    statusSpan.innerHTML = '';
-                                }, 3000);
-                            }
-                        };
-
-                        actions.appendChild(editBtn);
-                        actions.appendChild(deleteBtn);
-                        actions.appendChild(statusSpan);
-                        div.appendChild(actions);
-
-                        list.appendChild(div);
+                        const safeId = id.replace(/"/g, '&quot;');
+                        html += `<div class="content-row">
+                            <div style="flex:1"><b>${titleStr}</b> <span class="admin-muted">(${item.date || 'N/A'})</span></div>
+                            <div>
+                                <button type="button" class="edit-btn" style="font-size:10px" data-category="${category}" data-id="${safeId}">Edit</button>
+                                <button type="button" class="delete-btn con-error" style="font-size:10px;margin-left:5px" data-category="${category}" data-id="${safeId}">Delete</button>
+                                <span class="delete-status" style="font-size:9px;margin-left:5px"></span>
+                            </div>
+                        </div>`;
                     });
-                };
-
-                Object.keys(all).forEach(category => {
-                    processCategory(category, all[category]);
                 });
 
-                if (list.innerHTML === '') {
-                    list.innerHTML = '<p align="center">No content found for this category.</p>';
-                }
-
+                list.innerHTML = html || '<p align="center">No content found for this category.</p>';
             } catch (err) {
                 list.innerHTML = '<p align="center" class="con-error">Error loading content list.</p>';
             }
         }
+
+        // Delegated click handler for content list
+        document.getElementById('contentList').addEventListener('click', (e) => {
+            const editBtn = e.target.closest('.edit-btn');
+            if (editBtn) {
+                e.stopPropagation();
+                window.location.href = `edit.html?category=${encodeURIComponent(editBtn.dataset.category)}&id=${encodeURIComponent(editBtn.dataset.id)}`;
+                return;
+            }
+
+            const deleteBtn = e.target.closest('.delete-btn');
+            if (deleteBtn) {
+                e.stopPropagation();
+                const statusSpan = deleteBtn.parentElement.querySelector('.delete-status');
+                if (deleteBtn.dataset.armed === 'true') {
+                    deleteItem(deleteBtn.dataset.category, deleteBtn.dataset.id, statusSpan);
+                } else {
+                    deleteBtn.dataset.armed = 'true';
+                    deleteBtn.innerText = 'Sure?';
+                    deleteBtn.style.fontWeight = 'bold';
+                    statusSpan.innerHTML = '<span class="con-warn">click again to confirm</span>';
+                    setTimeout(() => {
+                        deleteBtn.dataset.armed = 'false';
+                        deleteBtn.innerText = 'Delete';
+                        deleteBtn.style.fontWeight = 'normal';
+                        statusSpan.innerHTML = '';
+                    }, 3000);
+                }
+            }
+        });
 
         async function deleteItem(category, id, statusSpan) {
             statusSpan.innerHTML = '<span class="con-hi">deleting...</span>';
@@ -481,10 +422,6 @@
             } catch (err) {
                 statusSpan.innerHTML = '<span class="con-error">network error</span>';
             }
-        }
-
-        function editItem(category, id) {
-            window.location.href = `edit.html?category=${encodeURIComponent(category)}&id=${encodeURIComponent(id)}`;
         }
 
         async function syncGitHub() {

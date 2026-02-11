@@ -22,8 +22,12 @@ const renderer = {
     },
 
     allItems: [],
+    filteredItems: [],
     activeFilter: 'all',
     sortOrder: 'desc',
+    PAGE_SIZE: 24,
+    visibleCount: 0,
+    _loadMoreObserver: null,
 
     t(field) {
         if (!field) return '';
@@ -78,18 +82,66 @@ const renderer = {
         const oldGrid = document.getElementById('gallery-container');
         if (oldGrid) oldGrid.remove();
 
+        // Build filtered list
+        this.filteredItems = this.activeFilter === 'all'
+            ? [...this.allItems]
+            : this.allItems.filter(i => i._category === this.activeFilter);
+
+        this.visibleCount = 0;
+
         const container = document.createElement('div');
         container.id = 'gallery-container';
         container.className = 'gallery-grid';
         app.appendChild(container);
 
-        this.allItems.forEach(item => {
-            const el = this.createGalleryItem(item);
-            container.appendChild(el);
-        });
+        this.loadMoreItems();
 
-        // Restore active filter
-        this.applyFilter(this.activeFilter);
+        // Empty message
+        if (this.filteredItems.length === 0) {
+            const emptyMsg = document.createElement('p');
+            emptyMsg.id = 'empty-filter-msg';
+            emptyMsg.className = 'empty-message';
+            emptyMsg.textContent = (window.i18n && i18n.translations.filter_empty) || 'Nothing here yet.';
+            container.appendChild(emptyMsg);
+        }
+    },
+
+    loadMoreItems() {
+        const container = document.getElementById('gallery-container');
+        if (!container) return;
+
+        const batch = this.filteredItems.slice(this.visibleCount, this.visibleCount + this.PAGE_SIZE);
+        const frag = document.createDocumentFragment();
+        batch.forEach(item => frag.appendChild(this.createGalleryItem(item)));
+
+        // Remove old load-more button before appending
+        const oldBtn = document.getElementById('load-more-btn');
+        if (oldBtn) {
+            if (this._loadMoreObserver) this._loadMoreObserver.unobserve(oldBtn);
+            oldBtn.remove();
+        }
+
+        container.appendChild(frag);
+        this.visibleCount += batch.length;
+
+        // Add "Load More" if more items remain
+        if (this.visibleCount < this.filteredItems.length) {
+            const remaining = this.filteredItems.length - this.visibleCount;
+            const btn = document.createElement('button');
+            btn.id = 'load-more-btn';
+            btn.className = 'load-more-btn';
+            btn.textContent = `Show More (${remaining} remaining)`;
+            btn.onclick = () => this.loadMoreItems();
+            container.appendChild(btn);
+
+            // Auto-load on scroll into view
+            if (!this._loadMoreObserver) {
+                this._loadMoreObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) this.loadMoreItems();
+                }, { rootMargin: '200px' });
+            }
+            this._loadMoreObserver.observe(btn);
+        }
     },
 
     createGalleryItem(item) {
@@ -163,9 +215,12 @@ const renderer = {
                 }
             }
 
+            const pileCount = (item.gallery && item.gallery.length) ? item.gallery.length + 1 : 0;
+            const pileBadge = pileCount > 1 ? `<span class="pile-badge">📷 ${pileCount}</span>` : '';
+
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
-                    ${hasImage ? `<img src="${item.url}" alt="${title}">` : `<div class="card-icon">${icon}</div>`}
+                    ${hasImage ? `<div class="gallery-img-wrap"><img src="${item.url}" alt="${title}" loading="lazy">${pileBadge}</div>` : `<div class="card-icon">${icon}</div>`}
                     <h3 align="center">${title}</h3>
                     ${subTitle ? `<p align="center" class="gallery-subtitle">${subTitle}</p>` : ''}
                     <p align="center" class="item-date">
@@ -189,7 +244,8 @@ const renderer = {
                 nav.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.activeFilter = btn.dataset.filter;
-                this.applyFilter(this.activeFilter);
+                this.renderGrid();
+                if (window.i18n) window.i18n.updateDOM();
                 return;
             }
 
@@ -201,39 +257,9 @@ const renderer = {
                 this.sortOrder = sortBtn.dataset.sort;
                 this.sortItems();
                 this.renderGrid();
-                this.applyFilter(this.activeFilter);
+                if (window.i18n) window.i18n.updateDOM();
             }
         });
-    },
-
-    applyFilter(filter) {
-        const container = document.getElementById('gallery-container');
-        if (!container) return;
-        const items = container.querySelectorAll('.gallery-item');
-        let visibleCount = 0;
-        items.forEach(item => {
-            if (filter === 'all' || item.dataset.category === filter) {
-                item.style.display = '';
-                visibleCount++;
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        // Empty filter message
-        let emptyMsg = document.getElementById('empty-filter-msg');
-        if (visibleCount === 0) {
-            if (!emptyMsg) {
-                emptyMsg = document.createElement('p');
-                emptyMsg.id = 'empty-filter-msg';
-                emptyMsg.className = 'empty-message';
-                container.appendChild(emptyMsg);
-            }
-            emptyMsg.textContent = (window.i18n && i18n.translations.filter_empty) || 'Nothing here yet.';
-            emptyMsg.style.display = '';
-        } else if (emptyMsg) {
-            emptyMsg.remove();
-        }
     }
 };
 

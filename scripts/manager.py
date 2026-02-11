@@ -1,4 +1,5 @@
 import os
+import glob
 import json
 import argparse
 import re
@@ -113,19 +114,13 @@ def upload_to_github_release(file_path, filename):
     r.raise_for_status()
     return r.json()["browser_download_url"]
 
-def upload_and_save(file_path, title, category, medium=None, genre=None, description=None, created=None):
-    """Core logic to upload file and update JSON database."""
-    print(f"--- Processing: {title} ({category}) ---")
-    
-    # 1. Upload to the appropriate service
+def upload_single(file_path, category):
+    """Upload a single file to the appropriate service and return its URL."""
     if category in GITHUB_UPLOAD_CATEGORIES and GITHUB_TOKEN:
-        # Audio: use GitHub Releases (Cloudinary free plan rejects audio)
         print(f"Uploading {file_path} to GitHub Releases...")
         original_filename = os.path.basename(file_path)
-        media_url = upload_to_github_release(file_path, original_filename)
-        print(f"Success! URL: {media_url}")
+        url = upload_to_github_release(file_path, original_filename)
     else:
-        # Images/other: use Cloudinary
         resource_type = "auto"
         if category == "video":
             resource_type = "video"
@@ -135,15 +130,48 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
             folder=f"portfolio/{category}",
             resource_type=resource_type
         )
-        media_url = upload_result.get("secure_url")
-        print(f"Success! URL: {media_url}")
+        url = upload_result.get("secure_url")
+    print(f"Success! URL: {url}")
+    return url
 
-    # 3. Determine JSON file
+
+def upload_and_save(file_path, title, category, medium=None, genre=None, description=None, created=None, pile=False):
+    """Core logic to upload file(s) and update JSON database.
+    When pile=True and file_path is a directory, all images inside are uploaded
+    as a single gallery item (first image = cover, rest = gallery array)."""
+    print(f"--- Processing: {title} ({category}) ---")
+
+    gallery_urls = []
+
+    if pile and os.path.isdir(file_path):
+        # Pile mode: upload all images in the directory
+        IMAGE_EXTS = ("*.jpg", "*.jpeg", "*.png", "*.webp", "*.gif", "*.tiff", "*.bmp")
+        files = []
+        for ext in IMAGE_EXTS:
+            files.extend(glob.glob(os.path.join(file_path, ext)))
+            files.extend(glob.glob(os.path.join(file_path, ext.upper())))
+        files = sorted(set(files))  # deduplicate and sort alphabetically
+
+        if not files:
+            raise ValueError(f"No image files found in '{file_path}'")
+
+        print(f"Pile mode: found {len(files)} images")
+        urls = []
+        for f in files:
+            urls.append(upload_single(f, category))
+
+        media_url = urls[0]  # first image is the cover
+        gallery_urls = urls[1:]  # rest go into gallery
+    else:
+        # Single file upload
+        media_url = upload_single(file_path, category)
+
+    # Determine JSON file
     json_path = JSON_MAP.get(category)
     if not json_path:
         raise ValueError(f"Category '{category}' is invalid.")
 
-    # 4. Load existing data
+    # Load existing data
     if os.path.exists(json_path):
         try:
             with open(json_path, "r", encoding="utf-8") as f:
@@ -154,7 +182,7 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
     else:
         data = []
 
-    # 5. Create new entry with multilingual fields
+    # Create new entry with multilingual fields
     def make_multilingual(value):
         """Wrap a single-language value as a multilingual object."""
         if not value:
@@ -168,6 +196,8 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
         "date": datetime.now().strftime("%Y-%m-%d"),
         "created": created if created else datetime.now().strftime("%Y-%m-%d")
     }
+    if gallery_urls:
+        new_entry["gallery"] = gallery_urls
     if medium:
         new_entry["medium"] = make_multilingual(medium)
     if genre:
@@ -177,12 +207,12 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
 
     data.append(new_entry)
 
-    # 6. Save back to JSON
+    # Save back to JSON
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
     print(f"Updated {json_path}")
 
-    # 7. Update "Last Updated" globally
+    # Update "Last Updated" globally
     update_site_timestamp()
     return new_entry
 
@@ -250,15 +280,16 @@ def save_from_url(url, title, category, medium=None, genre=None, description=Non
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Alex's Portfolio Content Manager")
-    parser.add_argument("--file", required=True, help="Path to the media file")
+    parser.add_argument("--file", required=True, help="Path to the media file or directory (with --pile)")
     parser.add_argument("--title", required=True, help="Title of the work")
     parser.add_argument("--cat", required=True, choices=list(JSON_MAP.keys()), help="Category")
     parser.add_argument("--medium", help="Medium (for art/sculpting)")
     parser.add_argument("--genre", help="Genre (for music/video)")
     parser.add_argument("--description", help="Description of the work")
+    parser.add_argument("--pile", action="store_true", help="Pile mode: upload all images in a directory as one gallery item")
 
     args = parser.parse_args()
     try:
-        upload_and_save(args.file, args.title, args.cat, args.medium, args.genre, args.description)
+        upload_and_save(args.file, args.title, args.cat, args.medium, args.genre, args.description, pile=args.pile)
     except Exception as e:
         print(f"Error: {e}")
