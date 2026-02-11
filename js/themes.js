@@ -499,10 +499,10 @@ const themes = {
                 '--sparkle-2':            '#e8b0c8',
                 '--sparkle-3':            '#f0d8a0',
                 '--sparkle-4':            '#c8a0b8',
-                '--sparkle-5':            '#fff0f5',
-                '--sparkle-6':            '#f0c880',
-                '--sparkle-7':            '#c06888',
-                '--petal-color':          '#e890b0'
+                '--sparkle-5':            '#fff4f8',
+                '--sparkle-6':            '#e8d0a0',
+                '--sparkle-7':            '#b87898',
+                '--petal-color':          '#dca0b8'
             }
         }
     },
