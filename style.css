@@ -99,10 +99,10 @@
     --detail-meta-bg: #e8e8f0;       /* Cool light gray */
 
     /* ── Badges ── */
-    --badge-public-bg: #003808;      /* Forest green */
-    --badge-public-text: #81f4b1;    /* Mint green */
-    --badge-private-bg: #580a0a;     /* Bordeaux */
-    --badge-private-text: #d76f6c;   /* Salmon pink */
+    --badge-public-bg: #e8e8f0;
+    --badge-public-text: #4a4a5e;
+    --badge-private-bg: #e8e8f0;
+    --badge-private-text: #4a4a5e;
 
     /* ── Visitor Counter ── */
     --counter-text: #d76f6c;         /* Salmon — visible accent */
@@ -1406,7 +1406,7 @@ nav {
 
 .detail-title {
     font-size: 1.6em;
-    color: var(--header-text);
+    color: var(--text-primary);
     text-shadow: 1px 1px 0 var(--container-bg);
     margin: 0 0 10px;
     padding-bottom: 8px;
