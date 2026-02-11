@@ -63,5 +63,18 @@
         "visibility": "private",
         "date": "2026-02-10",
         "category": "projects"
+    },
+    {
+        "title": "import-photos",
+        "description": {
+            "en": "Selective RAW importer for photo workflows. Reads XMP ratings/labels, copies only keeper files, verifies integrity, and keeps an import history to avoid repeats.",
+            "fr": "Importateur RAW sélectif pour workflow photo. Lit les notes/labels XMP, copie seulement les fichiers retenus, vérifie l'intégrité, et garde un historique pour éviter les doublons.",
+            "mx": "Importador selectivo de RAW para flujo fotográfico. Lee estrellas/etiquetas XMP, copia solo los archivos buenos, verifica integridad y guarda historial para evitar reimportes.",
+            "ht": "Yon zouti entelijan pou enpòte RAW nan workflow foto. Li not ak label XMP, li kopye sèlman bon fichye yo, li verifye entegrite, epi li kenbe istwa pou evite doublon."
+        },
+        "url": "https://github.com/mtldev514/import-photos",
+        "visibility": "private",
+        "date": "2026-02-11",
+        "category": "projects"
     }
 ]

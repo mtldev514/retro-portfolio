@@ -4,21 +4,21 @@
  */
 const renderer = {
     categories: {
-        painting:     { file: 'painting.json',    from: 'painting' },
-        drawing:      { file: 'drawing.json',     from: 'drawing' },
-        photography:  { file: 'photography.json', from: 'photography' },
-        sculpting:    { file: 'sculpting.json',   from: 'sculpting' },
-        music:        { file: 'music.json',       from: 'music' },
-        projects:     { file: 'projects.json',    from: 'projects' },
+        painting: { file: 'painting.json', from: 'painting' },
+        drawing: { file: 'drawing.json', from: 'drawing' },
+        photography: { file: 'photography.json', from: 'photography' },
+        sculpting: { file: 'sculpting.json', from: 'sculpting' },
+        music: { file: 'music.json', from: 'music' },
+        projects: { file: 'projects.json', from: 'projects' },
     },
 
     categoryIcons: {
-        painting:    '🎨',
-        drawing:     '✏️',
+        painting: '🎨',
+        drawing: '✏️',
         photography: '📷',
-        sculpting:   '🗿',
-        music:       '🎵',
-        projects:    '💻',
+        sculpting: '🗿',
+        music: '🎵',
+        projects: '💻',
     },
 
     allItems: [],
@@ -142,14 +142,14 @@ const renderer = {
             let visibilityEmoji = '';
             const isProject = item.category === 'projects' || item._category === 'projects';
             if (isProject) {
-                visibilityEmoji = item.visibility === 'private' ? ' &#128274;' : ' &#128275;';
+                visibilityEmoji = item.visibility === 'private' ? '🔒' : '🌍';
             }
             const subTitle = isProject ? description : (medium ? `(${medium})` : '');
 
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
                     ${item.url && !isProject ? `<img src="${item.url}" alt="${title}">` : ''}
-                    <h3 align="center"><span class="category-icon">${icon}</span> ${title}${visibilityEmoji}</h3>
+                    <h3 align="center"><span class="category-icon">${icon}</span> ${title} ${visibilityEmoji}</h3>
                     ${subTitle ? `<p align="center" class="gallery-subtitle">${subTitle}</p>` : ''}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}

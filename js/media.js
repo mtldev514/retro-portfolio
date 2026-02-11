@@ -105,13 +105,19 @@ const media = {
             };
         }
 
-        // Update time and seek position
+        // Update time, duration, and seek position
         this.audio.ontimeupdate = () => {
             const timeEl = document.getElementById('winamp-time');
             if (timeEl) {
                 const m = Math.floor(this.audio.currentTime / 60);
                 const s = Math.floor(this.audio.currentTime % 60);
                 timeEl.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+            const durEl = document.getElementById('winamp-duration');
+            if (durEl && this.audio.duration) {
+                const dm = Math.floor(this.audio.duration / 60);
+                const ds = Math.floor(this.audio.duration % 60);
+                durEl.textContent = String(dm).padStart(2, '0') + ':' + String(ds).padStart(2, '0');
             }
             const seek = document.getElementById('winamp-seek');
             if (seek && this.audio.duration) {

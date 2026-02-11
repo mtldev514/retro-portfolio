@@ -475,31 +475,16 @@ nav {
 }
 
 .terminal-window {
-    background: var(--term-bg);
-    border: 2px solid var(--text-primary);
-    box-shadow: inset 0 0 20px rgba(0,255,0,0.02), 3px 3px 0 rgba(0,0,0,0.25);
+    background: transparent;
     position: relative;
     overflow: hidden;
 }
 
-/* Subtle CRT scanlines */
-.terminal-window::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
-    pointer-events: none;
-    z-index: 1;
-}
+/* CRT scanlines removed — clean terminal footer */
 
-/* Title bar */
+/* Title bar — hidden, keeping terminal feel without window chrome */
 .terminal-titlebar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--term-titlebar);
-    padding: 4px 8px;
-    border-bottom: 1px solid var(--term-titlebar-border);
+    display: none;
 }
 
 .terminal-titlebar-btns {
@@ -533,16 +518,34 @@ nav {
 }
 
 .terminal-line {
-    color: var(--term-green);
+    color: var(--text-secondary);
     margin-top: 2px;
 }
 
 .terminal-line:first-child { margin-top: 0; }
 
-.terminal-prompt {
-    color: var(--term-cyan);
+.terminal-line a {
+    color: var(--text-primary);
+    text-decoration: none;
     font-weight: bold;
-    text-shadow: 0 0 5px rgba(0,191,255,0.25);
+    transition: all 0.15s ease;
+}
+
+.terminal-line a:hover {
+    color: var(--accent-navy);
+}
+
+.terminal-line a .fa {
+    color: var(--text-muted);
+}
+
+.terminal-line a:hover .fa {
+    color: var(--accent-navy);
+}
+
+.terminal-prompt {
+    color: var(--text-primary);
+    font-weight: bold;
 }
 
 .terminal-output {
@@ -552,7 +555,7 @@ nav {
 }
 
 .terminal-dim {
-    color: var(--term-dim);
+    color: var(--text-muted);
 }
 
 /* Social links inline */
@@ -587,7 +590,7 @@ nav {
     background: transparent;
     border: none;
     box-shadow: none;
-    color: var(--term-dim);
+    color: var(--text-muted);
     padding: 0;
     font-family: var(--font-mono);
     text-shadow: none;
@@ -597,8 +600,7 @@ nav {
 /* Blinking cursor */
 .terminal-cursor {
     animation: cursor-blink 1s steps(1) infinite;
-    color: var(--term-green);
-    text-shadow: 0 0 6px rgba(0,255,0,0.5);
+    color: var(--text-primary);
 }
 
 @keyframes cursor-blink {
@@ -643,13 +645,11 @@ nav {
 
 /* ===== WINAMP PLAYER ===== */
 .winamp {
-    background: var(--wp-bg);
-    border: 1px solid var(--chrome-black);
-    border-top-color: var(--chrome-mid);
-    border-left-color: var(--chrome-mid);
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.2);
     font-family: var(--font-winamp);
     font-size: 10px;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    box-shadow: none;
     overflow: hidden;
     transition: box-shadow 0.5s ease;
     flex: 1;
@@ -698,8 +698,8 @@ nav {
 }
 
 @keyframes winamp-time-pulse {
-    0%, 100% { text-shadow: 0 0 6px rgba(0,255,0,0.6); }
-    50%      { text-shadow: 0 0 10px rgba(0,255,0,0.9), 0 0 20px rgba(0,255,0,0.3); }
+    0%, 100% { text-shadow: 0 0 6px currentColor; }
+    50%      { text-shadow: 0 0 10px currentColor; }
 }
 
 /* Subtle glow on playing ticker text */
@@ -708,8 +708,8 @@ nav {
 }
 
 @keyframes winamp-ticker-glow {
-    0%, 100% { text-shadow: 0 0 4px rgba(0,255,0,0.4); }
-    50%      { text-shadow: 0 0 8px rgba(0,255,0,0.7), 0 0 16px rgba(0,255,0,0.2); }
+    0%, 100% { text-shadow: none; }
+    50%      { text-shadow: 0 0 6px currentColor; }
 }
 
 /* Active playlist item pulses gently when playing */
@@ -719,7 +719,7 @@ nav {
 
 @keyframes winamp-pl-pulse {
     0%, 100% { background: transparent; }
-    50%      { background: rgba(0,255,0,0.06); }
+    50%      { background: rgba(0,0,0,0.06); }
 }
 
 /* Titlebar — dark gradient with grippy texture */
@@ -727,20 +727,19 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(90deg, var(--wp-titlebar-start) 0%, var(--wp-titlebar-mid) 40%, var(--wp-titlebar-start) 100%);
+    background: transparent;
     padding: 3px 4px;
     gap: 4px;
     cursor: default;
-    border-bottom: 1px solid var(--chrome-darkest);
+    border-bottom: none;
 }
 
 .winamp-title {
-    color: var(--container-bg);
+    color: var(--text-primary);
     font-weight: bold;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     white-space: nowrap;
-    text-shadow: 1px 1px 0 var(--chrome-black);
 }
 
 .winamp-grip {
@@ -766,12 +765,11 @@ nav {
 
 /* Main Display — LCD screen */
 .winamp-display {
-    background: var(--wp-display);
+    background: transparent;
     margin: 3px;
     padding: 4px 5px;
-    border: 1px inset var(--chrome-darkest);
+    border: none;
     position: relative;
-    min-height: 46px;
 }
 
 /* Visualizer bars */
@@ -780,13 +778,14 @@ nav {
     align-items: flex-end;
     gap: 1px;
     height: 18px;
+    margin-top: 4px;
     margin-bottom: 3px;
 }
 
 .winamp-viz-bar {
     flex: 1;
     min-width: 0;
-    background: linear-gradient(0deg, var(--term-green-dim) 0%, var(--term-green) 40%, var(--accent-yellow) 70%, var(--counter-text) 100%);
+    background: linear-gradient(0deg, var(--text-muted) 0%, var(--text-secondary) 40%, var(--accent-navy) 70%, var(--text-primary) 100%);
     height: 3%;
     transition: height 0.1s ease-out;
     border-radius: 0 0 0 0;
@@ -800,43 +799,56 @@ nav {
 }
 
 .winamp-bitrate, .winamp-freq {
-    color: var(--wp-info);
+    color: var(--text-muted);
     font-size: 8px;
     font-family: var(--font-mono);
-    text-shadow: 0 0 3px rgba(0,170,136,0.4);
 }
 
 .winamp-kbps, .winamp-khz {
-    color: var(--wp-green);
+    color: var(--text-secondary);
     font-weight: bold;
     font-size: 9px;
-    text-shadow: 0 0 4px rgba(0,255,0,0.5);
 }
 
 /* Scrolling track name */
 .winamp-ticker {
-    color: var(--wp-green);
+    color: var(--text-primary);
     font-size: 10px;
     font-family: var(--font-mono);
-    text-shadow: 0 0 4px rgba(0,255,0,0.4);
     overflow: hidden;
     white-space: nowrap;
 }
 
 .winamp-ticker marquee {
-    color: var(--wp-green);
+    color: var(--text-primary);
 }
 
-/* Time display */
+/* Time row */
+.winamp-time-row {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-bottom: 4px;
+}
+
 .winamp-time {
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    color: var(--wp-green);
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: bold;
     font-family: var(--font-mono);
-    text-shadow: 0 0 6px rgba(0,255,0,0.6);
+    letter-spacing: 1px;
+}
+
+.winamp-time-sep {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--font-mono);
+}
+
+.winamp-duration {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--font-mono);
     letter-spacing: 1px;
 }
 
@@ -846,15 +858,14 @@ nav {
     justify-content: center;
     gap: 2px;
     padding: 3px 3px 2px;
-    background: var(--wp-surface);
-    border-top: 1px solid var(--text-primary);
+    background: transparent;
+    border-top: none;
 }
 
 .winamp-btn {
-    background: linear-gradient(180deg, var(--wp-btn-start) 0%, var(--wp-btn-mid) 40%, var(--wp-btn-end) 100%);
-    border: 1px solid;
-    border-color: var(--text-secondary) var(--chrome-darker) var(--chrome-darker) var(--text-secondary);
-    color: var(--wp-text);
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
     width: 28px;
     height: 20px;
     cursor: pointer;
@@ -866,14 +877,11 @@ nav {
 }
 
 .winamp-btn:hover {
-    background: linear-gradient(180deg, var(--wp-btn-hover-start) 0%, var(--wp-btn-hover-mid) 40%, var(--wp-btn-hover-end) 100%);
-    color: var(--container-bg);
+    color: var(--accent-navy);
 }
 
 .winamp-btn:active {
-    border-color: var(--chrome-darker) var(--text-secondary) var(--text-secondary) var(--chrome-darker);
-    background: linear-gradient(180deg, var(--chrome-active) 0%, var(--text-primary) 100%);
-    color: var(--wp-green);
+    color: var(--text-muted);
 }
 
 .winamp-btn .fa {
@@ -886,7 +894,7 @@ nav {
     align-items: center;
     gap: 3px;
     padding: 2px 5px;
-    background: var(--wp-surface);
+    background: transparent;
 }
 
 .winamp-vol-icon {
@@ -905,7 +913,7 @@ nav {
 
 .winamp-volume::-webkit-slider-runnable-track {
     height: 4px;
-    background: linear-gradient(90deg, var(--chrome-vol-start) 0%, var(--term-green-dim) 50%, var(--term-green) 100%);
+    background: linear-gradient(90deg, var(--chrome-vol-start) 0%, var(--text-muted) 50%, var(--text-secondary) 100%);
     border: 1px solid var(--chrome-darkest);
 }
 
@@ -922,7 +930,7 @@ nav {
 
 .winamp-volume::-moz-range-track {
     height: 4px;
-    background: linear-gradient(90deg, var(--chrome-vol-start) 0%, var(--term-green-dim) 50%, var(--term-green) 100%);
+    background: linear-gradient(90deg, var(--chrome-vol-start) 0%, var(--text-muted) 50%, var(--text-secondary) 100%);
     border: 1px solid var(--chrome-darkest);
 }
 
@@ -939,7 +947,7 @@ nav {
 /* Seek bar */
 .winamp-seek-row {
     padding: 1px 5px 3px;
-    background: var(--wp-surface);
+    background: transparent;
 }
 
 .winamp-seek {
@@ -989,31 +997,30 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(90deg, var(--wp-titlebar-start) 0%, var(--wp-titlebar-mid) 50%, var(--wp-titlebar-start) 100%);
+    background: transparent;
     padding: 2px 4px;
     gap: 4px;
-    border-top: 1px solid var(--chrome-mid);
+    border-top: none;
 }
 
 .winamp-pl-title {
-    color: var(--container-bg);
+    color: var(--text-secondary);
     font-size: 8px;
     font-weight: bold;
     letter-spacing: 1px;
-    text-shadow: 1px 1px 0 var(--chrome-black);
 }
 
 /* Playlist panel */
 .winamp-playlist {
     flex: 1;
     overflow-y: auto;
-    background: var(--wp-playlist-bg);
-    border-top: 1px solid var(--chrome-darkest);
+    background: transparent;
+    border-top: none;
 }
 
 .winamp-pl-item {
     padding: 2px 5px;
-    color: var(--wp-green);
+    color: var(--text-secondary);
     cursor: default;
     white-space: nowrap;
     overflow: hidden;
@@ -1023,7 +1030,7 @@ nav {
 }
 
 .winamp-pl-item:hover {
-    background: rgba(0,255,0,0.05);
+    background: rgba(0,0,0,0.05);
 }
 
 .winamp-pl-item.selected {
@@ -1032,16 +1039,16 @@ nav {
 }
 
 .winamp-pl-item.active {
-    color: var(--container-bg);
+    color: var(--text-primary);
     font-weight: bold;
 }
 
 .winamp-pl-item.active .winamp-pl-num {
-    color: var(--container-bg);
+    color: var(--text-primary);
 }
 
 .winamp-pl-num {
-    color: var(--term-green-dim);
+    color: var(--text-muted);
     margin-right: 3px;
 }
 
@@ -1185,7 +1192,7 @@ nav {
     background: linear-gradient(180deg, var(--wp-btn-start) 0%, var(--wp-btn-mid) 40%, var(--wp-btn-end) 100%);
     border: 1px solid;
     border-color: var(--text-secondary) var(--chrome-darker) var(--chrome-darker) var(--text-secondary);
-    color: var(--wp-green);
+    color: var(--text-primary);
     padding: 4px 12px;
     cursor: pointer;
     font-family: var(--font-mono);
@@ -1195,8 +1202,7 @@ nav {
 
 .track-radio-btn:hover {
     background: linear-gradient(180deg, var(--wp-btn-hover-start) 0%, var(--wp-btn-hover-mid) 40%, var(--wp-btn-hover-end) 100%);
-    color: var(--wp-green);
-    text-shadow: 0 0 6px rgba(0,255,0,0.5);
+    color: var(--text-primary);
 }
 
 .track-radio-btn:active {
