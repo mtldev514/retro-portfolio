@@ -39,6 +39,16 @@ A fully configurable retro-styled portfolio with a Win95/90s aesthetic. Designed
 - `data/`: Your portfolio content (JSON).
 - `lang/`: Translations and text.
 - `admin_api.py`: Backend for managing uploads and configuration.
+- `tests/`: Unit and integration tests.
+
+## 🧪 Tests
+
+Run the test suite to ensure everything is working correctly:
+
+```bash
+pip install -r requirements.txt
+pytest
+```
 
 ## 🌐 Deployment
 

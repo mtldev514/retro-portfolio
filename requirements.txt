@@ -3,3 +3,5 @@ cloudinary
 requests
 flask
 flask-cors
+pytest
+pytest-mock
