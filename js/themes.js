@@ -9,7 +9,7 @@
  *   Béton        — Dark brutalist grey: concrete & steel, cool monochrome
  */
 const themes = {
-    currentTheme: localStorage.getItem('selectedTheme') || 'jr16',
+    currentTheme: localStorage.getItem('selectedTheme') || 'ciment',
 
     definitions: {
 
@@ -126,249 +126,8 @@ const themes = {
                 '--sparkle-4':            '#ff00ff',
                 '--sparkle-5':            '#fff',
                 '--sparkle-6':            '#7fff00',
-                '--sparkle-7':            '#ff4500'
-            }
-        },
-
-        /* ──────────────────────────────────────────────
-         * AMBRE CHAUD — Dark CRT amber monitor
-         * Deep chocolate/espresso bg, amber & gold glow,
-         * warm brown surfaces. Like a 1980s terminal.
-         * ────────────────────────────────────────────── */
-        ambre: {
-            name: 'Ambre Chaud',
-            emoji: '🔥',
-            colors: {
-                /* Page — deep chocolate */
-                '--page-bg':              '#12100c',
-                '--container-bg':         '#1e1a14',
-                '--text-primary':         '#d4a030',
-                '--text-secondary':       '#b08830',
-                '--text-muted':           '#786030',
-                '--text-dim':             '#b08830',
-                '--text-light':           '#786030',
-                /* Header — rich saddle brown with gold title */
-                '--header-bg':            '#6b3000',
-                '--header-text':          '#ffc040',
-                '--header-border-light':  '#c08020',
-                '--header-border-dark':   '#2a1200',
-                /* Borders — warm brown 3D */
-                '--border-light':         '#c08020',
-                '--border-dark':          '#2a1200',
-                '--border-groove':        '#5a4020',
-                '--border-mid':           '#6b3000',
-                /* Buttons — dark brown gradient */
-                '--btn-bg-start':         '#3a2810',
-                '--btn-bg-mid':           '#2a1e0e',
-                '--btn-bg-end':           '#1e1508',
-                '--btn-hover-start':      '#4a3818',
-                '--btn-hover-mid':        '#c08020',
-                '--btn-hover-end':        '#6b3000',
-                '--btn-active-start':     '#1e1508',
-                '--btn-active-mid':       '#6b3000',
-                '--btn-active-end':       '#3a2810',
-                '--btn-text':             '#d4a030',
-                '--btn-text-active':      '#ffc040',
-                /* Filter / Lang */
-                '--filter-bg':            '#1e1a14',
-                '--lang-btn-bg':          '#3a2810',
-                '--lang-dropdown-bg':     '#1e1a14',
-                /* Terminal — amber phosphor on black */
-                '--term-bg':              '#080600',
-                '--term-green':           '#ffa500',
-                '--term-green-dim':       '#664200',
-                '--term-cyan':            '#ffc040',
-                '--term-text':            '#b08830',
-                '--term-dim':             '#786030',
-                '--term-titlebar':        '#2a1200',
-                '--term-titlebar-border': '#c08020',
-                '--term-btn-close':       '#a02000',
-                '--term-btn-min':         '#c08020',
-                '--term-btn-max':         '#664200',
-                /* Marquee — amber on black */
-                '--marquee-bg':           '#080600',
-                '--marquee-text':         '#ffa500',
-                /* Winamp — dark warm surfaces */
-                '--wp-bg':                '#080600',
-                '--wp-surface':           '#2a1e0e',
-                '--wp-display':           '#080600',
-                '--wp-titlebar-start':    '#2a1200',
-                '--wp-titlebar-mid':      '#4a2800',
-                '--wp-playlist-bg':       '#080600',
-                '--wp-btn-start':         '#2a1e0e',
-                '--wp-btn-mid':           '#2a1200',
-                '--wp-btn-end':           '#080600',
-                '--wp-btn-hover-start':   '#5a4020',
-                '--wp-btn-hover-mid':     '#2a1e0e',
-                '--wp-btn-hover-end':     '#2a1200',
-                '--wp-text':              '#c08020',
-                '--wp-green':             '#ffa500',
-                '--wp-info':              '#ffc040',
-                '--wp-selected':          '#2a1200',
-                /* Music */
-                '--music-bg':             '#080600',
-                '--music-gold':           '#c08020',
-                '--music-text':           '#d4a030',
-                '--music-text-dim':       '#786030',
-                /* Gallery / Detail */
-                '--gallery-border':       '#6b3000',
-                '--detail-meta-bg':       '#1e1a14',
-                /* Badges */
-                '--badge-public-bg':      '#1a3000',
-                '--badge-public-text':    '#88a030',
-                '--badge-private-bg':     '#400a0a',
-                '--badge-private-text':   '#c08020',
-                /* Counter / Accents */
-                '--counter-text':         '#a02000',
-                '--accent-navy':          '#2a1200',
-                '--accent-magenta':       '#c08020',
-                '--accent-yellow':        '#ffc040',
-                /* Chrome / UI tones — warm amber */
-                '--chrome-black':         '#080600',
-                '--chrome-darkest':       '#120e08',
-                '--chrome-darker':        '#1a1408',
-                '--chrome-dark':          '#2a1e0e',
-                '--chrome-mid':           '#3a2810',
-                '--chrome-gray':          '#5a4020',
-                '--chrome-light':         '#786030',
-                '--chrome-border':        '#b08830',
-                '--chrome-soft':          '#c08020',
-                '--chrome-active':        '#1a1408',
-                '--chrome-grip-alt':      '#4a3818',
-                '--chrome-vol-start':     '#332000',
-                /* Glow overrides — amber */
-                '--wp-glow-mid':          'rgba(255,160,0,0.2)',
-                '--wp-glow-soft':         'rgba(255,160,0,0.1)',
-                '--wp-glow-faint':        'rgba(255,160,0,0.05)',
-                /* Sparkle — amber glow */
-                '--sparkle-1':            '#ffc040',
-                '--sparkle-2':            '#c08020',
-                '--sparkle-3':            '#ffa500',
-                '--sparkle-4':            '#d4a030',
-                '--sparkle-5':            '#ffe0a0',
-                '--sparkle-6':            '#e8b840',
-                '--sparkle-7':            '#a02000'
-            }
-        },
-
-        /* ──────────────────────────────────────────────
-         * NAPLES YELLOW — Mediterranean warmth
-         * Sun-bleached cream, terracotta header,
-         * burnt sienna accents, warm gold terminal.
-         * ────────────────────────────────────────────── */
-        naples: {
-            name: 'Naples Yellow',
-            emoji: '☀️',
-            colors: {
-                /* Page — warm cream & sand */
-                '--page-bg':              '#e8d8c0',
-                '--container-bg':         '#f5ead5',
-                '--text-primary':         '#3c2415',
-                '--text-secondary':       '#5c3d28',
-                '--text-muted':           '#8c7058',
-                '--text-dim':             '#5c3d28',
-                '--text-light':           '#8c7058',
-                /* Header — terracotta */
-                '--header-bg':            '#b85c38',
-                '--header-text':          '#f5ead5',
-                '--header-border-light':  '#e0a870',
-                '--header-border-dark':   '#5c2810',
-                /* Borders — warm tan 3D */
-                '--border-light':         '#e0c8a0',
-                '--border-dark':          '#8c7058',
-                '--border-groove':        '#c4a880',
-                '--border-mid':           '#b85c38',
-                /* Buttons — warm sand gradient */
-                '--btn-bg-start':         '#e0c8a0',
-                '--btn-bg-mid':           '#f5ead5',
-                '--btn-bg-end':           '#c4a880',
-                '--btn-hover-start':      '#f5ead5',
-                '--btn-hover-mid':        '#e0c8a0',
-                '--btn-hover-end':        '#b85c38',
-                '--btn-active-start':     '#c4a880',
-                '--btn-active-mid':       '#b85c38',
-                '--btn-active-end':       '#e0c8a0',
-                '--btn-text':             '#3c2415',
-                '--btn-text-active':      '#8b2010',
-                /* Filter / Lang */
-                '--filter-bg':            '#e0c8a0',
-                '--lang-btn-bg':          '#c4a880',
-                '--lang-dropdown-bg':     '#f5ead5',
-                /* Terminal — warm gold on dark brown */
-                '--term-bg':              '#1a1008',
-                '--term-green':           '#d8a030',
-                '--term-green-dim':       '#5a3810',
-                '--term-cyan':            '#e8b840',
-                '--term-text':            '#8c7058',
-                '--term-dim':             '#5c3d28',
-                '--term-titlebar':        '#5c2810',
-                '--term-titlebar-border': '#b85c38',
-                '--term-btn-close':       '#8b2010',
-                '--term-btn-min':         '#e0a870',
-                '--term-btn-max':         '#5a3810',
-                /* Marquee — gold on dark */
-                '--marquee-bg':           '#1a1008',
-                '--marquee-text':         '#d8a030',
-                /* Winamp — warm dark surfaces */
-                '--wp-bg':                '#1a1008',
-                '--wp-surface':           '#3a2818',
-                '--wp-display':           '#1a1008',
-                '--wp-titlebar-start':    '#5c2810',
-                '--wp-titlebar-mid':      '#7a4020',
-                '--wp-playlist-bg':       '#1a1008',
-                '--wp-btn-start':         '#3a2818',
-                '--wp-btn-mid':           '#5c2810',
-                '--wp-btn-end':           '#1a1008',
-                '--wp-btn-hover-start':   '#8c7058',
-                '--wp-btn-hover-mid':     '#3a2818',
-                '--wp-btn-hover-end':     '#5c2810',
-                '--wp-text':              '#e0a870',
-                '--wp-green':             '#d8a030',
-                '--wp-info':              '#e8b840',
-                '--wp-selected':          '#5c2810',
-                /* Music */
-                '--music-bg':             '#1a1008',
-                '--music-gold':           '#e0a870',
-                '--music-text':           '#f5ead5',
-                '--music-text-dim':       '#8c7058',
-                /* Gallery / Detail */
-                '--gallery-border':       '#b85c38',
-                '--detail-meta-bg':       '#e0c8a0',
-                /* Badges */
-                '--badge-public-bg':      '#2a4010',
-                '--badge-public-text':    '#98b048',
-                '--badge-private-bg':     '#5c1810',
-                '--badge-private-text':   '#b85c38',
-                /* Counter / Accents */
-                '--counter-text':         '#8b2010',
-                '--accent-navy':          '#5c2810',
-                '--accent-magenta':       '#b85c38',
-                '--accent-yellow':        '#e0a870',
-                /* Chrome / UI tones — warm terracotta */
-                '--chrome-black':         '#1a1008',
-                '--chrome-darkest':       '#2a1e10',
-                '--chrome-darker':        '#3a2818',
-                '--chrome-dark':          '#4a3820',
-                '--chrome-mid':           '#5c3d28',
-                '--chrome-gray':          '#6a5038',
-                '--chrome-light':         '#8c7058',
-                '--chrome-border':        '#c4a880',
-                '--chrome-soft':          '#d4b890',
-                '--chrome-active':        '#2a1e10',
-                '--chrome-grip-alt':      '#5a4030',
-                '--chrome-vol-start':     '#3a2010',
-                /* Glow overrides — warm gold */
-                '--wp-glow-mid':          'rgba(216,160,48,0.2)',
-                '--wp-glow-soft':         'rgba(216,160,48,0.1)',
-                '--wp-glow-faint':        'rgba(216,160,48,0.05)',
-                /* Sparkle — Mediterranean warmth */
-                '--sparkle-1':            '#e0a870',
-                '--sparkle-2':            '#b85c38',
-                '--sparkle-3':            '#e8b840',
-                '--sparkle-4':            '#d8a030',
-                '--sparkle-5':            '#f5ead5',
-                '--sparkle-6':            '#98b048',
-                '--sparkle-7':            '#8b2010'
+                '--sparkle-7':            '#ff4500',
+                '--petal-color':          '#88d8b0'
             }
         },
 
@@ -492,7 +251,8 @@ const themes = {
                 '--sparkle-4':            '#707078',
                 '--sparkle-5':            '#ffffff',
                 '--sparkle-6':            '#8a8a90',
-                '--sparkle-7':            '#58585e'
+                '--sparkle-7':            '#58585e',
+                '--petal-color':          '#d88ca0'
             }
         },
 
@@ -616,7 +376,133 @@ const themes = {
                 '--sparkle-4':            '#70707a',
                 '--sparkle-5':            '#1a1a1e',
                 '--sparkle-6':            '#d0d0d4',
-                '--sparkle-7':            '#505058'
+                '--sparkle-7':            '#505058',
+                '--petal-color':          '#d8a0b0'
+            }
+        },
+
+        /* ──────────────────────────────────────────────
+         * BUBBLE GUM — Pastel pink & soft yellow
+         * Candy wrapper, strawberry milk, warm afternoons.
+         * Ciment's playful sibling.
+         * ────────────────────────────────────────────── */
+        bubblegum: {
+            name: 'Bubble Gum',
+            emoji: '🍬',
+            colors: {
+                /* Page — soft blush */
+                '--page-bg':              '#f2dce4',
+                '--container-bg':         '#fceef3',
+                '--text-primary':         '#4a2838',
+                '--text-secondary':       '#7a5068',
+                '--text-muted':           '#a88898',
+                '--text-dim':             '#7a5068',
+                '--text-light':           '#c0a0b0',
+                /* Header — muted rose */
+                '--header-bg':            '#c898a8',
+                '--header-text':          '#fff4f8',
+                '--header-border-light':  '#dbb8c8',
+                '--header-border-dark':   '#a87888',
+                /* Borders — blush 3D */
+                '--border-light':         '#f0dce6',
+                '--border-dark':          '#d0b0bc',
+                '--border-groove':        '#dcc0cc',
+                '--border-mid':           '#c0a0b0',
+                /* Buttons — soft candy gradient */
+                '--btn-bg-start':         '#fceef3',
+                '--btn-bg-mid':           '#f4d8e4',
+                '--btn-bg-end':           '#dcc0cc',
+                '--btn-hover-start':      '#fff4f8',
+                '--btn-hover-mid':        '#fae4ec',
+                '--btn-hover-end':        '#ecd0dc',
+                '--btn-active-start':     '#dcc0cc',
+                '--btn-active-mid':       '#c0a0b0',
+                '--btn-active-end':       '#f4d8e4',
+                '--btn-text':             '#4a2838',
+                '--btn-text-active':      '#3a1828',
+                /* Filter / Lang */
+                '--filter-bg':            '#f4d8e4',
+                '--lang-btn-bg':          '#dcc0cc',
+                '--lang-dropdown-bg':     '#fceef3',
+                /* Terminal — dark on blush */
+                '--term-bg':              '#201018',
+                '--term-green':           '#d8a8c0',
+                '--term-green-dim':       '#5a3048',
+                '--term-cyan':            '#e8c8d8',
+                '--term-text':            '#b890a8',
+                '--term-dim':             '#6a4058',
+                '--term-titlebar':        '#382030',
+                '--term-titlebar-border': '#6a4058',
+                '--term-btn-close':       '#b86070',
+                '--term-btn-min':         '#b8a060',
+                '--term-btn-max':         '#60a078',
+                /* Marquee — dark on blush */
+                '--marquee-bg':           '#201018',
+                '--marquee-text':         '#d8a8c0',
+                /* Winamp — dark with blush accent */
+                '--wp-bg':                '#201018',
+                '--wp-surface':           '#302030',
+                '--wp-display':           '#201018',
+                '--wp-titlebar-start':    '#382030',
+                '--wp-titlebar-mid':      '#503848',
+                '--wp-playlist-bg':       '#201018',
+                '--wp-btn-start':         '#302030',
+                '--wp-btn-mid':           '#281828',
+                '--wp-btn-end':           '#201018',
+                '--wp-btn-hover-start':   '#503848',
+                '--wp-btn-hover-mid':     '#382030',
+                '--wp-btn-hover-end':     '#281828',
+                '--wp-text':              '#d8a8c0',
+                '--wp-green':             '#e8c0d0',
+                '--wp-info':              '#f0dce6',
+                '--wp-selected':          '#382030',
+                /* Music */
+                '--music-bg':             '#201018',
+                '--music-gold':           '#d8a8c0',
+                '--music-text':           '#f0dce6',
+                '--music-text-dim':       '#a88898',
+                /* Gallery / Detail */
+                '--gallery-border':       '#d0b0bc',
+                '--detail-meta-bg':       '#f4d8e4',
+                /* Badges */
+                '--badge-public-bg':      '#d0e8d0',
+                '--badge-public-text':    '#306830',
+                '--badge-private-bg':     '#f0d0d8',
+                '--badge-private-text':   '#884048',
+                /* Counter / Accents */
+                '--counter-text':         '#b86878',
+                '--accent-navy':          '#6a4060',
+                '--accent-magenta':       '#d0a0b8',
+                '--accent-yellow':        '#f0e4b8',
+                /* Chrome / UI tones — blush steel */
+                '--chrome-black':         '#201018',
+                '--chrome-darkest':       '#281828',
+                '--chrome-darker':        '#302030',
+                '--chrome-dark':          '#382030',
+                '--chrome-mid':           '#503848',
+                '--chrome-gray':          '#684860',
+                '--chrome-light':         '#a88898',
+                '--chrome-border':        '#d0b0bc',
+                '--chrome-soft':          '#dcc0cc',
+                '--chrome-active':        '#302030',
+                '--chrome-grip-alt':      '#503848',
+                '--chrome-vol-start':     '#303030',
+                /* Glow overrides — soft pink */
+                '--marquee-glow':         'rgba(200,160,180,0.1)',
+                '--marquee-glow-text':    'rgba(200,160,180,0.3)',
+                '--term-glow':            'rgba(200,160,180,0.15)',
+                '--wp-glow-mid':          'rgba(200,160,180,0.15)',
+                '--wp-glow-soft':         'rgba(200,160,180,0.08)',
+                '--wp-glow-faint':        'rgba(200,160,180,0.04)',
+                /* Sparkle — soft candy */
+                '--sparkle-1':            '#d888a8',
+                '--sparkle-2':            '#e8b0c8',
+                '--sparkle-3':            '#f0d8a0',
+                '--sparkle-4':            '#c8a0b8',
+                '--sparkle-5':            '#fff0f5',
+                '--sparkle-6':            '#f0c880',
+                '--sparkle-7':            '#c06888',
+                '--petal-color':          '#e890b0'
             }
         }
     },
@@ -666,27 +552,23 @@ const themes = {
         // Gear button is static — no UI update needed
     },
 
-    togglePetals(themeId) {
+    togglePetals() {
         const existing = document.getElementById('petal-rain');
-        if (themeId !== 'beton') {
-            if (existing) existing.remove();
-            return;
-        }
-        if (existing) return; // already active
+        if (existing) existing.remove();
 
         const container = document.createElement('div');
         container.id = 'petal-rain';
-        const petals = ['❀', '✿', '❁', '✾', '·'];
-        const count = 25;
+        const count = 60;
         for (let i = 0; i < count; i++) {
             const petal = document.createElement('span');
             petal.className = 'petal';
-            petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+            const size = 6 + Math.floor(Math.random() * 6);
+            petal.style.width = size + 'px';
+            petal.style.height = (size * 1.4) + 'px';
             petal.style.left = Math.random() * 100 + '%';
             petal.style.animationDuration = (8 + Math.random() * 12) + 's';
             petal.style.animationDelay = -(Math.random() * 20) + 's';
-            petal.style.fontSize = (8 + Math.random() * 8) + 'px';
-            petal.style.opacity = 0.15 + Math.random() * 0.2;
+            petal.style.opacity = 0.2 + Math.random() * 0.2;
             container.appendChild(petal);
         }
         document.body.appendChild(container);

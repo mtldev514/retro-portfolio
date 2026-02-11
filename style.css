@@ -142,6 +142,9 @@
     --sparkle-6: #7fff00;            /* Chartreuse */
     --sparkle-7: #ff4500;            /* Orange-red */
 
+    /* ── Petals ── */
+    --petal-color: #88d8b0;          /* Soft mint (JR-16 default) */
+
     /* ── Admin page ── */
     --admin-muted-text: #666;        /* Muted hint text */
     --admin-file-type: blue;         /* File type indicator */
@@ -191,10 +194,9 @@ body {
 .petal {
     position: absolute;
     top: -20px;
-    color: #d88ca0;
+    background: var(--petal-color, #d88ca0);
+    border-radius: 50% 0 50% 0;
     animation: petal-fall linear infinite;
-    image-rendering: pixelated;
-    -webkit-font-smoothing: none;
 }
 
 @keyframes petal-fall {
@@ -228,6 +230,7 @@ body {
         inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     padding: 20px;
     position: relative;
+    z-index: 1;
 }
 
 /* Settings Switcher (Theme + Language) */
@@ -1245,6 +1248,18 @@ nav {
 
 .gallery-item[data-category="music"] {
     background: var(--container-bg);
+    position: relative;
+}
+.gallery-item[data-category="music"]::before {
+    content: '♪';
+    position: absolute;
+    font-size: 140px;
+    opacity: 0.06;
+    right: -10px;
+    bottom: -20px;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .gallery-item[data-category="music"] h3 {
@@ -1262,6 +1277,8 @@ nav {
     align-items: center;
     justify-content: center;
     height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .track-icon {
