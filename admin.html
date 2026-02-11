@@ -336,6 +336,9 @@
             }
         }
 
+        const IMAGE_CATEGORIES = ['painting', 'drawing', 'photography', 'sculpting'];
+        let loadedContent = {}; // cached for pile picker
+
         async function loadContent() {
             const cat = document.getElementById('manageCategory').value;
             const list = document.getElementById('contentList');
@@ -344,6 +347,7 @@
             try {
                 const res = await fetch(`${API_URL}/api/content`);
                 const all = await res.json();
+                loadedContent = all;
 
                 let html = '';
                 Object.keys(all).forEach(category => {
@@ -356,9 +360,13 @@
                         const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
                         const id = item.id || titleStr;
                         const safeId = id.replace(/"/g, '&quot;');
+                        const galleryCount = (item.gallery && item.gallery.length) ? item.gallery.length + 1 : 0;
+                        const pileBadge = galleryCount > 1 ? ` <span class="admin-muted">[${galleryCount} imgs]</span>` : '';
+                        const isImage = IMAGE_CATEGORIES.includes(category);
                         html += `<div class="content-row">
-                            <div style="flex:1"><b>${titleStr}</b> <span class="admin-muted">(${item.date || 'N/A'})</span></div>
+                            <div style="flex:1"><b>${titleStr}</b>${pileBadge} <span class="admin-muted">(${item.date || 'N/A'})</span></div>
                             <div>
+                                ${isImage ? `<button type="button" class="pile-btn" style="font-size:10px" data-category="${category}" data-id="${safeId}">Pile</button>` : ''}
                                 <button type="button" class="edit-btn" style="font-size:10px" data-category="${category}" data-id="${safeId}">Edit</button>
                                 <button type="button" class="delete-btn con-error" style="font-size:10px;margin-left:5px" data-category="${category}" data-id="${safeId}">Delete</button>
                                 <span class="delete-status" style="font-size:9px;margin-left:5px"></span>
@@ -382,6 +390,13 @@
                 return;
             }
 
+            const pileBtn = e.target.closest('.pile-btn');
+            if (pileBtn) {
+                e.stopPropagation();
+                openPilePicker(pileBtn);
+                return;
+            }
+
             const deleteBtn = e.target.closest('.delete-btn');
             if (deleteBtn) {
                 e.stopPropagation();
@@ -402,6 +417,82 @@
                 }
             }
         });
+
+        function openPilePicker(btn) {
+            // Close any existing picker
+            document.querySelectorAll('.pile-picker').forEach(p => p.remove());
+
+            const category = btn.dataset.category;
+            const sourceId = btn.dataset.id;
+            const items = (loadedContent[category] || []).filter(item => {
+                const id = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
+                return id !== sourceId;
+            });
+
+            if (items.length === 0) {
+                const consoleBox = document.getElementById('console');
+                consoleBox.innerHTML += `<br><span class="con-warn">> No other items in ${category} to pile into.</span>`;
+                return;
+            }
+
+            const picker = document.createElement('div');
+            picker.className = 'pile-picker';
+
+            let html = '<div class="pile-picker-title">Move into:</div>';
+            items.forEach(item => {
+                const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
+                const id = item.id || titleStr;
+                const safeId = id.replace(/"/g, '&quot;');
+                const galleryCount = (item.gallery && item.gallery.length) ? item.gallery.length + 1 : 1;
+                html += `<div class="pile-picker-item" data-target-id="${safeId}">
+                    ${titleStr} <span class="admin-muted">(${galleryCount} img${galleryCount > 1 ? 's' : ''})</span>
+                </div>`;
+            });
+            picker.innerHTML = html;
+
+            // Position it near the button
+            btn.parentElement.style.position = 'relative';
+            btn.parentElement.appendChild(picker);
+
+            // Handle pick
+            picker.addEventListener('click', async (ev) => {
+                const pickItem = ev.target.closest('.pile-picker-item');
+                if (!pickItem) return;
+
+                const targetId = pickItem.dataset.targetId;
+                picker.innerHTML = '<div class="pile-picker-title">Moving...</div>';
+
+                try {
+                    const res = await fetch(`${API_URL}/api/content/move-to-pile`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ category, sourceId, targetId })
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        document.getElementById('console').innerHTML += `<br><span class="con-success">> Moved into pile (${result.targetGalleryCount + 1} images total).</span>`;
+                        picker.remove();
+                        loadContent();
+                    } else {
+                        document.getElementById('console').innerHTML += `<br><span class="con-error">> Pile error: ${result.error}</span>`;
+                        picker.remove();
+                    }
+                } catch (err) {
+                    document.getElementById('console').innerHTML += `<br><span class="con-error">> Network error: ${err.message}</span>`;
+                    picker.remove();
+                }
+            });
+
+            // Close on outside click
+            setTimeout(() => {
+                document.addEventListener('click', function closePicker(ev) {
+                    if (!picker.contains(ev.target) && ev.target !== btn) {
+                        picker.remove();
+                        document.removeEventListener('click', closePicker);
+                    }
+                });
+            }, 0);
+        }
 
         async function deleteItem(category, id, statusSpan) {
             statusSpan.innerHTML = '<span class="con-hi">deleting...</span>';

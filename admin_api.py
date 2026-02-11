@@ -332,6 +332,65 @@ def update_content():
     manager.update_site_timestamp()
     return jsonify({"success": True})
 
+@app.route('/api/content/move-to-pile', methods=['POST'])
+def move_to_pile():
+    """Move a source item's image into a target item's gallery array,
+    then delete the source item."""
+    data = request.json
+    category = data.get('category')
+    source_id = data.get('sourceId')
+    target_id = data.get('targetId')
+
+    if not category or not source_id or not target_id:
+        return jsonify({"error": "category, sourceId, and targetId are required"}), 400
+
+    if source_id == target_id:
+        return jsonify({"error": "Source and target cannot be the same item"}), 400
+
+    json_path = manager.JSON_MAP.get(category)
+    if not json_path or not os.path.exists(json_path):
+        return jsonify({"error": f"Invalid category: {category}"}), 404
+
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data_list = json.load(f)
+
+    source_item = None
+    target_item = None
+    for item in data_list:
+        if item.get('id') == source_id:
+            source_item = item
+        if item.get('id') == target_id:
+            target_item = item
+
+    if not source_item:
+        return jsonify({"error": "Source item not found"}), 404
+    if not target_item:
+        return jsonify({"error": "Target item not found"}), 404
+
+    source_url = source_item.get('url')
+    if not source_url:
+        return jsonify({"error": "Source item has no URL"}), 400
+
+    # Append source URL (and its own gallery images) into target's gallery
+    if 'gallery' not in target_item:
+        target_item['gallery'] = []
+    target_item['gallery'].append(source_url)
+    # Also move any gallery images the source already had
+    for img in source_item.get('gallery', []):
+        target_item['gallery'].append(img)
+
+    # Remove source item
+    data_list = [item for item in data_list if item.get('id') != source_id]
+
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(data_list, f, indent=4, ensure_ascii=False)
+
+    manager.update_site_timestamp()
+    return jsonify({
+        "success": True,
+        "targetGalleryCount": len(target_item.get('gallery', []))
+    })
+
 if __name__ == '__main__':
     print("Admin API running on http://0.0.0.0:5001")
     app.run(host='0.0.0.0', port=5001, debug=True)

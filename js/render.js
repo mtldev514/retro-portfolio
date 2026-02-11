@@ -217,12 +217,14 @@ const renderer = {
 
             const pileCount = (item.gallery && item.gallery.length) ? item.gallery.length + 1 : 0;
             const pileBadge = pileCount > 1 ? `<span class="pile-badge">📷 ${pileCount}</span>` : '';
+            const pileLabel = pileCount > 1 ? `<p align="center" class="gallery-subtitle pile-label">📷 ${pileCount} photos</p>` : '';
 
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
                     ${hasImage ? `<div class="gallery-img-wrap"><img src="${item.url}" alt="${title}" loading="lazy">${pileBadge}</div>` : `<div class="card-icon">${icon}</div>`}
                     <h3 align="center">${title}</h3>
                     ${subTitle ? `<p align="center" class="gallery-subtitle">${subTitle}</p>` : ''}
+                    ${pileLabel}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>
