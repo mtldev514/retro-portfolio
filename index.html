@@ -104,11 +104,16 @@
             <main id="app">
                 <div id="filter-nav" class="filter-bar">
                     <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
-                    <button class="filter-btn" data-filter="art" data-i18n="nav_art">Art (Paint/Draw)</button>
+                    <button class="filter-btn" data-filter="painting" data-i18n="nav_painting">Painting</button>
+                    <button class="filter-btn" data-filter="drawing" data-i18n="nav_drawing">Drawing</button>
                     <button class="filter-btn" data-filter="photography" data-i18n="nav_photo">Photography</button>
                     <button class="filter-btn" data-filter="sculpting" data-i18n="nav_sculpting">Sculpting</button>
                     <button class="filter-btn" data-filter="music" data-i18n="nav_music">Music</button>
                     <button class="filter-btn" data-filter="projects" data-i18n="nav_projects">Code</button>
+                    <span class="sort-controls">
+                        <button class="sort-btn active" data-sort="desc" title="Newest first">&#9660;</button>
+                        <button class="sort-btn" data-sort="asc" title="Oldest first">&#9650;</button>
+                    </span>
                 </div>
                 <!-- Gallery grid loaded by render.js -->
             </main>
@@ -134,11 +139,12 @@
                         <a href="https://github.com/mtldev514" target="_blank" title="GitHub"><i class="fa fa-github"></i> github</a>
                         <a href="https://www.linkedin.com/in/alexcatus/?locale=fr_FR" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i> linkedin</a>
                     </div>
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> uptime &mdash; <span class="terminal-dim"><span data-i18n="footer_last_updated">Last update:</span> 10 Feb 2026 | <span data-i18n="footer_visitors">Visits:</span> <span class="visitor-counter">000427</span></span> <span class="terminal-cursor">█</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> uptime &mdash; <span class="terminal-dim"><span data-i18n="footer_last_updated">Last update:</span> 10 Feb 2026 | <span data-i18n="footer_visitors">Visits:</span> <span class="visitor-counter">......</span></span> <span class="terminal-cursor">█</span></div>
                 </div>
             </div>
         </footer>
     </div>
+<script src="js/counter.js"></script>
 </body>
 
 </html>

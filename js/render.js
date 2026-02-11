@@ -4,15 +4,26 @@
  */
 const renderer = {
     categories: {
-        art:          { file: 'art.json',         from: 'gallery' },
+        painting:     { file: 'painting.json',    from: 'painting' },
+        drawing:      { file: 'drawing.json',     from: 'drawing' },
         photography:  { file: 'photography.json', from: 'photography' },
         sculpting:    { file: 'sculpting.json',   from: 'sculpting' },
         music:        { file: 'music.json',       from: 'music' },
         projects:     { file: 'projects.json',    from: 'projects' },
     },
 
+    categoryIcons: {
+        painting:    '🎨',
+        drawing:     '✏️',
+        photography: '📷',
+        sculpting:   '🗿',
+        music:       '🎵',
+        projects:    '💻',
+    },
+
     allItems: [],
     activeFilter: 'all',
+    sortOrder: 'desc',
 
     t(field) {
         if (!field) return '';
@@ -42,12 +53,21 @@ const renderer = {
             });
             const results = await Promise.all(fetches);
             this.allItems = results.flat();
-            this.allItems.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+            this.sortItems();
         }
 
         this.renderGrid();
         this.setupFilters();
         if (window.i18n) window.i18n.updateDOM();
+    },
+
+    sortItems() {
+        const dir = this.sortOrder === 'desc' ? -1 : 1;
+        this.allItems.sort((a, b) => {
+            const da = a.created || a.date || '';
+            const db = b.created || b.date || '';
+            return dir * da.localeCompare(db);
+        });
     },
 
     renderGrid() {
@@ -78,14 +98,16 @@ const renderer = {
         div.setAttribute('data-category', item._category);
 
         const title = this.t(item.title);
-        const dateStr = item.date || 'N/A';
+        const dateStr = item.created || item.date || 'N/A';
+        const dateLabel = item.created ? 'gallery_created_on' : 'gallery_added_on';
+        const dateFallback = item.created ? 'Created:' : 'Added:';
         const itemId = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
         const from = item._from || 'gallery';
         const detailHref = `detail.html?id=${encodeURIComponent(itemId)}&from=${from}`;
+        const icon = this.categoryIcons[item._category] || '';
 
         if (item._category === 'music') {
             const genre = this.t(item.genre);
-            const description = this.t(item.description);
             const playLabel = (window.i18n && i18n.translations.music_play_in_radio) || 'Play in Radio';
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
@@ -93,7 +115,7 @@ const renderer = {
                     <h3 align="center">${title}</h3>
                     ${genre ? `<p align="center"><i>${genre}</i></p>` : ''}
                     <p align="center" class="item-date">
-                        <span data-i18n="gallery_added_on">Added on:</span> ${dateStr}
+                        <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>
                 </a>
                 ${item.url ? `<div align="center" style="padding: 5px;">
@@ -127,10 +149,10 @@ const renderer = {
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
                     ${item.url && !isProject ? `<img src="${item.url}" alt="${title}">` : ''}
-                    <h3 align="center">${title}${visibilityEmoji}</h3>
+                    <h3 align="center"><span class="category-icon">${icon}</span> ${title}${visibilityEmoji}</h3>
                     ${subTitle ? `<p align="center"><i>${subTitle}</i></p>` : ''}
                     <p align="center" class="item-date">
-                        <span data-i18n="gallery_added_on">Added on:</span> ${dateStr}
+                        <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>
                 </a>
             `;
@@ -143,26 +165,57 @@ const renderer = {
         if (!nav) return;
 
         nav.addEventListener('click', (e) => {
+            // Filter buttons
             const btn = e.target.closest('.filter-btn');
-            if (!btn) return;
+            if (btn) {
+                nav.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.activeFilter = btn.dataset.filter;
+                this.applyFilter(this.activeFilter);
+                return;
+            }
 
-            nav.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            this.activeFilter = btn.dataset.filter;
-            this.applyFilter(this.activeFilter);
+            // Sort buttons
+            const sortBtn = e.target.closest('.sort-btn');
+            if (sortBtn) {
+                nav.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                sortBtn.classList.add('active');
+                this.sortOrder = sortBtn.dataset.sort;
+                this.sortItems();
+                this.renderGrid();
+                this.applyFilter(this.activeFilter);
+            }
         });
     },
 
     applyFilter(filter) {
-        const items = document.querySelectorAll('#gallery-container .gallery-item');
+        const container = document.getElementById('gallery-container');
+        if (!container) return;
+        const items = container.querySelectorAll('.gallery-item');
+        let visibleCount = 0;
         items.forEach(item => {
             if (filter === 'all' || item.dataset.category === filter) {
                 item.style.display = '';
+                visibleCount++;
             } else {
                 item.style.display = 'none';
             }
         });
+
+        // Empty filter message
+        let emptyMsg = document.getElementById('empty-filter-msg');
+        if (visibleCount === 0) {
+            if (!emptyMsg) {
+                emptyMsg = document.createElement('p');
+                emptyMsg.id = 'empty-filter-msg';
+                emptyMsg.className = 'empty-message';
+                container.appendChild(emptyMsg);
+            }
+            emptyMsg.textContent = (window.i18n && i18n.translations.filter_empty) || 'Nothing here yet.';
+            emptyMsg.style.display = '';
+        } else if (emptyMsg) {
+            emptyMsg.remove();
+        }
     }
 };
 

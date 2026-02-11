@@ -29,6 +29,7 @@ def upload_file():
     medium = request.form.get('medium')
     genre = request.form.get('genre')
     description = request.form.get('description')
+    created = request.form.get('created')
 
     if not title or not category:
         return jsonify({"error": "Title and Category are required"}), 400
@@ -40,12 +41,13 @@ def upload_file():
     try:
         # Use manager logic to upload to Cloudinary and update JSON
         result = manager.upload_and_save(
-            temp_path, 
-            title, 
-            category, 
-            medium=medium, 
+            temp_path,
+            title,
+            category,
+            medium=medium,
             genre=genre,
-            description=description
+            description=description,
+            created=created
         )
         return jsonify({"success": True, "data": result})
     except Exception as e:
@@ -66,6 +68,7 @@ def upload_from_url():
     genre = data.get('genre')
     medium = data.get('medium')
     description = data.get('description')
+    created = data.get('created')
 
     if not url or not title or not category:
         return jsonify({"error": "URL, Title, and Category are required"}), 400
@@ -75,7 +78,8 @@ def upload_from_url():
             url, title, category,
             medium=medium,
             genre=genre,
-            description=description
+            description=description,
+            created=created
         )
         return jsonify({"success": True, "data": result})
     except Exception as e:

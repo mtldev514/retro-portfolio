@@ -214,7 +214,8 @@
                         <div class="form-group">
                             <label>Category:</label>
                             <select id="category" name="category" onchange="toggleFields()" required>
-                                <option value="art">Art (Paint/Draw)</option>
+                                <option value="painting">Painting</option>
+                                <option value="drawing">Drawing</option>
                                 <option value="photography">Photography</option>
                                 <option value="sculpting">Sculpting</option>
                                 <option value="music">Music/Audio</option>
@@ -231,6 +232,12 @@
                         <div class="form-group" id="genreGroup" style="display: none;">
                             <label>Genre/Style:</label>
                             <input type="text" id="genre" name="genre" placeholder="E.g. Synthwave">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Creation Date:</label>
+                            <input type="date" id="created" name="created" style="font-family: inherit; font-size: 12px;">
+                            <p style="font-size: 10px; color: #666;">When was this work created? (Leave empty for today)</p>
                         </div>
 
                         <div class="form-group">
@@ -377,7 +384,7 @@
 
         function toggleFields() {
             const cat = document.getElementById('category').value;
-            document.getElementById('mediumGroup').style.display = (cat === 'art' || cat === 'sculpting') ? 'block' : 'none';
+            document.getElementById('mediumGroup').style.display = (cat === 'painting' || cat === 'drawing' || cat === 'sculpting') ? 'block' : 'none';
             document.getElementById('genreGroup').style.display = (cat === 'music' || cat === 'video') ? 'block' : 'none';
 
             // Show source toggle for music (Cloudinary doesn't support audio on free plan)
@@ -461,7 +468,8 @@
                             title: title,
                             category: document.getElementById('category').value,
                             genre: document.getElementById('genre').value,
-                            description: document.getElementById('description').value
+                            description: document.getElementById('description').value,
+                            created: document.getElementById('created').value
                         })
                     });
                     const result = await response.json();

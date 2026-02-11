@@ -22,7 +22,8 @@ cloudinary.config(
 )
 
 JSON_MAP = {
-    "art": "data/art.json",
+    "painting": "data/painting.json",
+    "drawing": "data/drawing.json",
     "photography": "data/photography.json",
     "sculpting": "data/sculpting.json",
     "projects": "data/projects.json",
@@ -112,7 +113,7 @@ def upload_to_github_release(file_path, filename):
     r.raise_for_status()
     return r.json()["browser_download_url"]
 
-def upload_and_save(file_path, title, category, medium=None, genre=None, description=None):
+def upload_and_save(file_path, title, category, medium=None, genre=None, description=None, created=None):
     """Core logic to upload file and update JSON database."""
     print(f"--- Processing: {title} ({category}) ---")
     
@@ -164,7 +165,8 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
         "id": f"{category}_{int(datetime.now().timestamp())}",
         "title": make_multilingual(title),
         "url": media_url,
-        "date": datetime.now().strftime("%Y-%m-%d")
+        "date": datetime.now().strftime("%Y-%m-%d"),
+        "created": created if created else datetime.now().strftime("%Y-%m-%d")
     }
     if medium:
         new_entry["medium"] = make_multilingual(medium)
@@ -198,7 +200,7 @@ def update_site_timestamp():
             with open(file_name, "w", encoding="utf-8") as f:
                 f.write(new_content)
 
-def save_from_url(url, title, category, medium=None, genre=None, description=None):
+def save_from_url(url, title, category, medium=None, genre=None, description=None, created=None):
     """Save a media entry using a direct URL (no Cloudinary upload).
     Used for audio files hosted on Internet Archive, GitHub Releases, etc."""
     print(f"--- Saving from URL: {title} ({category}) ---")
@@ -227,7 +229,8 @@ def save_from_url(url, title, category, medium=None, genre=None, description=Non
         "id": f"{category}_{int(datetime.now().timestamp())}",
         "title": make_multilingual(title),
         "url": url,
-        "date": datetime.now().strftime("%Y-%m-%d")
+        "date": datetime.now().strftime("%Y-%m-%d"),
+        "created": created if created else datetime.now().strftime("%Y-%m-%d")
     }
     if medium:
         new_entry["medium"] = make_multilingual(medium)

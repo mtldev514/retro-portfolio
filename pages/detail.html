@@ -24,7 +24,8 @@
 
         // Map 'from' to data file and back link
         const categoryMap = {
-            'gallery': { file: 'art.json', back: 'index.html' },
+            'painting': { file: 'painting.json', back: 'index.html' },
+            'drawing': { file: 'drawing.json', back: 'index.html' },
             'photography': { file: 'photography.json', back: 'index.html' },
             'sculpting': { file: 'sculpting.json', back: 'index.html' },
             'projects': { file: 'projects.json', back: 'index.html' },
@@ -56,6 +57,7 @@
             const description = tf(item.description);
             const medium = tf(item.medium);
             const genre = tf(item.genre);
+            const createdStr = item.created || '';
             const dateStr = item.date || 'N/A';
             const isProject = (from === 'projects');
             const isMusic = (from === 'music');
@@ -83,7 +85,8 @@
             html += `<div class="detail-meta">`;
             if (medium) html += `<span>🎨 ${t('detail_medium', 'Medium:')} ${medium}</span>`;
             if (genre) html += `<span>🎵 ${t('detail_genre', 'Genre:')} ${genre}</span>`;
-            html += `<span>📅 ${t('gallery_added_on', 'Added on:')} ${dateStr}</span>`;
+            if (createdStr) html += `<span>📅 ${t('gallery_created_on', 'Created:')} ${createdStr}</span>`;
+            html += `<span>📁 ${t('gallery_added_on', 'Added:')} ${dateStr}</span>`;
             html += `</div>`;
 
             // Description
