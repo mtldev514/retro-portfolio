@@ -1,7 +1,7 @@
 :root {
     /* ═══ JR-16 Palette (Lospec) ═══
        #040404  Black         #81f4b1  Mint green
-       #00015d  Navy          #72ffff  Bright cyan
+       #00374b  Dark teal     #72ffff  Bright cyan
        #003808  Forest green  #a2a2ac  Silver
        #00374b  Dark teal     #4d84ff  Bright blue
        #580a0a  Bordeaux      #d76f6c  Salmon pink
@@ -20,9 +20,9 @@
     --text-light: #a2a2ac;           /* Silver */
 
     /* ── Header / Branding ── */
-    --header-bg: #00015d;            /* Navy — strong identity bar */
+    --header-bg: #00374b;            /* Dark teal — strong identity bar */
     --header-text: #f5fffd;          /* Off-white on navy */
-    --header-border-light: #4d84ff;  /* Bright blue highlight */
+    --header-border-light: #81f4b1;  /* Mint green highlight */
     --header-border-dark: #040404;   /* Black shadow */
 
     /* ── Win95 Borders (3D effect) ── */
@@ -42,7 +42,7 @@
     --btn-active-mid: #4b4956;       /* Slate */
     --btn-active-end: #e8e8f0;       /* Light gray */
     --btn-text: #040404;             /* Black */
-    --btn-text-active: #00015d;      /* Navy */
+    --btn-text-active: #00374b;      /* Dark teal */
 
     /* ── Filter bar ── */
     --filter-bg: #e8e8f0;            /* Cool light gray */
@@ -58,8 +58,8 @@
     --term-cyan: #72ffff;            /* Bright cyan */
     --term-text: #a2a2ac;            /* Silver */
     --term-dim: #4b4956;             /* Slate gray */
-    --term-titlebar: #00015d;        /* Navy */
-    --term-titlebar-border: #4d84ff; /* Bright blue */
+    --term-titlebar: #00374b;        /* Dark teal */
+    --term-titlebar-border: #81f4b1; /* Mint green */
     --term-btn-close: #d76f6c;       /* Salmon (red-ish) */
     --term-btn-min: #f6f8ad;         /* Pale yellow */
     --term-btn-max: #81f4b1;         /* Mint green */
@@ -72,19 +72,19 @@
     --wp-bg: #040404;                /* Black */
     --wp-surface: #4b4956;           /* Slate gray */
     --wp-display: #040404;           /* Black */
-    --wp-titlebar-start: #00015d;    /* Navy */
+    --wp-titlebar-start: #00374b;    /* Dark teal */
     --wp-titlebar-mid: #520a54;      /* Dark violet */
     --wp-playlist-bg: #040404;       /* Black */
     --wp-btn-start: #4b4956;         /* Slate gray */
-    --wp-btn-mid: #00015d;           /* Navy */
+    --wp-btn-mid: #00374b;           /* Dark teal */
     --wp-btn-end: #040404;           /* Black */
     --wp-btn-hover-start: #a2a2ac;   /* Silver */
     --wp-btn-hover-mid: #4b4956;     /* Slate gray */
-    --wp-btn-hover-end: #00015d;     /* Navy */
+    --wp-btn-hover-end: #00374b;     /* Dark teal */
     --wp-text: #f6f8ad;              /* Pale yellow */
     --wp-green: #81f4b1;             /* Mint green */
     --wp-info: #72ffff;              /* Bright cyan */
-    --wp-selected: #00015d;          /* Navy */
+    --wp-selected: #00374b;          /* Dark teal */
 
     /* ── Music / Audio ── */
     --music-bg: #040404;             /* Black */
@@ -93,7 +93,7 @@
     --music-text-dim: #a2a2ac;       /* Silver */
 
     /* ── Gallery ── */
-    --gallery-border: #4d84ff;       /* Bright blue — ties to header */
+    --gallery-border: #00374b;       /* Dark teal — ties to accent */
 
     /* ── Detail page ── */
     --detail-meta-bg: #e8e8f0;       /* Cool light gray */
@@ -108,7 +108,7 @@
     --counter-text: #d76f6c;         /* Salmon — visible accent */
 
     /* ── Accent ── */
-    --accent-navy: #00015d;          /* Navy */
+    --accent-navy: #00374b;          /* Dark teal */
     --accent-magenta: #d887f0;       /* Lilac */
     --accent-yellow: #f6f8ad;        /* Pale yellow */
 
@@ -203,7 +203,7 @@ body {
 }
 
 .lang-btn {
-    background: var(--lang-btn-bg);
+    background: linear-gradient(180deg, var(--btn-bg-start) 0%, var(--btn-bg-mid) 50%, var(--btn-bg-end) 100%);
     border: 2px outset var(--container-bg);
     padding: 2px 8px;
     cursor: pointer;
@@ -213,6 +213,12 @@ body {
     align-items: center;
     gap: 5px;
     font-weight: bold;
+    color: var(--btn-text);
+}
+
+.lang-btn:hover {
+    background: linear-gradient(180deg, var(--btn-hover-start) 0%, var(--btn-hover-mid) 50%, var(--btn-hover-end) 100%);
+    color: var(--btn-text-active);
 }
 
 .lang-btn:active {
@@ -224,7 +230,7 @@ body {
     position: absolute;
     right: 0;
     top: 100%;
-    background: var(--lang-dropdown-bg);
+    background: linear-gradient(180deg, var(--btn-bg-start) 0%, var(--btn-bg-mid) 50%, var(--btn-bg-end) 100%);
     border: 2px outset var(--container-bg);
     width: 180px;
     box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
@@ -241,12 +247,12 @@ body {
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: inherit;
+    color: var(--btn-text);
 }
 
 .lang-option:hover {
-    background: var(--accent-navy);
-    color: var(--container-bg);
+    background: linear-gradient(180deg, var(--btn-hover-start) 0%, var(--btn-hover-mid) 50%, var(--btn-hover-end) 100%);
+    color: var(--btn-text-active);
 }
 
 .lang-flag {
@@ -263,7 +269,7 @@ body {
 }
 
 .theme-btn {
-    background: var(--lang-btn-bg);
+    background: linear-gradient(180deg, var(--btn-bg-start) 0%, var(--btn-bg-mid) 50%, var(--btn-bg-end) 100%);
     border: 2px outset var(--container-bg);
     padding: 2px 8px;
     cursor: pointer;
@@ -276,6 +282,11 @@ body {
     color: var(--btn-text);
 }
 
+.theme-btn:hover {
+    background: linear-gradient(180deg, var(--btn-hover-start) 0%, var(--btn-hover-mid) 50%, var(--btn-hover-end) 100%);
+    color: var(--btn-text-active);
+}
+
 .theme-btn:active {
     border-style: inset;
 }
@@ -285,7 +296,7 @@ body {
     position: absolute;
     left: 0;
     top: 100%;
-    background: var(--lang-dropdown-bg);
+    background: linear-gradient(180deg, var(--btn-bg-start) 0%, var(--btn-bg-mid) 50%, var(--btn-bg-end) 100%);
     border: 2px outset var(--container-bg);
     width: 180px;
     box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
@@ -306,8 +317,8 @@ body {
 }
 
 .theme-option:hover {
-    background: var(--accent-navy);
-    color: var(--container-bg);
+    background: linear-gradient(180deg, var(--btn-hover-start) 0%, var(--btn-hover-mid) 50%, var(--btn-hover-end) 100%);
+    color: var(--btn-text-active);
 }
 
 .theme-icon {
@@ -329,7 +340,6 @@ header {
 h1 {
     font-size: 2.5em;
     color: var(--header-text);
-    text-shadow: 2px 2px 0px var(--container-bg);
     margin: 0;
 }
 
