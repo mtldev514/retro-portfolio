@@ -200,14 +200,30 @@ const media = {
     },
 
     updateTrackDisplay() {
-        const marquee = document.querySelector('.radio-track-name');
-        if (!marquee) return;
+        const el = document.querySelector('.radio-track-name');
+        if (!el) return;
         if (this.playlist.length > 0) {
             const idx = this.currentTrackIndex + 1;
-            marquee.innerText = `${idx}. ${this.playlist[this.currentTrackIndex].name}`;
+            el.innerText = `${idx}. ${this.playlist[this.currentTrackIndex].name}`;
         } else {
-            marquee.innerText = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
+            el.innerText = (window.i18n && i18n.translations.sidebar_radio_no_tracks) || 'No tracks available';
         }
+        this.setupTickerScroll(el);
+    },
+
+    setupTickerScroll(el) {
+        if (!el) el = document.querySelector('.radio-track-name');
+        if (!el) return;
+        const container = el.parentElement;
+        const apply = () => {
+            if (!container.clientWidth) return;
+            const totalDist = container.clientWidth + el.scrollWidth;
+            const speed = Math.max(6, totalDist / 40);
+            el.style.setProperty('--ticker-speed', `${speed}s`);
+            el.style.setProperty('--ticker-end', `-${el.scrollWidth}px`);
+        };
+        apply();
+        setTimeout(apply, 200);
     },
 
     // Mini fake visualizer (random bars, Winamp style)

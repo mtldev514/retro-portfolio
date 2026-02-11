@@ -458,10 +458,10 @@ nav {
 }
 
 .gallery-item {
-    border: 4px ridge var(--gallery-border);
+    border: 4px ridge rgba(0,0,0,0.1);
     padding: 5px;
     background: var(--container-bg);
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.2), inset 1px 1px 0 rgba(255,255,255,0.8);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .gallery-item img {
@@ -703,14 +703,10 @@ nav {
 }
 
 /* Subtle glow on playing ticker text */
-.winamp.playing .winamp-ticker marquee {
-    animation: winamp-ticker-glow 3s ease-in-out infinite;
+.winamp.playing .winamp-ticker .radio-track-name {
+    text-shadow: 0 0 8px currentColor;
 }
 
-@keyframes winamp-ticker-glow {
-    0%, 100% { text-shadow: none; }
-    50%      { text-shadow: 0 0 6px currentColor; }
-}
 
 /* Active playlist item pulses gently when playing */
 .winamp.playing .winamp-pl-item.active {
@@ -813,14 +809,22 @@ nav {
 /* Scrolling track name */
 .winamp-ticker {
     color: var(--text-primary);
-    font-size: 10px;
+    font-size: 13px;
+    font-weight: bold;
     font-family: var(--font-mono);
     overflow: hidden;
     white-space: nowrap;
+    position: relative;
 }
 
-.winamp-ticker marquee {
-    color: var(--text-primary);
+.winamp-ticker .radio-track-name {
+    display: inline-block;
+    animation: ticker-scroll var(--ticker-speed, 8s) linear infinite;
+}
+
+@keyframes ticker-scroll {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(var(--ticker-end, -100%)); }
 }
 
 /* Time row */
@@ -1215,25 +1219,23 @@ nav {
     font-size: 48px;
     text-align: center;
     padding: 15px 0 5px;
-    background: var(--music-bg);
-    color: var(--music-gold);
+    color: var(--text-secondary);
 }
 
 .gallery-item[data-category="music"] {
-    background: var(--music-bg);
-    border-color: var(--chrome-mid);
+    background: var(--container-bg);
 }
 
 .gallery-item[data-category="music"] h3 {
-    color: var(--music-gold);
+    color: var(--text-primary);
 }
 
 .gallery-item[data-category="music"] .item-date {
-    color: var(--music-text-dim);
+    color: var(--text-secondary);
 }
 
 .gallery-item[data-category="music"] .gallery-link {
-    color: var(--music-text);
+    color: inherit;
 }
 
 .track-icon {
@@ -1269,7 +1271,7 @@ nav {
 }
 
 .gallery-item:hover {
-    box-shadow: 3px 3px 6px rgba(0,0,0,0.3), inset 1px 1px 0 rgba(255,255,255,0.8);
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
     transform: translateY(-2px);
     transition: all 0.15s ease;
 }
