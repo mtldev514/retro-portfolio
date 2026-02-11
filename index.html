@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/i18n.js" defer></script>
+    <script src="js/themes.js" defer></script>
     <script src="js/render.js" defer></script>
     <script src="js/router.js" defer></script>
     <script src="js/media.js" defer></script>
@@ -46,6 +47,14 @@
                     </div>
                     <div class="lang-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span> Creole
                     </div>
+                </div>
+            </div>
+            <div class="theme-switcher">
+                <button class="theme-btn"><span class="theme-icon">🌿</span> JR-16</button>
+                <div class="theme-dropdown">
+                    <div class="theme-option" onclick="themes.changeTheme('jr16')"><span class="theme-icon">🌿</span> JR-16</div>
+                    <div class="theme-option" onclick="themes.changeTheme('ambre')"><span class="theme-icon">🔥</span> Ambre Chaud</div>
+                    <div class="theme-option" onclick="themes.changeTheme('naples')"><span class="theme-icon">☀️</span> Naples Yellow</div>
                 </div>
             </div>
             <h1 id="page-title" data-i18n="header_title">Alex's Artistic Portfolio</h1>
@@ -129,16 +138,7 @@
                     <span class="terminal-titlebar-text">alex@mtl:~</span>
                 </div>
                 <div class="terminal-body">
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> whoami</div>
-                    <div class="terminal-output" data-i18n="footer_copy">&copy; 2026 Alex. Hand-made in Montreal.</div>
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> cat stack.conf</div>
-                    <div class="terminal-output" data-i18n="footer_browser">Guaranteed heavy-framework free. Best viewed with coffee.</div>
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> git remote -v</div>
-                    <div class="terminal-output terminal-links">
-                        <a href="https://github.com/mtldev514" target="_blank" title="GitHub"><i class="fa fa-github"></i> github</a>
-                        <a href="https://www.linkedin.com/in/alexcatus/?locale=fr_FR" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i> linkedin</a>
-                    </div>
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> uptime &mdash; <span class="terminal-dim"><span data-i18n="footer_last_updated">Last update:</span> 10 Feb 2026 | <span data-i18n="footer_visitors">Visits:</span> <span class="visitor-counter">......</span></span> <span class="terminal-cursor">█</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> <span data-i18n="footer_copy">&copy; 2026 Alex</span> &mdash; <a href="https://github.com/mtldev514" target="_blank" title="GitHub"><i class="fa fa-github"></i> github</a> · <a href="https://www.linkedin.com/in/alexcatus/?locale=fr_FR" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i> linkedin</a> &mdash; <span class="terminal-dim"><span data-i18n="footer_visitors">Visits:</span> <span class="visitor-counter">......</span></span> <span class="terminal-cursor">█</span></div>
                 </div>
             </div>
         </footer>

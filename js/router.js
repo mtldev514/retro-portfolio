@@ -6,7 +6,12 @@ const router = {
     currentRoute: null,
 
     async init() {
-        // 1. Load translations first
+        // 1. Apply theme immediately (synchronous, no flash)
+        if (window.themes) {
+            themes.init();
+        }
+
+        // 2. Load translations
         if (window.i18n) {
             await i18n.init();
         }
@@ -57,15 +62,37 @@ const router = {
             // DETAIL VIEW: load detail.html fragment
             this.currentRoute = 'detail';
 
-            // Save filter bar before replacing app content
-            const filterNav = document.getElementById('filter-nav');
-            if (filterNav) this._savedFilterNav = filterNav;
+            // Save filter bar children, then swap in a Back button
+            let filterNav = document.getElementById('filter-nav');
+            if (filterNav) {
+                this._savedFilterNav = filterNav;
+                this._savedFilterChildren = Array.from(filterNav.children);
+                filterNav.innerHTML = '';
+            } else {
+                // Direct URL access: create filter bar dynamically
+                filterNav = document.createElement('div');
+                filterNav.id = 'filter-nav';
+                filterNav.className = 'filter-bar';
+                this._savedFilterNav = filterNav;
+                this._savedFilterChildren = null;
+            }
+
+            // Create full-width Back button
+            const backBtn = document.createElement('button');
+            backBtn.className = 'filter-btn filter-btn-back';
+            const t = (key, fallback) => (window.i18n && i18n.translations[key]) || fallback;
+            backBtn.textContent = '\u2B05 ' + t('detail_back', 'Back');
+            backBtn.addEventListener('click', () => router.navigate('index.html'));
+            filterNav.appendChild(backBtn);
 
             try {
                 const response = await fetch('pages/detail.html');
                 if (!response.ok) throw new Error('Could not load detail page');
                 const html = await response.text();
                 app.innerHTML = html;
+
+                // Prepend filter bar (with Back button) above detail content
+                app.prepend(this._savedFilterNav);
 
                 // Re-execute inline scripts
                 app.querySelectorAll('script').forEach(oldScript => {
@@ -82,8 +109,13 @@ const router = {
             // GRID VIEW: render unified gallery
             this.currentRoute = 'grid';
 
-            // Restore filter bar if it was removed by detail view
-            if (this._savedFilterNav && !document.getElementById('filter-nav')) {
+            // Restore filter bar with original children
+            if (this._savedFilterNav) {
+                if (this._savedFilterChildren) {
+                    this._savedFilterNav.innerHTML = '';
+                    this._savedFilterChildren.forEach(child => this._savedFilterNav.appendChild(child));
+                    this._savedFilterChildren = null;
+                }
                 app.innerHTML = '';
                 app.appendChild(this._savedFilterNav);
             }

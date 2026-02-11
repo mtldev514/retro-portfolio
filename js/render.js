@@ -166,7 +166,7 @@ const renderer = {
 
         nav.addEventListener('click', (e) => {
             // Filter buttons
-            const btn = e.target.closest('.filter-btn');
+            const btn = e.target.closest('.filter-btn:not(.filter-btn-back)');
             if (btn) {
                 nav.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
