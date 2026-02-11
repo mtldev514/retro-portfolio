@@ -127,7 +127,11 @@ const themes = {
                 '--sparkle-5':            '#fff',
                 '--sparkle-6':            '#7fff00',
                 '--sparkle-7':            '#ff4500',
-                '--petal-color':          '#88d8b0'
+                '--petal-color':          '#88d8b0',
+                /* Mirror title — mint chrome */
+                '--mirror-shine':         '#ffffff',
+                '--mirror-light':         '#c0fad8',
+                '--mirror-mid':           '#80d8a8'
             }
         },
 
@@ -252,7 +256,11 @@ const themes = {
                 '--sparkle-5':            '#ffffff',
                 '--sparkle-6':            '#8a8a90',
                 '--sparkle-7':            '#58585e',
-                '--petal-color':          '#d88ca0'
+                '--petal-color':          '#d88ca0',
+                /* Mirror title — cold steel on dark */
+                '--mirror-shine':         '#ffffff',
+                '--mirror-light':         '#e0e0e8',
+                '--mirror-mid':           '#b8b8c0'
             }
         },
 
@@ -377,7 +385,11 @@ const themes = {
                 '--sparkle-5':            '#1a1a1e',
                 '--sparkle-6':            '#d0d0d4',
                 '--sparkle-7':            '#505058',
-                '--petal-color':          '#d8a0b0'
+                '--petal-color':          '#d8a0b0',
+                /* Mirror title — pencil chrome on light header */
+                '--mirror-shine':         '#ffffff',
+                '--mirror-light':         '#e8e8f0',
+                '--mirror-mid':           '#b8b8c8'
             }
         },
 
@@ -502,7 +514,11 @@ const themes = {
                 '--sparkle-5':            '#fff4f8',
                 '--sparkle-6':            '#e8d0a0',
                 '--sparkle-7':            '#b87898',
-                '--petal-color':          '#dca0b8'
+                '--petal-color':          '#dca0b8',
+                /* Mirror title — candy chrome */
+                '--mirror-shine':         '#ffffff',
+                '--mirror-light':         '#ffe0ec',
+                '--mirror-mid':           '#f0b0c8'
             }
         }
     },
@@ -535,6 +551,19 @@ const themes = {
 
         this.currentTheme = themeId;
         localStorage.setItem('selectedTheme', themeId);
+
+        // Force h1 chrome gradient to re-render with new --mirror-* values
+        // Browsers cache background-clip:text gradients; re-assign background inline
+        const h1 = document.querySelector('h1');
+        if (h1) {
+            const cs = getComputedStyle(document.documentElement);
+            const shine = cs.getPropertyValue('--mirror-shine').trim();
+            const light = cs.getPropertyValue('--mirror-light').trim();
+            const mid   = cs.getPropertyValue('--mirror-mid').trim();
+            h1.style.background = `linear-gradient(135deg, ${shine} 0%, ${light} 25%, ${mid} 50%, ${light} 75%, ${shine} 100%)`;
+            h1.style.webkitBackgroundClip = 'text';
+            h1.style.backgroundClip = 'text';
+        }
 
         // Update sparkle colors for the new theme
         if (window.sparkle) sparkle.refreshColors();
