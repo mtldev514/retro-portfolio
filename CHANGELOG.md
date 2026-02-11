@@ -4,6 +4,65 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.1.1] - 2026-02-11
+
+### 📚 Documentation Overhaul
+
+This release completely reorganizes and improves documentation for clarity, consistency, and completeness.
+
+### Added
+
+#### New Documentation
+- 📖 **SETUP-GUIDE.md** - Comprehensive beginner-to-deployed guide
+  - Clear path selection (Beginner/Quick Test/Advanced)
+  - Step-by-step instructions with commands
+  - Troubleshooting common issues
+  - Understanding different setup types
+
+- 📑 **DOCUMENTATION-INDEX.md** - Central documentation hub
+  - Organized by topic, language, and skill level
+  - Quick reference tables for scripts and files
+  - Common workflows and "How do I..." index
+  - Easy navigation to any guide
+
+- 🚀 **DEPLOYMENT-EN.md** - English deployment guide
+  - GitHub Pages, Netlify, Vercel instructions
+  - Custom domain setup
+  - Backend deployment options
+  - Post-deployment checklist
+
+- 📋 **DOCUMENTATION-FIXES-SUMMARY.md** - Documentation improvement details
+
+### Changed
+
+#### Updated Documentation
+- **README.md** - Simplified and clarified
+  - Single clear recommended path
+  - Prominent link to SETUP-GUIDE.md
+  - Documentation section reorganized
+  - Language-appropriate doc links
+
+- **Terminology standardized** across all docs
+  - Consistent use of "template", "portfolio", "setup methods"
+  - Clear distinction between beginner/quick/advanced paths
+
+### Fixed
+
+#### Documentation Issues Resolved
+- ✅ Mixed language issue (French/English) now clearly labeled
+- ✅ Multiple "recommended" paths consolidated to ONE clear path
+- ✅ Backend startup instructions now consistent across all docs
+- ✅ Eliminated contradicting information between guides
+- ✅ Added English deployment guide (previously only French)
+
+### Notes
+
+- French documentation (DEPLOYMENT.md, PRIVATE-CONFIG-SETUP.md) retained for advanced users
+- All docs now reference DOCUMENTATION-INDEX.md for easy navigation
+- Beginner users now have clear, single path from zero to deployed
+
+---
+
 ## [2.1.0] - 2026-02-11
 
 ### 🔄 Update System
@@ -31,6 +90,11 @@ This release adds comprehensive update tooling to safely update your portfolio w
   - Safety mechanisms explained
   - Troubleshooting section
   - Best practices and update checklist
+
+- 🛠️ **Repository Management**
+  - `scripts/fix-repo-remote.sh` - Fix git remote issues
+  - `SEPARATE-REPO-SETUP.md` - Guide for separate content repo
+  - `QUICKSTART.md` - Quick reference guide
 
 ---
 

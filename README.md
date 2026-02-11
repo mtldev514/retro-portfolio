@@ -34,39 +34,36 @@ A **fully configurable** retro-styled portfolio website with Win95/90s aesthetic
 
 ## 🚀 Quick Start
 
-**New to this?** See **[QUICKSTART.md](QUICKSTART.md)** for a beginner-friendly guide!
+**👉 Complete step-by-step guide:** **[SETUP-GUIDE.md](SETUP-GUIDE.md)**
 
-### Option 1: Create New Portfolio Site (Recommended)
-
-```bash
-# Use create-site.sh to set up a new portfolio
-./create-site.sh my-portfolio
-
-# This creates:
-# - New directory with git submodule
-# - Your own config/data/lang directories
-# - Symlinks to template code
-# - Ready to customize!
-```
-
-### Option 2: Direct Use
+### Fastest Setup (Recommended)
 
 ```bash
-# Clone this repo
+# 1. Clone and create your portfolio
 git clone https://github.com/mtldev514/retro-portfolio.git
 cd retro-portfolio
+./create-site.sh my-portfolio
 
-# Initialize (copies .example files)
-./init.sh
+# 2. Add Cloudinary credentials
+cd ../my-portfolio
+nano .env  # Add CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET
 
-# Edit your credentials
-nano .env
+# 3. Test locally
+cd template && python3 admin_api.py &  # Start backend
+cd .. && python3 -m http.server 8000   # Serve site
+# Open http://localhost:8000
+```
 
-# Start backend
-python3 admin_api.py
+**Then:** Push to GitHub, enable Pages, done! See [SETUP-GUIDE.md](SETUP-GUIDE.md) for details.
 
-# Open in browser
-open index.html
+### Alternative: Quick Test (No Submodules)
+
+```bash
+git clone https://github.com/mtldev514/retro-portfolio.git my-test
+cd my-test
+./init.sh  # Copy example files
+nano .env  # Add Cloudinary credentials
+python3 -m http.server 8000
 ```
 
 ---
@@ -172,11 +169,21 @@ See **[UPDATE.md](UPDATE.md)** for detailed update instructions.
 
 ## 📚 Documentation
 
-- **[Update Guide](UPDATE.md)** - Update safely without losing data
-- **[Configuration Guide](config/README.md)** - Complete reference
-- **[Deployment Guide](DEPLOYMENT.md)** - Deployment options
-- **[Features Summary](FEATURES_SUMMARY.md)** - All features
-- **[Private Config](PRIVATE-CONFIG-SETUP.md)** - Advanced setup
+**📖 [Complete Documentation Index](DOCUMENTATION-INDEX.md)** - Find any guide quickly!
+
+### Getting Started
+- **[Setup Guide](SETUP-GUIDE.md)** ⭐ - Complete beginner-to-deployed guide
+- **[Quick Start](QUICKSTART.md)** - Fast reference for common tasks
+
+### Reference
+- **[Update Guide](UPDATE.md)** - Keep template current without losing data
+- **[Configuration Guide](config/README.md)** - All config options
+- **[Features Summary](FEATURES_SUMMARY.md)** - What this template can do
+
+### Deployment & Advanced
+- **[Deployment Guide](DEPLOYMENT-EN.md)** - GitHub Pages, Netlify, Vercel (English)
+- **[Guide de Déploiement](DEPLOYMENT.md)** - Configuration avancée (Français)
+- **[Separate Repo Setup](SEPARATE-REPO-SETUP.md)** - Fix git remote issues
 
 ---
 
