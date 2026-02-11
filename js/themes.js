@@ -97,10 +97,10 @@ const themes = {
                 '--gallery-border':       '#00374b',
                 '--detail-meta-bg':       '#e8e8f0',
                 /* Badges */
-                '--badge-public-bg':      '#003808',
-                '--badge-public-text':    '#81f4b1',
-                '--badge-private-bg':     '#580a0a',
-                '--badge-private-text':   '#d76f6c',
+                '--badge-public-bg':      '#e8e8f0',
+                '--badge-public-text':    '#4a4a5e',
+                '--badge-private-bg':     '#e8e8f0',
+                '--badge-private-text':   '#4a4a5e',
                 /* Counter / Accents */
                 '--counter-text':         '#d76f6c',
                 '--accent-navy':          '#00374b',
@@ -215,10 +215,10 @@ const themes = {
                 '--gallery-border':       '#48484e',
                 '--detail-meta-bg':       '#1e1e22',
                 /* Badges */
-                '--badge-public-bg':      '#1a2e1a',
-                '--badge-public-text':    '#6a9a6a',
-                '--badge-private-bg':     '#2e1a1a',
-                '--badge-private-text':   '#9a6a6a',
+                '--badge-public-bg':      '#2a2a30',
+                '--badge-public-text':    '#909098',
+                '--badge-private-bg':     '#2a2a30',
+                '--badge-private-text':   '#909098',
                 /* Counter / Accents */
                 '--counter-text':         '#9a6a6a',
                 '--accent-navy':          '#48484e',
@@ -340,10 +340,10 @@ const themes = {
                 '--gallery-border':       '#90909a',
                 '--detail-meta-bg':       '#d0d0d4',
                 /* Badges */
-                '--badge-public-bg':      '#d0e0d0',
-                '--badge-public-text':    '#3a6a3a',
-                '--badge-private-bg':     '#e0d0d0',
-                '--badge-private-text':   '#7a3a3a',
+                '--badge-public-bg':      '#e0e0e6',
+                '--badge-public-text':    '#5a5a68',
+                '--badge-private-bg':     '#e0e0e6',
+                '--badge-private-text':   '#5a5a68',
                 /* Counter / Accents */
                 '--counter-text':         '#7a3a3a',
                 '--accent-navy':          '#505058',
@@ -465,10 +465,10 @@ const themes = {
                 '--gallery-border':       '#d0b0bc',
                 '--detail-meta-bg':       '#f4d8e4',
                 /* Badges */
-                '--badge-public-bg':      '#d0e8d0',
-                '--badge-public-text':    '#306830',
-                '--badge-private-bg':     '#f0d0d8',
-                '--badge-private-text':   '#884048',
+                '--badge-public-bg':      '#f0e0e8',
+                '--badge-public-text':    '#6a4858',
+                '--badge-private-bg':     '#f0e0e8',
+                '--badge-private-text':   '#6a4858',
                 /* Counter / Accents */
                 '--counter-text':         '#b86878',
                 '--accent-navy':          '#6a4060',
