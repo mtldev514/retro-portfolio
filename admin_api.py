@@ -138,12 +138,14 @@ def upload_from_url():
 
 @app.route('/api/translations', methods=['GET'])
 def get_translations():
-    lang_dir = 'lang'
     translations = {}
-    for filename in os.listdir(lang_dir):
+    if not config.lang_dir.exists():
+        return jsonify(translations)
+        
+    for filename in os.listdir(config.lang_dir):
         if filename.endswith('.json'):
             lang_code = filename.split('.')[0]
-            with open(os.path.join(lang_dir, filename), 'r', encoding='utf-8') as f:
+            with open(config.lang_dir / filename, 'r', encoding='utf-8') as f:
                 translations[lang_code] = json.load(f)
     return jsonify(translations)
 
@@ -157,8 +159,8 @@ def update_translations():
     if not lang_code or not key or not value:
         return jsonify({"error": "Lang, Key, and Value are required"}), 400
 
-    file_path = f'lang/{lang_code}.json'
-    if not os.path.exists(file_path):
+    file_path = config.lang_dir / f'{lang_code}.json'
+    if not file_path.exists():
         return jsonify({"error": f"Language file {lang_code}.json not found"}), 404
 
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -172,27 +174,31 @@ def update_translations():
     return jsonify({"success": True})
 @app.route('/api/translations/missing', methods=['GET'])
 def get_missing_translations():
-    lang_dir = 'lang'
-    with open(os.path.join(lang_dir, 'en.json'), 'r', encoding='utf-8') as f:
+    en_file = config.lang_dir / 'en.json'
+    if not en_file.exists():
+         return jsonify({})
+         
+    with open(en_file, 'r', encoding='utf-8') as f:
         en_keys = set(json.load(f).keys())
     
     missing = {}
-    for filename in os.listdir(lang_dir):
-        if filename.endswith('.json') and filename != 'en.json':
-            lang_code = filename.split('.')[0]
-            with open(os.path.join(lang_dir, filename), 'r', encoding='utf-8') as f:
-                lang_keys = set(json.load(f).keys())
-            
-            diff = en_keys - lang_keys
-            if diff:
-                missing[lang_code] = list(diff)
+    if config.lang_dir.exists():
+        for filename in os.listdir(config.lang_dir):
+            if filename.endswith('.json') and filename != 'en.json':
+                lang_code = filename.split('.')[0]
+                with open(config.lang_dir / filename, 'r', encoding='utf-8') as f:
+                    lang_keys = set(json.load(f).keys())
+                
+                diff = en_keys - lang_keys
+                if diff:
+                    missing[lang_code] = list(diff)
     
     return jsonify(missing)
 
 @app.route('/api/github/sync', methods=['POST'])
 def sync_github():
     token = os.getenv('GITHUB_TOKEN')
-    username = 'yourusername'
+    username = config.get_github_config().get('username', 'yourusername')
     headers = {'Accept': 'application/vnd.github.v3+json'}
     if token:
         headers['Authorization'] = f'token {token}'
@@ -225,10 +231,10 @@ def sync_github():
                 })
         
         # Ensure data directory exists
-        if not os.path.exists('data'):
-            os.makedirs('data')
+        if not config.data_dir.exists():
+            os.makedirs(config.data_dir)
             
-        with open('data/projects.json', 'w', encoding='utf-8') as f:
+        with open(config.data_dir / 'projects.json', 'w', encoding='utf-8') as f:
             json.dump(projects, f, indent=4)
             
         return jsonify({"success": True, "count": len(projects)})
@@ -555,7 +561,7 @@ def save_media_types():
     media_types = data.get('mediaTypes', [])
 
     try:
-        config_path = os.path.join('config', 'media-types.json')
+        config_path = config.config_dir / 'media-types.json'
         with open(config_path, 'w', encoding='utf-8') as f:
             json.dump({"mediaTypes": media_types}, f, indent=2, ensure_ascii=False)
 
@@ -573,7 +579,7 @@ def save_content_types():
     content_types = data.get('contentTypes', [])
 
     try:
-        config_path = os.path.join('config', 'categories.json')
+        config_path = config.config_dir / 'categories.json'
         with open(config_path, 'w', encoding='utf-8') as f:
             json.dump({"contentTypes": content_types}, f, indent=2, ensure_ascii=False)
 

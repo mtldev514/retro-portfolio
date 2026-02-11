@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+
+    <!-- 
+      THIS IS A REMOTE ENGINE ENTRY POINT.
+      It loads the code from the central retro-portfolio repository,
+      but uses the data/ and config/ folders in THIS repository.
+    -->
+
+    <script>
+        // Tell the engine where to find ITS own assets
+        window.RETRO_ENGINE_URL = "https://mtldev514.github.io/retro-portfolio/";
+
+        // Tell the engine to load config/data from the CURRENT directory
+        window.RETRO_CONFIG = {
+            mode: "local",
+            dataDir: "data"
+        };
+    </script>
+
+    <!-- Load the remote config loader -->
+    <script src="https://mtldev514.github.io/retro-portfolio/js/config-loader.js"></script>
+
+    <!-- Style is loaded dynamically by the engine or linked here -->
+    <link rel="stylesheet" href="https://mtldev514.github.io/retro-portfolio/style.css">
+
+    <!-- Load other modules from remote -->
+    <script src="https://mtldev514.github.io/retro-portfolio/js/i18n.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/themes.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/render.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/router.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/media.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/sparkle.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/effects.js" defer></script>
+    <script src="https://mtldev514.github.io/retro-portfolio/js/init.js" defer></script>
+</head>
+
+<body>
+    <!-- The body structure will be handled by the renderer. 
+         For now, we just need a mount point if the engine doesn't create it. 
+    -->
+    <div id="app">Loading Portfolio Engine...</div>
+</body>
+
+</html>

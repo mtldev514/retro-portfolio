@@ -11,8 +11,15 @@ from pathlib import Path
 class ConfigLoader:
     """Centralized configuration loader"""
 
-    def __init__(self, config_dir='config'):
-        self.config_dir = Path(config_dir)
+    def __init__(self, content_root=None):
+        if content_root is None:
+            content_root = os.environ.get('PORTFOLIO_CONTENT_ROOT', '.')
+        
+        self.content_root = Path(content_root).resolve()
+        self.config_dir = self.content_root / 'config'
+        self.data_dir = self.content_root / 'data'
+        self.lang_dir = self.content_root / 'lang'
+        
         self.app_config = None
         self.languages_config = None
         self.categories_config = None
@@ -21,6 +28,14 @@ class ConfigLoader:
     def load_all(self):
         """Load all configuration files"""
         try:
+            # Ensure directories exist
+            for d in [self.config_dir, self.data_dir, self.lang_dir]:
+                if not d.exists():
+                    try:
+                        os.makedirs(d)
+                    except OSError:
+                        pass # Might be read-only or we just can't create it
+
             with open(self.config_dir / 'app.json', 'r', encoding='utf-8') as f:
                 self.app_config = json.load(f)
 
@@ -33,15 +48,23 @@ class ConfigLoader:
             with open(self.config_dir / 'media-types.json', 'r', encoding='utf-8') as f:
                 self.media_types_config = json.load(f)
 
-            print('✅ Configuration loaded successfully')
+            print(f'✅ Configuration loaded from {self.content_root}')
             return True
         except Exception as e:
-            print(f'❌ Failed to load configuration: {e}')
+            print(f'❌ Failed to load configuration from {self.content_root}: {e}')
             return False
 
-    def get_api_config(self):
-        """Get API configuration"""
-        return self.app_config.get('api', {})
+    # ... (getters) ...
+
+    def get_category_data_file(self, category_id):
+        """Get absolute data file path for a category"""
+        cat = self.get_content_type(category_id)
+        filename = f'{category_id}.json'
+        if cat and 'dataFile' in cat:
+            # If dataFile is specified, use it (removing data/ prefix if present to avoid doubling)
+            filename = cat['dataFile'].replace('data/', '')
+        
+        return str(self.data_dir / filename)
 
     def get_port(self):
         """Get API port"""
@@ -79,15 +102,19 @@ class ConfigLoader:
         return self.get_content_type(category_id)
 
     def get_category_data_file(self, category_id):
-        """Get data file path for a category"""
+        """Get absolute data file path for a category"""
         cat = self.get_content_type(category_id)
-        if cat:
-            return cat.get('dataFile', f'data/{category_id}.json')
-        return f'data/{category_id}.json'
+        filename = f'{category_id}.json'
+        if cat and 'dataFile' in cat:
+            # If dataFile is specified, ensure it's relative to data_dir
+            # We strip 'data/' prefix if it was hardcoded in the config
+            clean_name = cat['dataFile'].replace('data/', '')
+            return str(self.data_dir / clean_name)
+        return str(self.data_dir / filename)
 
     def get_category_map(self):
-        """Get mapping of category ID to data file path"""
-        return {cat['id']: cat['dataFile'] for cat in self.get_content_types()}
+        """Get mapping of category ID to absolute data file path"""
+        return {cat['id']: self.get_category_data_file(cat['id']) for cat in self.get_content_types()}
 
     def get_gallery_categories(self):
         """Get list of categories that support galleries (based on media type)"""
@@ -100,6 +127,8 @@ class ConfigLoader:
 
     def get_media_types(self):
         """Get all media type configurations"""
+        if self.media_types_config is None:
+            return []
         return self.media_types_config.get('mediaTypes', [])
 
     def get_media_type(self, media_type_id):

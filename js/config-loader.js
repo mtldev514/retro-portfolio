@@ -12,9 +12,29 @@ const ConfigLoader = {
      */
     async init() {
         try {
+            // Check for override version from global config or query params
+            const urlParams = new URLSearchParams(window.location.search);
+            const overrideMode = urlParams.get('mode') || window.RETRO_CONFIG?.mode;
+            const overrideData = urlParams.get('dataDir') || window.RETRO_CONFIG?.dataDir;
+
             // Load config-source.json to determine where to load from
-            const response = await fetch('config-source.json');
-            this.source = await response.json();
+            let response;
+            try {
+                response = await fetch('config-source.json');
+            } catch (e) {
+                console.warn('⚠️ No config-source.json found, using defaults');
+            }
+
+            this.source = response ? await response.json() : {
+                mode: overrideMode || 'local',
+                local: { configDir: 'config', dataDir: overrideData || 'data', langDir: 'lang' }
+            };
+
+            if (overrideMode) this.source.mode = overrideMode;
+            if (overrideData) {
+                if (!this.source.local) this.source.local = {};
+                this.source.local.dataDir = overrideData;
+            }
 
             console.log(`📦 Config mode: ${this.source.mode}`);
 
@@ -164,6 +184,14 @@ const ConfigLoader = {
     getLangPath(langCode) {
         if (!this.cache.data) return `lang/${langCode}.json`;
         return `${this.cache.data.paths.langDir}/${langCode}.json`;
+    },
+
+    /**
+     * Get engine asset path
+     */
+    getEnginePath(path) {
+        const baseUrl = window.RETRO_ENGINE_URL || '';
+        return baseUrl + path.replace(/^\//, '');
     }
 };
 

@@ -1,10 +1,12 @@
 import os
 import glob
 import json
+from pathlib import Path
 import argparse
 import re
 import time
 import mimetypes
+from pathlib import Path
 from datetime import datetime
 import cloudinary
 import cloudinary.uploader
@@ -217,16 +219,29 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
 def update_site_timestamp():
     """Updates the 'Last Updated' string in all HTML files."""
     now = datetime.now().strftime("%d %b %Y")
-    html_files = ["index.html"]
-    for file_name in html_files:
-        if os.path.exists(file_name):
-            with open(file_name, "r", encoding="utf-8") as f:
-                content = f.read()
-            
-            new_content = re.sub(r'Last Updated:</span> \d{1,2} \w{3} \d{4}', f'Last Updated:</span> {now}', content)
-            
-            with open(file_name, "w", encoding="utf-8") as f:
-                f.write(new_content)
+    
+    # Check both current directory and content root for index.html
+    possible_files = [
+        "index.html",
+        config.content_root / "index.html"
+    ]
+    
+    for file_path in possible_files:
+        path = Path(file_path)
+        if path.exists():
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                
+                # Check if it has the timestamp span
+                if 'Last Updated:</span>' in content:
+                    new_content = re.sub(r'Last Updated:</span> \d{1,2} \w{3} \d{4}', f'Last Updated:</span> {now}', content)
+                    
+                    with open(path, "w", encoding="utf-8") as f:
+                        f.write(new_content)
+                    print(f"Updated timestamp in {path}")
+            except Exception as e:
+                print(f"Failed to update timestamp in {path}: {e}")
 
 def save_from_url(url, title, category, medium=None, genre=None, description=None, created=None):
     """Save a media entry using a direct URL (no Cloudinary upload).

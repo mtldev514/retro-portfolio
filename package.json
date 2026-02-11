@@ -1,0 +1,20 @@
+{
+    "name": "@retro-portfolio/engine",
+    "version": "1.0.0",
+    "description": "A fully configurable retro-styled portfolio engine",
+    "main": "index.html",
+    "scripts": {
+        "start": "python3 cli.py",
+        "serve": "python3 cli.py --data",
+        "admin": "python3 admin_api.py",
+        "init": "./init.sh"
+    },
+    "keywords": [
+        "retro",
+        "portfolio",
+        "90s",
+        "template"
+    ],
+    "author": "Alex",
+    "license": "MIT"
+}

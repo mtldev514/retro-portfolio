@@ -10,7 +10,7 @@ import os
 import sys
 
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class SPAHandler(http.server.SimpleHTTPRequestHandler):
@@ -21,7 +21,7 @@ class SPAHandler(http.server.SimpleHTTPRequestHandler):
         # Strip query string for file lookup
         path = self.path.split('?')[0].split('#')[0]
 
-        # Build the filesystem path
+        # Build the filesystem path (relative to repo root)
         fs_path = os.path.join(ROOT, path.lstrip('/'))
 
         # If the file exists on disk, serve it normally
