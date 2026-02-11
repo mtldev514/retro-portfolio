@@ -45,7 +45,6 @@
                                 <option value="photography">Photography</option>
                                 <option value="sculpting">Sculpting</option>
                                 <option value="music">Music/Audio</option>
-                                <option value="video">Video</option>
                                 <option value="projects">Projects</option>
                             </select>
                         </div>
@@ -128,11 +127,11 @@
                 <label>Filter Category:</label>
                 <select id="manageCategory" onchange="loadContent()" style="width: 150px;">
                     <option value="all">All Categories</option>
-                    <option value="art">Art</option>
+                    <option value="painting">Painting</option>
+                    <option value="drawing">Drawing</option>
                     <option value="photography">Photography</option>
                     <option value="sculpting">Sculpting</option>
                     <option value="music">Music</option>
-                    <option value="video">Video</option>
                     <option value="projects">Projects</option>
                 </select>
                 <button class="action" onclick="loadContent()" style="margin: 0; font-size: 11px;">Refresh List</button>
@@ -210,7 +209,7 @@
         function toggleFields() {
             const cat = document.getElementById('category').value;
             document.getElementById('mediumGroup').style.display = (cat === 'painting' || cat === 'drawing' || cat === 'sculpting') ? 'block' : 'none';
-            document.getElementById('genreGroup').style.display = (cat === 'music' || cat === 'video') ? 'block' : 'none';
+            document.getElementById('genreGroup').style.display = (cat === 'music') ? 'block' : 'none';
 
             // Show source toggle for music (Cloudinary doesn't support audio on free plan)
             const toggle = document.getElementById('sourceToggle');

@@ -2,24 +2,24 @@
     {
         "id": "music_1770764811",
         "title": {
-            "en": "test2",
+            "en": "I would have",
             "fr": "test2",
-            "mx": "test2",
-            "ht": "test2"
+            "ht": "test2",
+            "mx": "test2"
         },
         "url": "https://github.com/mtldev514/retro-portfolio/releases/download/media/1770764808_STE-026.wav",
         "date": "2026-02-10",
         "genre": {
-            "en": "test",
+            "en": "Love Song",
             "fr": "test",
-            "mx": "test",
-            "ht": "test"
+            "ht": "test",
+            "mx": "test"
         },
         "description": {
-            "en": "test",
+            "en": "Une chanson d'amour",
             "fr": "test",
-            "mx": "test",
-            "ht": "test"
+            "ht": "test",
+            "mx": "test"
         },
         "lyrics": {
             "en": "",

@@ -1,3 +1,5 @@
 python-dotenv
 cloudinary
 requests
+flask
+flask-cors

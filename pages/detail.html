@@ -84,15 +84,16 @@
             }
 
             html += `<div class="detail-info">`;
-            html += `<h2 class="detail-title">${title} ${visibilityBadge}</h2>`;
 
-            // Play in Radio button for music — at the top, right after title
+            // For music: play button inline with title
             if (isMusic && item.url) {
-                html += `<div class="detail-audio">
-                    <button class="track-radio-btn" id="detail-play-radio" data-track-url="${item.url.replace(/"/g, '&quot;')}">
+                html += `<h2 class="detail-title">${title}
+                    <button class="track-radio-btn detail-play-inline" id="detail-play-radio" data-track-url="${item.url.replace(/"/g, '&quot;')}">
                         &#9654; ${t('music_play_in_radio', 'Play in Radio')}
                     </button>
-                </div>`;
+                </h2>`;
+            } else {
+                html += `<h2 class="detail-title">${title} ${visibilityBadge}</h2>`;
             }
 
             // Meta row

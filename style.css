@@ -1411,6 +1411,15 @@ nav {
     margin: 0 0 10px;
     padding-bottom: 8px;
     border-bottom: 2px groove var(--border-groove);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.detail-play-inline {
+    font-size: 0.45em;
+    vertical-align: middle;
 }
 
 .detail-badge {

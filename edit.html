@@ -69,6 +69,11 @@
                     <textarea id="editDescription"></textarea>
                 </div>
 
+                <div class="form-group" id="lyricsGroup" style="display: none;">
+                    <label>Lyrics:</label>
+                    <textarea id="editLyrics" rows="8" style="white-space: pre-wrap; font-family: inherit; font-size: 12px;"></textarea>
+                </div>
+
                 <div class="form-group" id="urlGroup">
                     <label>URL / Source:</label>
                     <input type="text" id="editUrl" class="readonly" readonly>
@@ -181,23 +186,25 @@
             document.getElementById('windowTitle').innerText = `EDITING: ${titleStr}`;
             document.getElementById('statusText').innerText = `Editing ${cat}/${idStr}`;
 
-            // Show medium field for art/sculpting
-            if (cat === 'art' || cat === 'sculpting') {
+            // Show medium field for painting/drawing/sculpting
+            if (cat === 'painting' || cat === 'drawing' || cat === 'sculpting') {
                 document.getElementById('mediumGroup').style.display = 'block';
                 document.getElementById('editMedium').value = resolveField(item.medium);
             }
 
-            // Show genre field for music/video
-            if (cat === 'music' || cat === 'video') {
+            // Show genre + lyrics fields for music
+            if (cat === 'music') {
                 document.getElementById('genreGroup').style.display = 'block';
                 document.getElementById('editGenre').value = resolveField(item.genre);
+                document.getElementById('lyricsGroup').style.display = 'block';
+                document.getElementById('editLyrics').value = resolveField(item.lyrics);
             }
 
             // Always populate description
             document.getElementById('editDescription').value = resolveField(item.description);
 
             // Show image preview for visual categories
-            if (item.url && (cat === 'art' || cat === 'photography' || cat === 'sculpting')) {
+            if (item.url && (cat === 'painting' || cat === 'drawing' || cat === 'photography' || cat === 'sculpting')) {
                 document.getElementById('previewGroup').style.display = 'block';
                 document.getElementById('previewImg').src = item.url;
             }
@@ -238,6 +245,12 @@
             const genreGroup = document.getElementById('genreGroup');
             if (genreGroup.style.display !== 'none') {
                 updates.genre = makeMultilingualUpdate(currentItem.genre, document.getElementById('editGenre').value);
+            }
+
+            // Include lyrics if visible
+            const lyricsGroup = document.getElementById('lyricsGroup');
+            if (lyricsGroup.style.display !== 'none') {
+                updates.lyrics = makeMultilingualUpdate(currentItem.lyrics, document.getElementById('editLyrics').value);
             }
 
             // Always include description
