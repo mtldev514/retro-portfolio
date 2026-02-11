@@ -47,5 +47,11 @@ Push your repository to GitHub and enable **GitHub Pages** in the repository set
 
 ---
 
+### 📚 Documentation
+- [Deployment Instructions](docs/DEPLOYMENT.md) (English)
+- [How to Update](docs/UPDATE.md)
+- [Configuration Migration](docs/CONFIGURATION_MIGRATION.md)
+- [Guide de Déploiement](docs/DEPLOYMENT.fr.md) (Français)
+
 
 Made with 💜 by Alex

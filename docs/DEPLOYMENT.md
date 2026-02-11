@@ -1,379 +1,313 @@
-# 🚀 Deployment Guide - Private Config Setup
+# 🚀 Deployment Guide
 
-Ce guide explique comment déployer ton portfolio avec une configuration **privée** séparée du code public.
+Deploy your retro portfolio to the web!
 
----
-
-## 📦 Architecture
-
-```
-Repo PUBLIC (Code)                 Repo PRIVÉ (Config)
-──────────────────                 ───────────────────
-retro-portfolio/                   my-portfolio-config/
-├── index.html                     ├── config/
-├── admin.html                     │   ├── app.json
-├── js/                            │   ├── categories.json
-├── style.css                      │   ├── languages.json
-└── config-source.json             │   └── media-types.json
-    (pointe vers repo privé)       ├── data/
-                                   │   ├── painting.json
-                                   │   └── ...
-                                   ├── lang/
-                                   │   ├── en.json
-                                   │   └── fr.json
-                                   └── .env
-```
+> **Note:** A comprehensive French version exists in [DEPLOYMENT.md](DEPLOYMENT.md) covering advanced private config setups.
 
 ---
 
-## 🎯 Modes de Déploiement
+## 📋 Deployment Options
 
-### Option 1: Config Locale (Développement)
-
-Pour développer en local avec tes fichiers de config:
-
-```bash
-# 1. Garder config/ data/ lang/ en local
-# 2. Configurer config-source.json:
-{
-  "mode": "local",
-  "local": {
-    "configDir": "config",
-    "dataDir": "data",
-    "langDir": "lang"
-  }
-}
-```
-
-**Avantages:**
-- ✅ Rapide pour développer
-- ✅ Pas besoin d'internet
-- ✅ Config reste privée (gitignored)
-
-**Désavantages:**
-- ❌ Config pas versionée
-- ❌ Difficile à déployer
+| Platform | Difficulty | Cost | Best For |
+|----------|-----------|------|----------|
+| GitHub Pages | Easy | Free | Most users ⭐ |
+| Netlify | Easy | Free | Advanced features |
+| Vercel | Medium | Free | Next.js integration |
+| Custom Server | Hard | Varies | Full control |
 
 ---
 
-### Option 2: Repo Privé + GitHub Pages depuis Repo Config
+## 🌟 GitHub Pages (Recommended)
 
-**Setup:**
+### Prerequisites
 
-1. **Créer repo privé de config:**
-```bash
-mkdir my-portfolio-config
-cd my-portfolio-config
+- [x] Portfolio working locally
+- [x] GitHub repo created and pushed
 
-# Copier tes fichiers privés
-cp -r ../retro-portfolio/config .
-cp -r ../retro-portfolio/data .
-cp -r ../retro-portfolio/lang .
-cp ../retro-portfolio/.env .
+### Step 1: Enable GitHub Pages
 
-git init
-git add .
-git commit -m "Initial config"
-git remote add origin https://github.com/username/my-portfolio-config.git
-git push -u origin main
-```
+1. Go to your repo on GitHub
+2. Click **Settings** (top navigation)
+3. Scroll down or click **Pages** (left sidebar)
+4. Under **Source**:
+   - Branch: `main`
+   - Folder: `/ (root)`
+5. Click **Save**
 
-2. **Copier le code public dans le repo config:**
-```bash
-# Dans my-portfolio-config/
-cp -r ../retro-portfolio/*.html .
-cp -r ../retro-portfolio/js .
-cp -r ../retro-portfolio/style.css .
-cp -r ../retro-portfolio/fonts.css .
-# etc...
+### Step 2: Wait for Deployment
 
-# Créer config-source.json pour mode local
-echo '{"mode": "local"}' > config-source.json
+- GitHub will build your site (1-2 minutes)
+- Look for green checkmark
+- Your site will be live at:
+  ```
+  https://YOUR_USERNAME.github.io/REPO_NAME/
+  ```
 
-git add .
-git commit -m "Add portfolio code"
-git push
-```
+### Step 3: Custom Domain (Optional)
 
-3. **Activer GitHub Pages:**
-- Settings → Pages
-- Source: main branch
-- Deploy!
-
-**Avantages:**
-- ✅ Tout est privé
-- ✅ GitHub Pages gratuit
-- ✅ Versionné et sauvegardé
-- ✅ URL personnalisée possible
-
-**Désavantages:**
-- ❌ Faut copier code à chaque mise à jour
+1. Buy domain (e.g., from Namecheap, Google Domains)
+2. Add `CNAME` file to your repo:
+   ```bash
+   echo "yourdomain.com" > CNAME
+   git add CNAME
+   git commit -m "Add custom domain"
+   git push
+   ```
+3. Configure DNS at your domain provider:
+   ```
+   Type: CNAME
+   Name: @ (or www)
+   Value: YOUR_USERNAME.github.io
+   ```
+4. In GitHub repo settings → Pages:
+   - Enter your domain
+   - Check "Enforce HTTPS"
 
 ---
 
-### Option 3: Repo Public + Remote Config (Recommandé!)
+## 🚀 Netlify
 
-Le meilleur des deux mondes!
+### Why Netlify?
 
-1. **Créer repo privé de config:**
-```bash
-mkdir my-portfolio-config
-cd my-portfolio-config
+- Build previews for pull requests
+- Form handling
+- Serverless functions
+- Better custom domain management
 
-cp -r ../retro-portfolio/config .
-cp -r ../retro-portfolio/data .
-cp -r ../retro-portfolio/lang .
+### Deployment Steps
 
-git init
-git add .
-git commit -m "Private config"
-git remote add origin https://github.com/username/my-portfolio-config.git
-git push -u origin main
-```
+1. Sign up at [netlify.com](https://netlify.com)
+2. Click "Add new site" → "Import an existing project"
+3. Connect to GitHub
+4. Select your portfolio repo
+5. Build settings:
+   - Build command: (leave empty)
+   - Publish directory: `/`
+6. Click "Deploy site"
 
-2. **Activer GitHub Pages sur repo privé:**
-- Settings → Pages
-- Source: main branch
-- Obtenir l'URL: `https://username.github.io/my-portfolio-config/`
+### Custom Domain on Netlify
 
-3. **Configurer le repo public:**
-```bash
-cd retro-portfolio
-
-# Éditer config-source.json:
-{
-  "mode": "remote",
-  "remote": {
-    "enabled": true,
-    "repo": "username/my-portfolio-config",
-    "branch": "main",
-    "baseUrl": "https://username.github.io/my-portfolio-config/"
-  }
-}
-
-# Commit et push
-git add config-source.json
-git commit -m "Configure remote config source"
-git push
-```
-
-4. **Déployer repo public sur GitHub Pages:**
-- Le code public charge automatiquement depuis ton repo privé!
-
-**Avantages:**
-- ✅ Code public → tout le monde peut utiliser
-- ✅ Config privée → tes données protégées
-- ✅ Mises à jour faciles (pull code, config reste)
-- ✅ Deux repos indépendants
-
-**Désavantages:**
-- ❌ Besoin de gérer 2 repos
-- ❌ GitHub Pages doit être activé sur repo privé
+1. Go to Site settings → Domain management
+2. Click "Add custom domain"
+3. Enter your domain
+4. Follow DNS configuration instructions
 
 ---
 
-### Option 4: Mode Hybride (Fallback)
+## ⚡ Vercel
 
-Config remote avec fallback local:
+### Deployment Steps
 
-```json
-{
-  "mode": "hybrid",
-  "remote": {
-    "enabled": true,
-    "repo": "username/my-config",
-    "baseUrl": "https://username.github.io/my-config/"
-  },
-  "local": {
-    "configDir": "config",
-    "dataDir": "data",
-    "langDir": "lang"
-  }
-}
-```
+1. Sign up at [vercel.com](https://vercel.com)
+2. Click "Add New" → "Project"
+3. Import your GitHub repo
+4. Click "Deploy"
 
-Si remote échoue → utilise local automatiquement!
+Vercel auto-detects static sites and deploys instantly.
 
 ---
 
-## 🔧 Configuration
+## 🔒 Private Configuration Setup
 
-### config-source.json
+If you want to keep your content **private** while the code is **public**:
 
-```json
-{
-  "mode": "local|remote|hybrid",
+### Architecture
 
-  "remote": {
-    "enabled": true,
-    "repo": "username/my-portfolio-config",
-    "branch": "main",
-    "baseUrl": "https://username.github.io/my-portfolio-config/"
-  },
-
-  "local": {
-    "configDir": "config",
-    "dataDir": "data",
-    "langDir": "lang"
-  },
-
-  "deployment": {
-    "type": "github-pages",
-    "buildFromConfigRepo": false
-  },
-
-  "cache": {
-    "enabled": true,
-    "duration": 3600
-  }
-}
 ```
+Public Repo (Code)              Private Repo (Content)
+─────────────────               ──────────────────────
+retro-portfolio/                my-portfolio-config/
+├── index.html                  ├── config/
+├── admin.html                  ├── data/
+├── js/                         ├── lang/
+└── config-source.json          └── .env
+    (points to private repo)
+```
+
+### Setup Steps
+
+1. **Create two repos:**
+   - Public: Template code
+   - Private: Your content
+
+2. **Configure `config-source.json`:**
+   ```json
+   {
+     "mode": "remote",
+     "remote": {
+       "enabled": true,
+       "repo": "username/my-portfolio-config",
+       "branch": "main",
+       "baseUrl": "https://username.github.io/my-portfolio-config/"
+     }
+   }
+   ```
+
+3. **Deploy content repo to GitHub Pages:**
+   - Enable Pages on private repo
+   - GitHub Pages works for private repos (with GitHub Pro)
+
+4. **Deploy code repo:**
+   - Will fetch config/data from private repo at runtime
+
+### Benefits
+
+- ✅ Share template publicly
+- ✅ Keep personal content private
+- ✅ Update code and content independently
+
+### See Also
+
+- **[PRIVATE-CONFIG-SETUP.md](PRIVATE-CONFIG-SETUP.md)** (French) - Detailed private config guide
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** (French) - Comprehensive deployment options
 
 ---
 
-## 📋 Workflow Recommandé
+## 🔧 Backend Deployment
 
-### Setup Initial
+### Important Notes
 
-```bash
-# 1. Fork/clone le repo public
-git clone https://github.com/yourusername/retro-portfolio.git my-portfolio
-cd my-portfolio
+- **Admin panel requires backend** (`admin_api.py`)
+- **Static site works without backend**
+- Backend needed only for content management
 
-# 2. Créer ton repo de config privé
-mkdir ../my-portfolio-config
-cp -r config data lang ../my-portfolio-config/
-cd ../my-portfolio-config
-git init
-git add .
-git commit -m "Initial private config"
-git remote add origin https://github.com/YOU/my-config.git
-git push -u origin main
+### Backend Options
 
-# 3. Activer GitHub Pages sur repo config
-# (via GitHub UI)
+#### Option 1: Keep Backend Local
 
-# 4. Configurer le portfolio pour charger depuis remote
-cd ../my-portfolio
-cp config-source.json.example config-source.json
-# Éditer config-source.json avec ton URL
+**Recommended for most users!**
 
-# 5. Déployer portfolio public
-git push
-```
+- Deploy static site to GitHub Pages/Netlify/Vercel
+- Run `admin_api.py` locally when adding content
+- Upload to Cloudinary manually or via admin panel
+- Update JSON files, push to GitHub
 
-### Mise à jour du Code
+#### Option 2: Deploy Backend
 
-```bash
-# Pull les dernières updates du portfolio
-git pull upstream main
+**For advanced users only!**
 
-# Ton config reste inchangé!
-```
+Platform options:
+- **Heroku**: Python app deployment
+- **Railway.app**: Modern Python hosting
+- **PythonAnywhere**: Free tier available
+- **Your own server**: VPS with Python
 
-### Mise à jour du Contenu
+Requirements:
+- Install dependencies: `pip install -r requirements.txt`
+- Set environment variables (CLOUDINARY credentials)
+- Run `admin_api.py`
+- Enable CORS for your frontend domain
 
-```bash
-cd my-portfolio-config
-
-# Modifier config/data/lang
-# ...
-
-git add .
-git commit -m "Update content"
-git push
-
-# GitHub Pages redéploie automatiquement
-# Portfolio public charge la nouvelle config!
-```
+**Note:** Most users don't need backend deployed - manage content locally!
 
 ---
 
-## 🛡️ Sécurité
+## 🌐 Environment Variables
 
-### Repo Privé de Config
+### For Static Deployment
 
-- ✅ GitHub Pages fonctionne même sur repos privés
-- ✅ Seul toi as accès au repo
-- ✅ Mais les fichiers sont publiquement accessibles via Pages URL
-- ⚠️ **Important:** GitHub Pages rend les fichiers publics même si repo privé!
+No environment variables needed! Your `.env` file stays local.
 
-### Protection des Secrets
+### For Backend Deployment
 
-**NE JAMAIS mettre dans config/data/lang:**
-- ❌ Mots de passe
-- ❌ Clés API
-- ❌ Tokens
-- ❌ Informations sensibles
+Set these on your hosting platform:
 
-**Garder dans .env (jamais commité):**
-- ✅ CLOUDINARY_API_SECRET
-- ✅ GITHUB_TOKEN
-- ✅ Autres secrets
+```env
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+**Never commit `.env` to git!**
 
 ---
 
-## 🔍 Debug
+## ✅ Post-Deployment Checklist
 
-### Vérifier quel mode est actif
+After deploying:
 
-```javascript
-// Dans la console du navigateur
-console.log('Config source:', AppConfig.source);
-console.log('Config paths:', AppConfig.paths);
-```
-
-### Forcer rechargement
-
-```javascript
-// Vider le cache
-ConfigLoader.clearCache();
-
-// Recharger
-await AppConfig.load();
-```
-
-### Test en local
-
-```bash
-# Démarrer serveur local
-python3 -m http.server 8000
-
-# Ouvrir http://localhost:8000
-# Checker console pour voir d'où vient la config
-```
+- [ ] Visit your live URL
+- [ ] Test all pages load
+- [ ] Check images display
+- [ ] Test audio player (if applicable)
+- [ ] Test language switching
+- [ ] Test theme switching
+- [ ] Check mobile responsiveness
+- [ ] Verify custom domain (if configured)
+- [ ] Check HTTPS is enabled
 
 ---
 
-## 📝 Checklist de Déploiement
+## 🐛 Common Deployment Issues
 
-- [ ] Repo privé créé avec config/data/lang
-- [ ] GitHub Pages activé sur repo privé
-- [ ] URL du repo privé notée
-- [ ] config-source.json configuré dans repo public
-- [ ] .gitignore empêche commit de config locale
-- [ ] .env pas commité
-- [ ] Tests en local (mode hybrid recommandé)
-- [ ] GitHub Pages activé sur repo public
-- [ ] Site fonctionne!
+### Images Not Loading
+
+**Problem:** CORS or wrong URLs
+
+**Solution:**
+- Check Cloudinary URLs in `data/*.json`
+- Ensure URLs are absolute: `https://res.cloudinary.com/...`
+- Check Cloudinary dashboard for uploaded files
+
+### 404 on GitHub Pages
+
+**Problem:** Wrong base path
+
+**Solution:**
+- Check repo is public
+- Verify Pages is enabled on `main` branch
+- Wait 2-3 minutes for initial deployment
+- Check `https://username.github.io/repo-name/` (include repo name!)
+
+### Custom Domain Not Working
+
+**Problem:** DNS not configured
+
+**Solution:**
+- Wait 24-48 hours for DNS propagation
+- Check DNS records are correct
+- Use `dig yourdomain.com` to verify
+- Make sure `CNAME` file exists in repo
+
+### Admin Panel 404 on Deployed Site
+
+**This is normal!**
+
+- Admin panel requires backend (`admin_api.py`)
+- Only works locally unless you deploy backend
+- Most users manage content locally, deploy static site
 
 ---
 
-## 🎯 Résumé
+## 🎓 Best Practices
 
-**Pour développement:**
-```json
-{"mode": "local"}
-```
+1. **Test locally first**
+   ```bash
+   python3 -m http.server 8000
+   ```
 
-**Pour production:**
-```json
-{"mode": "remote", "remote": {"baseUrl": "https://..."}}
-```
+2. **Use branches for experiments**
+   ```bash
+   git checkout -b experiment
+   # Make changes
+   # Test before merging to main
+   ```
 
-**Pour sécurité:**
-```json
-{"mode": "hybrid"}
-```
+3. **Enable HTTPS** - Always use HTTPS for security
 
-Enjoy! 🚀
+4. **Monitor deployments** - Check build logs if something breaks
+
+5. **Keep backups** - Your git history is your backup!
+
+---
+
+## 📚 Additional Resources
+
+- [GitHub Pages Documentation](https://docs.github.com/en/pages)
+- [Netlify Documentation](https://docs.netlify.com)
+- [Vercel Documentation](https://vercel.com/docs)
+- [Cloudinary Documentation](https://cloudinary.com/documentation)
+
+---
+
+Need help? Open an issue on [GitHub](https://github.com/yourusername/retro-portfolio/issues)!

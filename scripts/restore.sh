@@ -105,13 +105,6 @@ else
     echo "  ⚠️  .env not in backup"
 fi
 
-# Restore config-source.json
-if [ -f "$BACKUP_PATH/config-source.json" ]; then
-    cp "$BACKUP_PATH/config-source.json" ./
-    echo "  ✓ Restored config-source.json"
-else
-    echo "  ⚠️  config-source.json not in backup"
-fi
 
 echo ""
 echo "═══════════════════════════════════════════════════════════"

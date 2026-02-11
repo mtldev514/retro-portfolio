@@ -61,14 +61,6 @@ else
     echo "  ⚠️  .env not found"
 fi
 
-# Backup config-source.json
-if [ -f "config-source.json" ]; then
-    cp config-source.json "$BACKUP_PATH/"
-    echo "  ✓ Backed up config-source.json"
-    BACKED_UP=$((BACKED_UP + 1))
-else
-    echo "  ⚠️  config-source.json not found"
-fi
 
 # Create backup info file
 cat > "$BACKUP_PATH/BACKUP_INFO.txt" << EOF
@@ -84,14 +76,13 @@ Contents:
 $(ls -la "$BACKUP_PATH")
 
 To restore this backup:
-  ./scripts/restore-personal.sh $TIMESTAMP
+  ./scripts/restore.sh $TIMESTAMP
 
 Or manually:
   cp -r $BACKUP_PATH/config ./
   cp -r $BACKUP_PATH/data ./
   cp -r $BACKUP_PATH/lang ./
   cp $BACKUP_PATH/.env ./
-  cp $BACKUP_PATH/config-source.json ./
 EOF
 
 echo ""
@@ -105,7 +96,7 @@ if [ $BACKED_UP -gt 0 ]; then
     echo "📊 Items backed up: $BACKED_UP"
     echo ""
     echo "To restore:"
-    echo "  ./scripts/restore-personal.sh $TIMESTAMP"
+    echo "  ./scripts/restore.sh $TIMESTAMP"
     echo ""
 else
     echo "  ⚠️  Nothing to backup"

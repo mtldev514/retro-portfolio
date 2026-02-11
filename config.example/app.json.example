@@ -2,7 +2,7 @@
   "app": {
     "name": "Retro Portfolio",
     "version": "1.0",
-    "adminTitle": "PORTFOLIO MANAGER V1.0"
+    "adminTitle": "PORTFOLIO MANAGER"
   },
   "api": {
     "host": "127.0.0.1",
@@ -24,7 +24,7 @@
     "apiUrl": "https://api.counterapi.dev/v1/retro-portfolio/visits/up"
   },
   "winamp": {
-    "title": "Radyo",
+    "title": "My Playlist",
     "bitrate": "192",
     "frequency": "44"
   },
