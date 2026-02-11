@@ -20,6 +20,12 @@
             "fr": "test",
             "mx": "test",
             "ht": "test"
+        },
+        "lyrics": {
+            "en": "",
+            "fr": "",
+            "mx": "",
+            "ht": ""
         }
     }
 ]

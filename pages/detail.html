@@ -69,17 +69,31 @@
                     : `<span class="detail-badge detail-badge-public">🌍 ${t('detail_public', 'Public')}</span>`;
             }
 
+            const lyrics = tf(item.lyrics);
+
             let html = `<div class="detail-page">`;
 
             // Image hero (for art/photo/sculpting)
             if (item.url && !isProject && !isMusic) {
                 html += `<div class="detail-hero">
                     <img src="${item.url}" alt="${title}">
+                    ${(item.gallery && item.gallery.length) ? `<div class="detail-gallery-thumbs">
+                        ${item.gallery.map((img, i) => `<img src="${img}" class="gallery-thumb" alt="Gallery ${i+1}">`).join('')}
+                    </div>` : ''}
                 </div>`;
             }
 
             html += `<div class="detail-info">`;
             html += `<h2 class="detail-title">${title} ${visibilityBadge}</h2>`;
+
+            // Play in Radio button for music — at the top, right after title
+            if (isMusic && item.url) {
+                html += `<div class="detail-audio">
+                    <button class="track-radio-btn" id="detail-play-radio" data-track-url="${item.url.replace(/"/g, '&quot;')}">
+                        &#9654; ${t('music_play_in_radio', 'Play in Radio')}
+                    </button>
+                </div>`;
+            }
 
             // Meta row
             html += `<div class="detail-meta">`;
@@ -97,26 +111,72 @@
                 </div>`;
             }
 
-            // Play in Radio button for music
-            if (isMusic && item.url) {
-                html += `<div class="detail-audio" style="margin-top: 15px;">
-                    <button class="track-radio-btn" id="detail-play-radio" data-track-url="${item.url.replace(/"/g, '&quot;')}">
-                        &#9654; ${t('music_play_in_radio', 'Play in Radio')}
-                    </button>
+            // Lyrics for music
+            if (isMusic && lyrics) {
+                html += `<div class="detail-lyrics">
+                    <h3>${t('detail_lyrics', 'Lyrics')}</h3>
+                    <pre class="lyrics-text">${lyrics}</pre>
                 </div>`;
             }
 
-            // Source code link for projects
-            if (isProject && item.url) {
-                html += `<div class="detail-actions">
-                    <a href="${item.url}" target="_blank" class="btn">🔗 ${t('projects_view_code', 'View Source')}</a>
-                </div>`;
+            // Links for public projects only (website preferred, GitHub fallback)
+            if (isProject && item.visibility === 'public') {
+                if (item.website) {
+                    html += `<div class="detail-actions">
+                        <a href="${item.website}" target="_blank" class="btn"><i class="fa fa-external-link"></i> ${t('card_website', 'Website')}</a>
+                        <a href="${item.url}" target="_blank" class="btn"><i class="fa fa-github"></i> ${t('projects_view_code', 'View Source')}</a>
+                    </div>`;
+                } else if (item.url) {
+                    html += `<div class="detail-actions">
+                        <a href="${item.url}" target="_blank" class="btn"><i class="fa fa-github"></i> ${t('projects_view_code', 'View Source')}</a>
+                    </div>`;
+                }
             }
 
             html += `</div>`; // .detail-info
             html += `</div>`; // .detail-page
 
             container.innerHTML = html;
+
+            // Lightbox for art/photo/sculpting images
+            const heroImg = container.querySelector('.detail-hero img:not(.gallery-thumb)');
+            if (heroImg) {
+                const images = [item.url, ...(item.gallery || [])];
+                heroImg.style.cursor = 'pointer';
+                heroImg.addEventListener('click', () => openLightbox(images, 0));
+                container.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
+                    thumb.addEventListener('click', () => openLightbox(images, i + 1));
+                });
+            }
+
+            function openLightbox(imgs, startIdx) {
+                let idx = startIdx;
+                const overlay = document.createElement('div');
+                overlay.className = 'lightbox-overlay';
+                const render = () => {
+                    overlay.innerHTML = `
+                        <img src="${imgs[idx]}" class="lightbox-img">
+                        ${imgs.length > 1 ? `
+                            <button class="lightbox-prev">&#9664;</button>
+                            <button class="lightbox-next">&#9654;</button>
+                            <span class="lightbox-counter">${idx + 1} / ${imgs.length}</span>
+                        ` : ''}
+                    `;
+                };
+                render();
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) { overlay.remove(); document.removeEventListener('keydown', kbHandler); }
+                    if (e.target.closest('.lightbox-prev')) { idx = (idx - 1 + imgs.length) % imgs.length; render(); }
+                    if (e.target.closest('.lightbox-next')) { idx = (idx + 1) % imgs.length; render(); }
+                });
+                document.body.appendChild(overlay);
+                const kbHandler = (e) => {
+                    if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', kbHandler); }
+                    if (e.key === 'ArrowLeft') { idx = (idx - 1 + imgs.length) % imgs.length; render(); }
+                    if (e.key === 'ArrowRight') { idx = (idx + 1) % imgs.length; render(); }
+                };
+                document.addEventListener('keydown', kbHandler);
+            }
 
         } catch (e) {
             console.error('Detail load error:', e);

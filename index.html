@@ -24,40 +24,43 @@
             <p>This website was designed for<br><b>DESKTOP COMPUTERS</b></p>
             <p class="rotate-sub">Please turn your phone sideways<br>for the full retro experience!</p>
             <div class="rotate-ascii">
-┌─────────────────┐<br>
-│&nbsp;&nbsp;&nbsp;╔══════════╗&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;TURN&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;&nbsp;ME!&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;&nbsp;╚══════════╝&nbsp;&nbsp;&nbsp;│<br>
-└─────────────────┘<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟲
+                ┌─────────────────┐<br>
+                │&nbsp;&nbsp;&nbsp;╔══════════╗&nbsp;&nbsp;&nbsp;│<br>
+                │&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;TURN&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;&nbsp;│<br>
+                │&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;&nbsp;ME!&nbsp;&nbsp;&nbsp;║&nbsp;&nbsp;&nbsp;│<br>
+                │&nbsp;&nbsp;&nbsp;╚══════════╝&nbsp;&nbsp;&nbsp;│<br>
+                └─────────────────┘<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟲
             </div>
             <p class="rotate-blink">*** LANDSCAPE MODE REQUIRED ***</p>
         </div>
     </div>
     <div class="container">
         <header>
-            <div class="lang-switcher">
-                <button class="lang-btn"><span class="lang-flag">🇬🇧🇨🇦</span> English</button>
-                <div class="lang-dropdown">
-                    <div class="lang-option" onclick="i18n.changeLang('en')"><span class="lang-flag">🇬🇧🇨🇦</span> English
-                    </div>
-                    <div class="lang-option" onclick="i18n.changeLang('fr')"><span class="lang-flag">⚜️🇨🇦</span> French
-                    </div>
-                    <div class="lang-option" onclick="i18n.changeLang('mx')"><span class="lang-flag">🇲🇽</span> Spanish
-                    </div>
-                    <div class="lang-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span> Creole
-                    </div>
-                </div>
-            </div>
-            <div class="theme-switcher">
-                <button class="theme-btn"><span class="theme-icon">🌿</span> JR-16</button>
-                <div class="theme-dropdown">
-                    <div class="theme-option" onclick="themes.changeTheme('jr16')"><span class="theme-icon">🌿</span> JR-16</div>
-                    <div class="theme-option" onclick="themes.changeTheme('ambre')"><span class="theme-icon">🔥</span> Ambre Chaud</div>
-                    <div class="theme-option" onclick="themes.changeTheme('naples')"><span class="theme-icon">☀️</span> Naples Yellow</div>
-                    <div class="theme-option" onclick="themes.changeTheme('beton')"><span class="theme-icon">🌫️</span> Béton</div>
-                    <div class="theme-option" onclick="themes.changeTheme('ciment')"><span class="theme-icon">🪨</span> Ciment</div>
+            <div class="settings-switcher">
+                <button class="settings-btn">⚙</button>
+                <div class="settings-dropdown">
+                    <div class="settings-section-label">Theme</div>
+                    <div class="settings-option" onclick="themes.changeTheme('jr16')"><span class="theme-icon">🌿</span>
+                        JR-16</div>
+                    <div class="settings-option" onclick="themes.changeTheme('ambre')"><span
+                            class="theme-icon">🔥</span> Ambre Chaud</div>
+                    <div class="settings-option" onclick="themes.changeTheme('naples')"><span
+                            class="theme-icon">☀️</span> Naples Yellow</div>
+                    <div class="settings-option" onclick="themes.changeTheme('beton')"><span
+                            class="theme-icon">🌫️</span> Béton</div>
+                    <div class="settings-option" onclick="themes.changeTheme('ciment')"><span
+                            class="theme-icon">🪨</span> Ciment</div>
+                    <div class="settings-divider"></div>
+                    <div class="settings-section-label">Language</div>
+                    <div class="settings-option" onclick="i18n.changeLang('en')"><span class="lang-flag">🇬🇧🇨🇦</span>
+                        English</div>
+                    <div class="settings-option" onclick="i18n.changeLang('fr')"><span class="lang-flag">⚜️🇨🇦</span>
+                        French</div>
+                    <div class="settings-option" onclick="i18n.changeLang('mx')"><span class="lang-flag">🇲🇽</span>
+                        Spanish</div>
+                    <div class="settings-option" onclick="i18n.changeLang('ht')"><span class="lang-flag">🇭🇹</span>
+                        Creole</div>
                 </div>
             </div>
             <h1 id="page-title" data-i18n="header_title">alex a montreal</h1>
@@ -74,7 +77,7 @@
                 <div class="winamp">
                     <div class="winamp-titlebar">
                         <span class="winamp-grip"></span>
-                        <span class="winamp-title" data-i18n="sidebar_radio_title">Alex's Radio</span>
+                        <span class="winamp-title">Radyo</span>
                         <span class="winamp-grip"></span>
                     </div>
                     <div class="winamp-display">
@@ -93,7 +96,8 @@
                         </div>
                     </div>
                     <div class="winamp-transport">
-                        <button class="winamp-btn radio-prev" title="Previous"><i class="fa fa-step-backward"></i></button>
+                        <button class="winamp-btn radio-prev" title="Previous"><i
+                                class="fa fa-step-backward"></i></button>
                         <button class="winamp-btn radio-playpause" title="Play"><i class="fa fa-play"></i></button>
                         <button class="winamp-btn radio-next" title="Next"><i class="fa fa-step-forward"></i></button>
                     </div>
@@ -111,7 +115,8 @@
                         <span class="winamp-grip-sm"></span>
                     </div>
                     <div class="winamp-playlist" id="radio-tracklist">
-                        <div class="winamp-pl-item winamp-pl-empty" data-i18n="sidebar_radio_loading">Loading tracks...</div>
+                        <div class="winamp-pl-item winamp-pl-empty" data-i18n="sidebar_radio_loading">Loading tracks...
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -145,12 +150,20 @@
                     <span class="terminal-titlebar-text">alex@mtl:~</span>
                 </div>
                 <div class="terminal-body">
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> <span data-i18n="footer_copy">&copy; 2026 alex a montreal</span> &mdash; <a href="https://github.com/mtldev514" target="_blank" title="GitHub"><i class="fa fa-github"></i> github</a> · <a href="https://www.linkedin.com/in/alexcatus/?locale=fr_FR" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i> linkedin</a> &mdash; <span class="terminal-dim"><span data-i18n="footer_visitors">Visits:</span> <span class="visitor-counter">......</span></span> <span class="terminal-cursor">█</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> <span
+                            data-i18n="footer_copy">&copy; 2026 alex a montreal</span> &mdash; <a
+                            href="https://github.com/mtldev514" target="_blank" title="GitHub"><i
+                                class="fa fa-github"></i> github</a> · <a
+                            href="https://www.linkedin.com/in/alexcatus/?locale=fr_FR" target="_blank"
+                            title="LinkedIn"><i class="fa fa-linkedin"></i> linkedin</a> &mdash; <span
+                            class="terminal-dim"><span data-i18n="footer_visitors">Visits:</span> <span
+                                class="visitor-counter">......</span></span> <span class="terminal-cursor">█</span>
+                    </div>
                 </div>
             </div>
         </footer>
     </div>
-<script src="js/counter.js"></script>
+    <script src="js/counter.js"></script>
 </body>
 
 </html>

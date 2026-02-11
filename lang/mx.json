@@ -90,5 +90,9 @@
     "detail_back": "Volver",
     "detail_private": "Privado",
     "detail_public": "Público",
-    "detail_error": "Ups, error de carga."
+    "detail_error": "Ups, error de carga.",
+    "detail_lyrics": "Letra",
+    "card_github": "GitHub",
+    "card_website": "Sitio web",
+    "music_play_me": "Escuchar"
 }

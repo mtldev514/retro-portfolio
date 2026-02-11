@@ -27,8 +27,6 @@ body {
 
 /* UI controls — bump from below-legibility sizes */
 .sort-btn        { font-size: 11px; }
-.lang-option     { font-size: 12px; }
-.theme-option    { font-size: 12px; }
 
 /* Winamp — minimal bumps to preserve skin authenticity */
 .winamp-title    { font-size: 10px; }

@@ -108,28 +108,23 @@ const renderer = {
 
         if (item._category === 'music') {
             const genre = this.t(item.genre);
-            const playLabel = (window.i18n && i18n.translations.music_play_in_radio) || 'Play in Radio';
+            const playMeLabel = (window.i18n && i18n.translations.music_play_me) || 'Play Me';
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
-                    <div class="card-icon">&#127925;</div>
+                    ${item.url ? `<button class="music-card-play" data-track-url="${item.url.replace(/"/g, '&quot;')}" title="${playMeLabel}">&#9654;</button>` : `<div class="card-icon">&#127925;</div>`}
                     <h3 align="center">${title}</h3>
                     ${genre ? `<p align="center" class="gallery-subtitle">${genre}</p>` : ''}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>
                 </a>
-                ${item.url ? `<div class="music-card-actions">
-                    <button class="track-radio-btn" data-track-url="${item.url.replace(/"/g, '&quot;')}">
-                        &#9654; ${playLabel}
-                    </button>
-                </div>` : ''}
             `;
-            const radioBtn = div.querySelector('.track-radio-btn');
-            if (radioBtn) {
-                radioBtn.addEventListener('click', (e) => {
+            const playBtn = div.querySelector('.music-card-play');
+            if (playBtn) {
+                playBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    const url = radioBtn.dataset.trackUrl;
+                    const url = playBtn.dataset.trackUrl;
                     if (window.media && media.playlist) {
                         const idx = media.playlist.findIndex(p => p.src === url);
                         if (idx >= 0) media.switchTrack(idx);
@@ -147,6 +142,27 @@ const renderer = {
             const subTitle = isProject ? description : (medium ? `(${medium})` : '');
 
             const hasImage = item.url && !isProject;
+            const githubLabel = (window.i18n && i18n.translations.card_github) || 'GitHub';
+            const websiteLabel = (window.i18n && i18n.translations.card_website) || 'Website';
+            const isPublic = isProject && item.visibility === 'public';
+
+            let cardActionHtml = '';
+            if (isPublic) {
+                if (item.website) {
+                    cardActionHtml = `<div class="card-actions">
+                        <a href="${item.website}" target="_blank" class="card-action-btn" onclick="event.stopPropagation()">
+                            <i class="fa fa-external-link"></i> ${websiteLabel}
+                        </a>
+                    </div>`;
+                } else if (item.url) {
+                    cardActionHtml = `<div class="card-actions">
+                        <a href="${item.url}" target="_blank" class="card-action-btn" onclick="event.stopPropagation()">
+                            <i class="fa fa-github"></i> ${githubLabel}
+                        </a>
+                    </div>`;
+                }
+            }
+
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
                     ${hasImage ? `<img src="${item.url}" alt="${title}">` : `<div class="card-icon">${icon}</div>`}
@@ -156,6 +172,7 @@ const renderer = {
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>
                 </a>
+                ${cardActionHtml}
             `;
         }
         return div;

@@ -37,17 +37,7 @@ const i18n = {
     },
 
     updateSwitcherUI() {
-        const langMap = {
-            'en': { flag: '🇬🇧🇨🇦', name: 'English' },
-            'fr': { flag: '⚜️🇨🇦', name: 'French' },
-            'mx': { flag: '🇲🇽', name: 'Spanish' },
-            'ht': { flag: '🇭🇹', name: 'Creole' }
-        };
-        const active = langMap[this.currentLang];
-        if (active) {
-            const btn = document.querySelector('.lang-btn');
-            if (btn) btn.innerHTML = `<span class="lang-flag">${active.flag}</span> ${active.name}`;
-        }
+        // Gear button is static — no UI update needed
     },
 
     async changeLang(lang) {

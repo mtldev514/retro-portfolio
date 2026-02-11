@@ -44,7 +44,7 @@ const themes = {
                 '--btn-bg-start':         '#f5fffd',
                 '--btn-bg-mid':           '#e8e8f0',
                 '--btn-bg-end':           '#a2a2ac',
-                '--btn-hover-start':      '#f6f8ad',
+                '--btn-hover-start':      '#e0f8ef',
                 '--btn-hover-mid':        '#f5fffd',
                 '--btn-hover-end':        '#a2a2ac',
                 '--btn-active-start':     '#a2a2ac',
@@ -236,6 +236,10 @@ const themes = {
                 '--chrome-active':        '#1a1408',
                 '--chrome-grip-alt':      '#4a3818',
                 '--chrome-vol-start':     '#332000',
+                /* Glow overrides — amber */
+                '--wp-glow-mid':          'rgba(255,160,0,0.2)',
+                '--wp-glow-soft':         'rgba(255,160,0,0.1)',
+                '--wp-glow-faint':        'rgba(255,160,0,0.05)',
                 /* Sparkle — amber glow */
                 '--sparkle-1':            '#ffc040',
                 '--sparkle-2':            '#c08020',
@@ -353,6 +357,10 @@ const themes = {
                 '--chrome-active':        '#2a1e10',
                 '--chrome-grip-alt':      '#5a4030',
                 '--chrome-vol-start':     '#3a2010',
+                /* Glow overrides — warm gold */
+                '--wp-glow-mid':          'rgba(216,160,48,0.2)',
+                '--wp-glow-soft':         'rgba(216,160,48,0.1)',
+                '--wp-glow-faint':        'rgba(216,160,48,0.05)',
                 /* Sparkle — Mediterranean warmth */
                 '--sparkle-1':            '#e0a870',
                 '--sparkle-2':            '#b85c38',
@@ -474,6 +482,9 @@ const themes = {
                 '--marquee-glow':         'rgba(160,160,168,0.1)',
                 '--marquee-glow-text':    'rgba(160,160,168,0.3)',
                 '--term-glow':            'rgba(160,160,168,0.15)',
+                '--wp-glow-mid':          'rgba(192,192,200,0.15)',
+                '--wp-glow-soft':         'rgba(192,192,200,0.08)',
+                '--wp-glow-faint':        'rgba(192,192,200,0.04)',
                 /* Sparkle — cold silver */
                 '--sparkle-1':            '#e0e0e4',
                 '--sparkle-2':            '#a0a0a8',
@@ -595,6 +606,9 @@ const themes = {
                 '--marquee-glow':         'rgba(180,180,190,0.1)',
                 '--marquee-glow-text':    'rgba(180,180,190,0.3)',
                 '--term-glow':            'rgba(180,180,190,0.15)',
+                '--wp-glow-mid':          'rgba(176,176,184,0.15)',
+                '--wp-glow-soft':         'rgba(176,176,184,0.08)',
+                '--wp-glow-faint':        'rgba(176,176,184,0.04)',
                 /* Sparkle — silver & pencil */
                 '--sparkle-1':            '#48484e',
                 '--sparkle-2':            '#90909a',
@@ -635,6 +649,12 @@ const themes = {
 
         this.currentTheme = themeId;
         localStorage.setItem('selectedTheme', themeId);
+
+        // Update sparkle colors for the new theme
+        if (window.sparkle) sparkle.refreshColors();
+
+        // Toggle petal rain for Béton theme
+        this.togglePetals(themeId);
     },
 
     changeTheme(themeId) {
@@ -643,10 +663,33 @@ const themes = {
     },
 
     updateSwitcherUI() {
-        const theme = this.definitions[this.currentTheme];
-        if (!theme) return;
-        const btn = document.querySelector('.theme-btn');
-        if (btn) btn.innerHTML = `<span class="theme-icon">${theme.emoji}</span> ${theme.name}`;
+        // Gear button is static — no UI update needed
+    },
+
+    togglePetals(themeId) {
+        const existing = document.getElementById('petal-rain');
+        if (themeId !== 'beton') {
+            if (existing) existing.remove();
+            return;
+        }
+        if (existing) return; // already active
+
+        const container = document.createElement('div');
+        container.id = 'petal-rain';
+        const petals = ['❀', '✿', '❁', '✾', '·'];
+        const count = 25;
+        for (let i = 0; i < count; i++) {
+            const petal = document.createElement('span');
+            petal.className = 'petal';
+            petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDuration = (8 + Math.random() * 12) + 's';
+            petal.style.animationDelay = -(Math.random() * 20) + 's';
+            petal.style.fontSize = (8 + Math.random() * 8) + 'px';
+            petal.style.opacity = 0.15 + Math.random() * 0.2;
+            container.appendChild(petal);
+        }
+        document.body.appendChild(container);
     }
 };
 

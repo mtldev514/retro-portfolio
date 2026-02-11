@@ -90,5 +90,9 @@
     "detail_back": "Retour",
     "detail_private": "Privé",
     "detail_public": "Public",
-    "detail_error": "Oups, erreur de chargement."
+    "detail_error": "Oups, erreur de chargement.",
+    "detail_lyrics": "Paroles",
+    "card_github": "GitHub",
+    "card_website": "Site web",
+    "music_play_me": "Écouter"
 }

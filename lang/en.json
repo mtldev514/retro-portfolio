@@ -90,5 +90,9 @@
     "detail_back": "Back",
     "detail_private": "Private",
     "detail_public": "Public",
-    "detail_error": "Oops, load error."
+    "detail_error": "Oops, load error.",
+    "detail_lyrics": "Lyrics",
+    "card_github": "GitHub",
+    "card_website": "Website",
+    "music_play_me": "Play Me"
 }

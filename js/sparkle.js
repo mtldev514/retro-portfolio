@@ -4,16 +4,24 @@
  */
 (function () {
     // Read sparkle colors from CSS variables (centralised in style.css :root)
-    const rootStyle = getComputedStyle(document.documentElement);
-    const colors = [
-        rootStyle.getPropertyValue('--sparkle-1').trim() || '#ffd700',
-        rootStyle.getPropertyValue('--sparkle-2').trim() || '#ff69b4',
-        rootStyle.getPropertyValue('--sparkle-3').trim() || '#00ffff',
-        rootStyle.getPropertyValue('--sparkle-4').trim() || '#ff00ff',
-        rootStyle.getPropertyValue('--sparkle-5').trim() || '#fff',
-        rootStyle.getPropertyValue('--sparkle-6').trim() || '#7fff00',
-        rootStyle.getPropertyValue('--sparkle-7').trim() || '#ff4500',
-    ];
+    let colors = [];
+
+    function refreshColors() {
+        const s = getComputedStyle(document.documentElement);
+        colors = [
+            s.getPropertyValue('--sparkle-1').trim() || '#ffd700',
+            s.getPropertyValue('--sparkle-2').trim() || '#ff69b4',
+            s.getPropertyValue('--sparkle-3').trim() || '#00ffff',
+            s.getPropertyValue('--sparkle-4').trim() || '#ff00ff',
+            s.getPropertyValue('--sparkle-5').trim() || '#fff',
+            s.getPropertyValue('--sparkle-6').trim() || '#7fff00',
+            s.getPropertyValue('--sparkle-7').trim() || '#ff4500',
+        ];
+    }
+    refreshColors();
+
+    // Expose so themes.js can call sparkle.refreshColors() on theme change
+    window.sparkle = { refreshColors };
     const shapes = ['✦', '✧', '✶', '★', '·', '✸', '✹'];
     const pool = [];
     const POOL_SIZE = 50;
