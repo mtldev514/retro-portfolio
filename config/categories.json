@@ -1,18 +1,32 @@
 {
-  "categories": [
+  "contentTypes": [
     {
       "id": "painting",
       "name": "Painting",
       "icon": "🎨",
+      "mediaType": "image",
       "dataFile": "data/painting.json",
-      "hasGallery": true,
+      "description": "Traditional paintings using various media",
       "fields": {
         "required": ["title", "url"],
         "optional": [
           {
             "name": "medium",
             "type": "text",
-            "label": "Medium"
+            "label": "Medium",
+            "placeholder": "e.g., Oil on canvas, Acrylic, Watercolor"
+          },
+          {
+            "name": "dimensions",
+            "type": "text",
+            "label": "Dimensions",
+            "placeholder": "e.g., 24x36 inches"
+          },
+          {
+            "name": "year",
+            "type": "text",
+            "label": "Year",
+            "placeholder": "e.g., 2024"
           },
           {
             "name": "description",
@@ -31,15 +45,22 @@
       "id": "drawing",
       "name": "Drawing",
       "icon": "✏️",
+      "mediaType": "image",
       "dataFile": "data/drawing.json",
-      "hasGallery": true,
+      "description": "Hand-drawn artwork and sketches",
       "fields": {
         "required": ["title", "url"],
         "optional": [
           {
             "name": "medium",
             "type": "text",
-            "label": "Medium"
+            "label": "Medium",
+            "placeholder": "e.g., Pencil, Charcoal, Ink"
+          },
+          {
+            "name": "dimensions",
+            "type": "text",
+            "label": "Dimensions"
           },
           {
             "name": "description",
@@ -58,11 +79,30 @@
       "id": "photography",
       "name": "Photography",
       "icon": "📷",
+      "mediaType": "image",
       "dataFile": "data/photography.json",
-      "hasGallery": true,
+      "description": "Photographic works",
       "fields": {
         "required": ["title", "url"],
         "optional": [
+          {
+            "name": "camera",
+            "type": "text",
+            "label": "Camera",
+            "placeholder": "e.g., Canon EOS R5"
+          },
+          {
+            "name": "lens",
+            "type": "text",
+            "label": "Lens",
+            "placeholder": "e.g., 50mm f/1.8"
+          },
+          {
+            "name": "settings",
+            "type": "text",
+            "label": "Camera Settings",
+            "placeholder": "e.g., ISO 400, f/2.8, 1/250s"
+          },
           {
             "name": "description",
             "type": "textarea",
@@ -80,15 +120,28 @@
       "id": "sculpting",
       "name": "Sculpting",
       "icon": "🗿",
+      "mediaType": "image",
       "dataFile": "data/sculpting.json",
-      "hasGallery": true,
+      "description": "Three-dimensional sculptural works",
       "fields": {
         "required": ["title"],
         "optional": [
           {
-            "name": "medium",
+            "name": "material",
             "type": "text",
-            "label": "Medium"
+            "label": "Material",
+            "placeholder": "e.g., Bronze, Clay, Marble"
+          },
+          {
+            "name": "dimensions",
+            "type": "text",
+            "label": "Dimensions",
+            "placeholder": "e.g., 12x8x6 inches"
+          },
+          {
+            "name": "weight",
+            "type": "text",
+            "label": "Weight"
           },
           {
             "name": "description",
@@ -107,15 +160,23 @@
       "id": "music",
       "name": "Music",
       "icon": "🎵",
+      "mediaType": "audio",
       "dataFile": "data/music.json",
-      "hasGallery": false,
+      "description": "Musical compositions and recordings",
       "fields": {
         "required": ["title", "url"],
         "optional": [
           {
             "name": "genre",
             "type": "text",
-            "label": "Genre"
+            "label": "Genre",
+            "placeholder": "e.g., Jazz, Rock, Classical"
+          },
+          {
+            "name": "duration",
+            "type": "text",
+            "label": "Duration",
+            "placeholder": "e.g., 3:45"
           },
           {
             "name": "lyrics",
@@ -132,13 +193,32 @@
     },
     {
       "id": "projects",
-      "name": "Code",
+      "name": "Projects",
       "icon": "💻",
+      "mediaType": "link",
       "dataFile": "data/projects.json",
-      "hasGallery": false,
+      "description": "Web projects, code repositories, and digital work",
       "fields": {
         "required": ["title"],
         "optional": [
+          {
+            "name": "techStack",
+            "type": "text",
+            "label": "Tech Stack",
+            "placeholder": "e.g., React, Node.js, PostgreSQL"
+          },
+          {
+            "name": "repo",
+            "type": "text",
+            "label": "GitHub Repository",
+            "placeholder": "e.g., username/repo-name"
+          },
+          {
+            "name": "liveUrl",
+            "type": "text",
+            "label": "Live URL",
+            "placeholder": "https://example.com"
+          },
           {
             "name": "description",
             "type": "textarea",

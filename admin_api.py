@@ -544,8 +544,45 @@ def get_config():
     return jsonify({
         "app": config.app_config,
         "languages": config.languages_config,
-        "categories": config.categories_config
+        "categories": config.categories_config,
+        "mediaTypes": config.media_types_config
     })
+
+@app.route('/api/config/save-media-types', methods=['POST'])
+def save_media_types():
+    """Save media types configuration"""
+    data = request.json
+    media_types = data.get('mediaTypes', [])
+
+    try:
+        config_path = os.path.join('config', 'media-types.json')
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump({"mediaTypes": media_types}, f, indent=2, ensure_ascii=False)
+
+        # Reload configuration
+        config.load_all()
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/config/save-content-types', methods=['POST'])
+def save_content_types():
+    """Save content types configuration"""
+    data = request.json
+    content_types = data.get('contentTypes', [])
+
+    try:
+        config_path = os.path.join('config', 'categories.json')
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump({"contentTypes": content_types}, f, indent=2, ensure_ascii=False)
+
+        # Reload configuration
+        config.load_all()
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 if __name__ == '__main__':
     host = config.get_host()

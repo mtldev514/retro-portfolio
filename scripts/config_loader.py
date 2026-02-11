@@ -16,6 +16,7 @@ class ConfigLoader:
         self.app_config = None
         self.languages_config = None
         self.categories_config = None
+        self.media_types_config = None
 
     def load_all(self):
         """Load all configuration files"""
@@ -28,6 +29,9 @@ class ConfigLoader:
 
             with open(self.config_dir / 'categories.json', 'r', encoding='utf-8') as f:
                 self.categories_config = json.load(f)
+
+            with open(self.config_dir / 'media-types.json', 'r', encoding='utf-8') as f:
+                self.media_types_config = json.load(f)
 
             print('✅ Configuration loaded successfully')
             return True
@@ -55,31 +59,59 @@ class ConfigLoader:
         """Get default language code"""
         return self.languages_config.get('defaultLanguage', 'en')
 
+    def get_content_types(self):
+        """Get all content type configurations (new name for categories)"""
+        return self.categories_config.get('contentTypes', self.categories_config.get('categories', []))
+
     def get_categories(self):
-        """Get all category configurations"""
-        return self.categories_config.get('categories', [])
+        """Get all category configurations (legacy method, now returns content types)"""
+        return self.get_content_types()
+
+    def get_content_type(self, content_type_id):
+        """Get specific content type configuration"""
+        for ct in self.get_content_types():
+            if ct['id'] == content_type_id:
+                return ct
+        return None
 
     def get_category(self, category_id):
-        """Get specific category configuration"""
-        for cat in self.get_categories():
-            if cat['id'] == category_id:
-                return cat
-        return None
+        """Get specific category configuration (legacy method)"""
+        return self.get_content_type(category_id)
 
     def get_category_data_file(self, category_id):
         """Get data file path for a category"""
-        cat = self.get_category(category_id)
+        cat = self.get_content_type(category_id)
         if cat:
             return cat.get('dataFile', f'data/{category_id}.json')
         return f'data/{category_id}.json'
 
     def get_category_map(self):
         """Get mapping of category ID to data file path"""
-        return {cat['id']: cat['dataFile'] for cat in self.get_categories()}
+        return {cat['id']: cat['dataFile'] for cat in self.get_content_types()}
 
     def get_gallery_categories(self):
-        """Get list of categories that support galleries"""
-        return [cat['id'] for cat in self.get_categories() if cat.get('hasGallery', False)]
+        """Get list of categories that support galleries (based on media type)"""
+        gallery_types = []
+        for ct in self.get_content_types():
+            media_type = self.get_media_type(ct.get('mediaType'))
+            if media_type and media_type.get('supportsGallery', False):
+                gallery_types.append(ct['id'])
+        return gallery_types
+
+    def get_media_types(self):
+        """Get all media type configurations"""
+        return self.media_types_config.get('mediaTypes', [])
+
+    def get_media_type(self, media_type_id):
+        """Get specific media type configuration"""
+        for mt in self.get_media_types():
+            if mt['id'] == media_type_id:
+                return mt
+        return None
+
+    def get_content_types_by_media(self, media_type_id):
+        """Get all content types that use a specific media type"""
+        return [ct for ct in self.get_content_types() if ct.get('mediaType') == media_type_id]
 
     def get_github_config(self):
         """Get GitHub configuration"""
