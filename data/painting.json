@@ -21,9 +21,7 @@
             "ht": "Yon souvni byen lontan. Nou t ap jwe nan chanm timoun nou an.",
             "mx": "Un recuerdo muy antiguo. Estamos jugando en nuestra habitación de infancia."
         },
-        "gallery": [
-            "https://res.cloudinary.com/dug75wesj/image/upload/v1770790578/portfolio/painting/vcj04cs8u0qold9dkzbj.jpg"
-        ]
+        "gallery": []
     },
     {
         "id": "painting_1770790578",
@@ -52,10 +50,10 @@
     {
         "id": "painting_1770790586",
         "title": {
-            "en": "PXL 20241127 173822496.MP",
+            "en": "Visages à l'aquarelles",
             "fr": "PXL 20241127 173822496.MP",
-            "mx": "PXL 20241127 173822496.MP",
-            "ht": "PXL 20241127 173822496.MP"
+            "ht": "PXL 20241127 173822496.MP",
+            "mx": "PXL 20241127 173822496.MP"
         },
         "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790586/portfolio/painting/qxcaagsletcaxt8fzoft.jpg",
         "date": "2026-02-11",
@@ -63,8 +61,55 @@
         "gallery": [
             "https://res.cloudinary.com/dug75wesj/image/upload/v1770790584/portfolio/painting/o4owkmiqxyocj40vhvwv.jpg",
             "https://res.cloudinary.com/dug75wesj/image/upload/v1770790582/portfolio/painting/eyaqgoa2ibyg7ct8acq8.jpg",
-            "https://res.cloudinary.com/dug75wesj/image/upload/v1770790581/portfolio/painting/w8h6stpj1jg4v7mgegjt.jpg",
-            "https://res.cloudinary.com/dug75wesj/image/upload/v1770790580/portfolio/painting/jcl4aqsk5qembpue2gab.jpg"
-        ]
+            "https://res.cloudinary.com/dug75wesj/image/upload/v1770790581/portfolio/painting/w8h6stpj1jg4v7mgegjt.jpg"
+        ],
+        "medium": {
+            "en": "",
+            "fr": "",
+            "mx": "",
+            "ht": ""
+        },
+        "description": {
+            "en": "des regards",
+            "fr": "des regards",
+            "mx": "des regards",
+            "ht": "des regards"
+        }
+    },
+    {
+        "id": "painting_extracted_1770813983",
+        "title": {
+            "en": "Feutre",
+            "fr": "Feutre",
+            "mx": "Feutre",
+            "ht": "Feutre"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790578/portfolio/painting/vcj04cs8u0qold9dkzbj.jpg",
+        "date": "2026-02-10",
+        "created": "2026-02-11",
+        "description": {
+            "en": "",
+            "fr": "",
+            "mx": "",
+            "ht": ""
+        }
+    },
+    {
+        "id": "painting_extracted_1770814031",
+        "title": {
+            "en": "Crayon de couleur",
+            "fr": "Crayon de couleur",
+            "mx": "Crayon de couleur",
+            "ht": "Crayon de couleur"
+        },
+        "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770790580/portfolio/painting/jcl4aqsk5qembpue2gab.jpg",
+        "date": "2026-02-11",
+        "created": "2026-02-11",
+        "description": {
+            "en": "",
+            "fr": "",
+            "mx": "",
+            "ht": ""
+        }
     }
 ]

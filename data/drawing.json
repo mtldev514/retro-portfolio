@@ -2,13 +2,25 @@
     {
         "id": "drawing_1770792209",
         "title": {
-            "en": "PXL 20260129 013016523",
+            "en": "Sketchs",
             "fr": "PXL 20260129 013016523",
-            "mx": "PXL 20260129 013016523",
-            "ht": "PXL 20260129 013016523"
+            "ht": "PXL 20260129 013016523",
+            "mx": "PXL 20260129 013016523"
         },
         "url": "https://res.cloudinary.com/dug75wesj/image/upload/v1770792209/portfolio/drawing/hwyhievyjz1wwho3iugt.jpg",
         "date": "2026-02-11",
-        "created": "2026-02-11"
+        "created": "2026-02-11",
+        "medium": {
+            "en": "",
+            "fr": "",
+            "mx": "",
+            "ht": ""
+        },
+        "description": {
+            "en": "",
+            "fr": "",
+            "mx": "",
+            "ht": ""
+        }
     }
 ]

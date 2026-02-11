@@ -24,6 +24,7 @@
         <div class="tab-bar">
             <div class="tab active" onclick="showTab('upload', this)">Add Media</div>
             <div class="tab" onclick="showTab('manage', this)">Manage Content</div>
+            <div class="tab" onclick="showTab('bulkedit', this)">Bulk Edit</div>
             <div class="tab" onclick="showTab('translations', this)">Translations</div>
             <div class="tab" onclick="showTab('config', this)">Configuration</div>
         </div>
@@ -45,6 +46,36 @@
                     </div>
                 </div>
                 <div id="bulkItems" class="bulk-items"></div>
+            </div>
+        </div>
+
+        <!-- BULK EDIT TAB -->
+        <div id="bulkedit" class="tab-content">
+            <div class="admin-flex-between">
+                <label>Select Category:</label>
+                <select id="bulkEditCategory" onchange="loadBulkEditContent()" style="width: 150px;">
+                    <option value="">-- Select Category --</option>
+                    <option value="painting">Painting</option>
+                    <option value="drawing">Drawing</option>
+                    <option value="photography">Photography</option>
+                    <option value="sculpting">Sculpting</option>
+                    <option value="music">Music</option>
+                    <option value="projects">Projects</option>
+                </select>
+            </div>
+            <div class="admin-hint">
+                Select items below and apply bulk edits to titles and descriptions. Changes apply to the English (EN) version.
+            </div>
+            <div id="bulkEditList" class="bulk-edit-list">
+                <p align="center" class="admin-muted">Select a category to begin bulk editing</p>
+            </div>
+            <div id="bulkEditActions" style="display: none;">
+                <div class="admin-flex-between" style="margin-top: 15px; padding-top: 10px; border-top: 2px solid var(--admin-win-border-dark);">
+                    <div>
+                        <span id="bulkEditSelectedCount" style="font-weight: bold;">0 selected</span>
+                    </div>
+                    <button class="action src-btn-active" style="margin: 0; font-size: 11px;" onclick="showBulkEditForm()">Edit Selected Items</button>
+                </div>
             </div>
         </div>
 
@@ -363,10 +394,13 @@
                         const galleryCount = (item.gallery && item.gallery.length) ? item.gallery.length + 1 : 0;
                         const pileBadge = galleryCount > 1 ? ` <span class="admin-muted">[${galleryCount} imgs]</span>` : '';
                         const isImage = IMAGE_CATEGORIES.includes(category);
+                        const isPile = galleryCount > 1;
+                        const pileButtonText = isPile ? 'Merge' : 'Pile';
+                        const pileButtonTitle = isPile ? 'Merge this pile into another pile' : 'Move this item into another pile';
                         html += `<div class="content-row">
                             <div style="flex:1"><b>${titleStr}</b>${pileBadge} <span class="admin-muted">(${item.date || 'N/A'})</span></div>
                             <div>
-                                ${isImage ? `<button type="button" class="pile-btn" style="font-size:10px" data-category="${category}" data-id="${safeId}">Pile</button>` : ''}
+                                ${isImage ? `<button type="button" class="pile-btn" style="font-size:10px" data-category="${category}" data-id="${safeId}" title="${pileButtonTitle}">${pileButtonText}</button>` : ''}
                                 <button type="button" class="edit-btn" style="font-size:10px" data-category="${category}" data-id="${safeId}">Edit</button>
                                 <button type="button" class="delete-btn con-error" style="font-size:10px;margin-left:5px" data-category="${category}" data-id="${safeId}">Delete</button>
                                 <span class="delete-status" style="font-size:9px;margin-left:5px"></span>
@@ -424,6 +458,15 @@
 
             const category = btn.dataset.category;
             const sourceId = btn.dataset.id;
+
+            // Get source item to check if it's a pile
+            const sourceItem = (loadedContent[category] || []).find(item => {
+                const id = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
+                return id === sourceId;
+            });
+            const sourceGalleryCount = (sourceItem && sourceItem.gallery && sourceItem.gallery.length) ? sourceItem.gallery.length + 1 : 1;
+            const isSourcePile = sourceGalleryCount > 1;
+
             const items = (loadedContent[category] || []).filter(item => {
                 const id = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
                 return id !== sourceId;
@@ -431,14 +474,17 @@
 
             if (items.length === 0) {
                 const consoleBox = document.getElementById('console');
-                consoleBox.innerHTML += `<br><span class="con-warn">> No other items in ${category} to pile into.</span>`;
+                consoleBox.innerHTML += `<br><span class="con-warn">> No other items in ${category} to ${isSourcePile ? 'merge' : 'pile'} into.</span>`;
                 return;
             }
 
             const picker = document.createElement('div');
             picker.className = 'pile-picker';
 
-            let html = '<div class="pile-picker-title">Move into:</div>';
+            let html = `<div class="pile-picker-title">${isSourcePile ? 'Merge into:' : 'Move into:'}</div>`;
+            if (isSourcePile) {
+                html += `<div style="padding: 4px 8px; font-size: 9px; background: #fffff0; border-bottom: 1px solid var(--admin-win-border-dark);">This will merge all ${sourceGalleryCount} images into the selected pile</div>`;
+            }
             items.forEach(item => {
                 const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
                 const id = item.id || titleStr;
@@ -539,6 +585,204 @@
             const manageTab = document.querySelectorAll('.tab')[1];
             if (manageTab) showTab('manage', manageTab);
         }
+
+        // ── Bulk Edit ──
+        let bulkEditItems = [];
+        let bulkEditSelected = [];
+
+        async function loadBulkEditContent() {
+            const category = document.getElementById('bulkEditCategory').value;
+            const list = document.getElementById('bulkEditList');
+            const actions = document.getElementById('bulkEditActions');
+
+            if (!category) {
+                list.innerHTML = '<p align="center" class="admin-muted">Select a category to begin bulk editing</p>';
+                actions.style.display = 'none';
+                return;
+            }
+
+            list.innerHTML = '<p align="center">Loading...</p>';
+
+            try {
+                const res = await fetch(`${API_URL}/api/content`);
+                const all = await res.json();
+                bulkEditItems = all[category] || [];
+                bulkEditSelected = [];
+
+                if (bulkEditItems.length === 0) {
+                    list.innerHTML = '<p align="center" class="admin-muted">No items in this category</p>';
+                    actions.style.display = 'none';
+                    return;
+                }
+
+                renderBulkEditList();
+                actions.style.display = 'block';
+            } catch (err) {
+                list.innerHTML = '<p align="center" class="con-error">Error loading content</p>';
+            }
+        }
+
+        function renderBulkEditList() {
+            const list = document.getElementById('bulkEditList');
+            let html = '<div style="background: white; border: 2px inset var(--admin-win-border-dark); padding: 10px; max-height: 300px; overflow-y: auto;">';
+
+            bulkEditItems.forEach((item, index) => {
+                const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
+                const descStr = (typeof item.description === 'object' && item.description !== null) ? (item.description.en || '') : (item.description || '');
+                const isSelected = bulkEditSelected.includes(index);
+                const checkedAttr = isSelected ? ' checked' : '';
+
+                html += `<div class="bulk-edit-row">
+                    <input type="checkbox" id="bulk-check-${index}" ${checkedAttr} onchange="toggleBulkEditItem(${index})">
+                    <label for="bulk-check-${index}" style="flex: 1; cursor: pointer;">
+                        <b>${titleStr}</b>
+                        ${descStr ? `<span class="admin-muted" style="display: block; font-size: 10px;">${descStr.substring(0, 60)}${descStr.length > 60 ? '...' : ''}</span>` : ''}
+                    </label>
+                </div>`;
+            });
+
+            html += '</div>';
+            list.innerHTML = html;
+            updateBulkEditCount();
+        }
+
+        function toggleBulkEditItem(index) {
+            const idx = bulkEditSelected.indexOf(index);
+            if (idx >= 0) {
+                bulkEditSelected.splice(idx, 1);
+            } else {
+                bulkEditSelected.push(index);
+            }
+            updateBulkEditCount();
+        }
+
+        function updateBulkEditCount() {
+            document.getElementById('bulkEditSelectedCount').textContent = `${bulkEditSelected.length} selected`;
+        }
+
+        function showBulkEditForm() {
+            if (bulkEditSelected.length === 0) {
+                alert('Please select at least one item to edit');
+                return;
+            }
+
+            const category = document.getElementById('bulkEditCategory').value;
+            const selectedItems = bulkEditSelected.map(i => bulkEditItems[i]);
+
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'bulk-edit-modal';
+            modal.innerHTML = `
+                <div class="bulk-edit-modal-content window" style="width: 600px;">
+                    <div class="title-bar">
+                        <span>BULK EDIT: ${bulkEditSelected.length} items</span>
+                        <div class="title-bar-controls">
+                            <button onclick="closeBulkEditModal()">X</button>
+                        </div>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div class="admin-hint">
+                            Leave fields blank to keep existing values. Changes apply to English (EN) version only.
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="bulkUpdateTitle"> Update Title:
+                            </label>
+                            <input type="text" id="bulkTitleValue" placeholder="New title for all selected items">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="bulkUpdateDesc"> Update Description:
+                            </label>
+                            <textarea id="bulkDescValue" placeholder="New description for all selected items"></textarea>
+                        </div>
+                        <div class="button-bar">
+                            <button type="button" onclick="closeBulkEditModal()">Cancel</button>
+                            <button type="button" class="save-btn" onclick="applyBulkEdit()">Apply Changes</button>
+                        </div>
+                    </div>
+                    <div class="console short" id="bulkEditConsole">[BULK-EDIT] Ready...</div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        window.closeBulkEditModal = function() {
+            const modal = document.querySelector('.bulk-edit-modal');
+            if (modal) modal.remove();
+        };
+
+        window.applyBulkEdit = async function() {
+            const updateTitle = document.getElementById('bulkUpdateTitle').checked;
+            const updateDesc = document.getElementById('bulkUpdateDesc').checked;
+            const titleValue = document.getElementById('bulkTitleValue').value;
+            const descValue = document.getElementById('bulkDescValue').value;
+            const category = document.getElementById('bulkEditCategory').value;
+            const consoleBox = document.getElementById('bulkEditConsole');
+
+            if (!updateTitle && !updateDesc) {
+                consoleBox.innerHTML += '<br><span class="con-warn">> Please select at least one field to update</span>';
+                return;
+            }
+
+            consoleBox.innerHTML += `<br>> Applying bulk edit to ${bulkEditSelected.length} items...`;
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (const itemIndex of bulkEditSelected) {
+                const item = bulkEditItems[itemIndex];
+                const itemId = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
+
+                const updates = {};
+
+                if (updateTitle && titleValue) {
+                    const original = item.title;
+                    if (typeof original === 'object' && original !== null) {
+                        updates.title = { ...original, en: titleValue };
+                    } else {
+                        updates.title = { en: titleValue, fr: titleValue, mx: titleValue, ht: titleValue };
+                    }
+                }
+
+                if (updateDesc && descValue) {
+                    const original = item.description;
+                    if (typeof original === 'object' && original !== null) {
+                        updates.description = { ...original, en: descValue };
+                    } else {
+                        updates.description = { en: descValue, fr: descValue, mx: descValue, ht: descValue };
+                    }
+                }
+
+                try {
+                    const res = await fetch(`${API_URL}/api/content/update`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ category, id: itemId, updates })
+                    });
+
+                    const result = await res.json();
+                    if (result.success) {
+                        successCount++;
+                    } else {
+                        errorCount++;
+                    }
+                } catch (err) {
+                    errorCount++;
+                }
+            }
+
+            consoleBox.innerHTML += `<br><span class="con-success">> Bulk edit complete: ${successCount} updated, ${errorCount} failed</span>`;
+
+            if (successCount > 0) {
+                document.getElementById('console').innerHTML += `<br><span class="con-success">> Bulk edited ${successCount} items in ${category}</span>`;
+                setTimeout(() => {
+                    closeBulkEditModal();
+                    loadBulkEditContent();
+                }, 1500);
+            }
+        };
 
     </script>
 </body>

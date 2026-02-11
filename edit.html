@@ -90,6 +90,16 @@
                     <audio id="audioPreview" controls style="width: 100%;"></audio>
                 </div>
 
+                <div id="galleryManagerGroup" class="preview-box" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <p style="font-size: 10px; margin: 0; font-weight: bold;">📷 GALLERY MANAGER</p>
+                        <p style="font-size: 9px; margin: 0; color: #7a7a88;">Drag to reorder • Click "Set as Cover" to change main image</p>
+                    </div>
+                    <div id="galleryGrid" class="gallery-manager-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
                 <div class="button-bar">
                     <button type="button" onclick="window.location.href='admin.html'">Cancel</button>
                     <button type="submit" class="save-btn">💾 Save Changes</button>
@@ -169,6 +179,9 @@
 
         // Current item data, stored for saving back with all languages preserved
         let currentItem = null;
+        let galleryOrder = []; // Track current gallery order
+        let coverUrl = ''; // Track current cover URL
+        let draggedIndex = null;
 
         function populateForm(item, cat) {
             currentItem = item;
@@ -216,8 +229,380 @@
                 document.getElementById('audioPreview').src = item.url;
             }
 
+            // Show gallery manager for image piles
+            if (item.gallery && item.gallery.length > 0 && (cat === 'painting' || cat === 'drawing' || cat === 'photography' || cat === 'sculpting')) {
+                document.getElementById('galleryManagerGroup').style.display = 'block';
+                coverUrl = item.url;
+                galleryOrder = [...item.gallery];
+                renderGalleryManager();
+            }
+
             log(`Item loaded successfully: "${titleStr}"`, 'cyan');
         }
+
+        function renderGalleryManager() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+
+            // Render cover image
+            const coverCard = createGalleryCard(coverUrl, -1, true);
+            grid.appendChild(coverCard);
+
+            // Render gallery images
+            galleryOrder.forEach((url, index) => {
+                const card = createGalleryCard(url, index, false);
+                grid.appendChild(card);
+            });
+        }
+
+        function createGalleryCard(url, index, isCover) {
+            const card = document.createElement('div');
+            card.className = 'gallery-card' + (isCover ? ' gallery-card-cover' : '');
+            card.draggable = !isCover;
+            card.dataset.index = index;
+
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = isCover ? 'Cover Image' : `Gallery ${index + 1}`;
+
+            const label = document.createElement('div');
+            label.className = 'gallery-card-label';
+
+            // Check if this image has metadata
+            let hasMetadata = false;
+            if (!isCover && currentItem.galleryMetadata && currentItem.galleryMetadata[url]) {
+                hasMetadata = true;
+            }
+
+            label.textContent = isCover ? '⭐ COVER' : `#${index + 1}${hasMetadata ? ' ✏️' : ''}`;
+
+            const actions = document.createElement('div');
+            actions.className = 'gallery-card-actions';
+
+            if (!isCover) {
+                const editMetaBtn = document.createElement('button');
+                editMetaBtn.type = 'button';
+                editMetaBtn.className = 'gallery-action-btn';
+                editMetaBtn.textContent = '✏️';
+                editMetaBtn.title = 'Edit title & description';
+                editMetaBtn.onclick = () => editImageMetadata(index);
+                actions.appendChild(editMetaBtn);
+
+                const setCoverBtn = document.createElement('button');
+                setCoverBtn.type = 'button';
+                setCoverBtn.className = 'gallery-action-btn';
+                setCoverBtn.textContent = 'Cover';
+                setCoverBtn.onclick = () => swapCover(index);
+                actions.appendChild(setCoverBtn);
+
+                const extractBtn = document.createElement('button');
+                extractBtn.type = 'button';
+                extractBtn.className = 'gallery-action-btn gallery-extract-btn';
+                extractBtn.textContent = 'Extract';
+                extractBtn.title = 'Remove from pile and create standalone item';
+                extractBtn.onclick = () => extractImage(index);
+                actions.appendChild(extractBtn);
+            }
+
+            card.appendChild(img);
+            card.appendChild(label);
+            card.appendChild(actions);
+
+            // Drag events (only for non-cover images)
+            if (!isCover) {
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragover', handleDragOver);
+                card.addEventListener('drop', handleDrop);
+                card.addEventListener('dragend', handleDragEnd);
+            }
+
+            return card;
+        }
+
+        function handleDragStart(e) {
+            draggedIndex = parseInt(e.currentTarget.dataset.index);
+            e.currentTarget.classList.add('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const card = e.currentTarget;
+            if (card.classList.contains('gallery-card-cover')) return;
+            card.classList.add('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const card = e.currentTarget;
+            card.classList.remove('drag-over');
+
+            if (card.classList.contains('gallery-card-cover')) return;
+
+            const targetIndex = parseInt(card.dataset.index);
+            if (draggedIndex === targetIndex) return;
+
+            // Reorder array
+            const [removed] = galleryOrder.splice(draggedIndex, 1);
+            galleryOrder.splice(targetIndex, 0, removed);
+
+            renderGalleryManager();
+            log('Gallery reordered', 'cyan');
+        }
+
+        function handleDragEnd(e) {
+            e.currentTarget.classList.remove('dragging');
+            document.querySelectorAll('.gallery-card').forEach(c => c.classList.remove('drag-over'));
+        }
+
+        function swapCover(galleryIndex) {
+            const oldCover = coverUrl;
+            const newCover = galleryOrder[galleryIndex];
+
+            // Swap
+            coverUrl = newCover;
+            galleryOrder[galleryIndex] = oldCover;
+
+            renderGalleryManager();
+            log('Cover image swapped!', 'lime');
+        }
+
+        async function extractImage(galleryIndex) {
+            const imageUrl = galleryOrder[galleryIndex];
+
+            // Close any existing picker
+            document.querySelectorAll('.extract-picker').forEach(p => p.remove());
+
+            // Fetch all items in this category to show as options
+            try {
+                const res = await fetch(`${API_URL}/api/content`);
+                const allContent = await res.json();
+                const items = (allContent[category] || []).filter(item => {
+                    const id = item.id || (typeof item.title === 'string' ? item.title : (item.title && item.title.en) || '');
+                    return id !== itemId; // Exclude current item
+                });
+
+                // Create picker modal
+                const picker = document.createElement('div');
+                picker.className = 'extract-picker-modal';
+
+                let optionsHtml = '';
+                items.forEach(item => {
+                    const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
+                    const id = item.id || titleStr;
+                    const safeId = id.replace(/"/g, '&quot;');
+                    const galleryCount = (item.gallery && item.gallery.length) ? item.gallery.length + 1 : 1;
+                    optionsHtml += `<div class="extract-picker-item" data-target-id="${safeId}">
+                        ${titleStr} <span class="admin-muted">(${galleryCount} img${galleryCount > 1 ? 's' : ''})</span>
+                    </div>`;
+                });
+
+                picker.innerHTML = `
+                    <div class="extract-picker-content window" style="width: 500px;">
+                        <div class="title-bar">
+                            <span>EXTRACT IMAGE</span>
+                            <div class="title-bar-controls">
+                                <button onclick="closeExtractPicker()">X</button>
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <p style="margin: 0 0 15px; font-size: 12px;">What would you like to do with this image?</p>
+                            <button type="button" class="extract-option-btn" onclick="extractAsNewItem(${galleryIndex})">
+                                📄 Create New Item
+                            </button>
+                            <button type="button" class="extract-option-btn" onclick="showExtractPileList(${galleryIndex})">
+                                📚 Add to Existing Pile
+                            </button>
+                            <div id="extractPileList" style="display: none; margin-top: 15px;">
+                                <p style="font-size: 10px; margin: 0 0 8px; font-weight: bold;">Select destination pile:</p>
+                                <div style="max-height: 200px; overflow-y: auto; border: 2px inset var(--admin-win-border-dark); background: white;">
+                                    ${optionsHtml || '<p style="padding: 10px; margin: 0; text-align: center; font-size: 11px;">No other items available</p>'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(picker);
+
+                // Add click handler for pile items
+                picker.querySelectorAll('.extract-picker-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const targetId = item.dataset.targetId;
+                        extractToPile(galleryIndex, targetId);
+                    });
+                });
+
+            } catch (err) {
+                log('Error loading items: ' + err.message, 'red');
+            }
+        }
+
+        window.closeExtractPicker = function() {
+            const picker = document.querySelector('.extract-picker-modal');
+            if (picker) picker.remove();
+        };
+
+        window.showExtractPileList = function(galleryIndex) {
+            document.getElementById('extractPileList').style.display = 'block';
+        };
+
+        window.extractAsNewItem = async function(galleryIndex) {
+            closeExtractPicker();
+
+            const imageUrl = galleryOrder[galleryIndex];
+
+            // Get metadata for this image if it exists
+            let imageMetadata = null;
+            if (currentItem.galleryMetadata && currentItem.galleryMetadata[imageUrl]) {
+                imageMetadata = currentItem.galleryMetadata[imageUrl];
+            }
+
+            const suggestedTitle = imageMetadata ? resolveField(imageMetadata.title) : `Photo ${galleryIndex + 1}`;
+            const suggestedDesc = imageMetadata ? resolveField(imageMetadata.description) : '';
+
+            // Prompt for title
+            const newTitle = prompt('Enter title for the new item:', suggestedTitle);
+            if (!newTitle || newTitle.trim() === '') {
+                log('Extraction cancelled', 'yellow');
+                return;
+            }
+
+            log('Extracting image as new item...', 'yellow');
+
+            try {
+                const res = await fetch(`${API_URL}/api/content/extract-from-pile`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category,
+                        sourceId: itemId,
+                        imageUrl: imageUrl,
+                        imageIndex: galleryIndex,
+                        customTitle: newTitle.trim(),
+                        customDescription: suggestedDesc
+                    })
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    galleryOrder.splice(galleryIndex, 1);
+                    // Remove metadata for this image
+                    if (currentItem.galleryMetadata && currentItem.galleryMetadata[imageUrl]) {
+                        delete currentItem.galleryMetadata[imageUrl];
+                    }
+                    renderGalleryManager();
+                    log(`Image extracted! New item created: "${result.newTitle}"`, 'lime');
+                } else {
+                    log('Error extracting image: ' + (result.error || 'Unknown'), 'red');
+                }
+            } catch (err) {
+                log('Network error: ' + err.message, 'red');
+            }
+        };
+
+        async function extractToPile(galleryIndex, targetId) {
+            closeExtractPicker();
+
+            const imageUrl = galleryOrder[galleryIndex];
+
+            log('Moving image to pile...', 'yellow');
+
+            try {
+                const res = await fetch(`${API_URL}/api/content/add-to-pile`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category,
+                        sourceId: itemId,
+                        targetId: targetId,
+                        imageUrl: imageUrl,
+                        imageIndex: galleryIndex
+                    })
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    galleryOrder.splice(galleryIndex, 1);
+                    renderGalleryManager();
+                    log(`Image moved to pile! (${result.targetGalleryCount} images total)`, 'lime');
+                } else {
+                    log('Error moving image: ' + (result.error || 'Unknown'), 'red');
+                }
+            } catch (err) {
+                log('Network error: ' + err.message, 'red');
+            }
+        }
+
+        // Edit metadata for individual gallery image
+        function editImageMetadata(index) {
+            const imageUrl = galleryOrder[index];
+
+            // Get current metadata if it exists
+            let currentMetadata = {};
+            if (currentItem.galleryMetadata && currentItem.galleryMetadata[imageUrl]) {
+                currentMetadata = currentItem.galleryMetadata[imageUrl];
+            }
+
+            const currentTitle = resolveField(currentMetadata.title) || '';
+            const currentDesc = resolveField(currentMetadata.description) || '';
+
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'extract-picker-modal';
+            modal.innerHTML = `
+                <div class="extract-picker-content" style="max-width: 500px;">
+                    <div class="extract-picker-header">
+                        <span>✏️ Edit Image Metadata</span>
+                        <button onclick="closeMetadataModal()" class="extract-picker-close">×</button>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <img src="${imageUrl}" style="max-width: 100%; max-height: 200px; border: 2px solid var(--admin-win-border-dark);">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 11px;">Title (English):</label>
+                            <input type="text" id="metaTitle" value="${currentTitle}" style="width: 100%; padding: 5px; font-family: 'MS Sans Serif', sans-serif; font-size: 11px; border: 2px inset var(--admin-win-border-dark);">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 11px;">Description (English):</label>
+                            <textarea id="metaDescription" rows="4" style="width: 100%; padding: 5px; font-family: 'MS Sans Serif', sans-serif; font-size: 11px; border: 2px inset var(--admin-win-border-dark); resize: vertical;">${currentDesc}</textarea>
+                        </div>
+                        <div style="text-align: right;">
+                            <button type="button" onclick="closeMetadataModal()" style="padding: 5px 15px; margin-right: 10px;">Cancel</button>
+                            <button type="button" onclick="saveImageMetadata(${index})" style="padding: 5px 15px; font-weight: bold;">Save</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        window.closeMetadataModal = function() {
+            const modal = document.querySelector('.extract-picker-modal');
+            if (modal) modal.remove();
+        };
+
+        window.saveImageMetadata = function(index) {
+            const imageUrl = galleryOrder[index];
+            const newTitle = document.getElementById('metaTitle').value.trim();
+            const newDesc = document.getElementById('metaDescription').value.trim();
+
+            // Initialize galleryMetadata if it doesn't exist
+            if (!currentItem.galleryMetadata) {
+                currentItem.galleryMetadata = {};
+            }
+
+            // Store metadata for this image
+            currentItem.galleryMetadata[imageUrl] = {
+                title: { en: newTitle, fr: newTitle, mx: newTitle, ht: newTitle },
+                description: { en: newDesc, fr: newDesc, mx: newDesc, ht: newDesc }
+            };
+
+            log(`Metadata updated for image #${index + 1}`, 'lime');
+            closeMetadataModal();
+            renderGalleryManager(); // Refresh to show metadata indicator
+        };
 
         // Build a multilingual update: set the 'en' value, preserve other langs from the original
         function makeMultilingualUpdate(originalField, newEnValue) {
@@ -256,6 +641,16 @@
 
             // Always include description
             updates.description = makeMultilingualUpdate(currentItem.description, document.getElementById('editDescription').value);
+
+            // Include gallery changes if gallery manager was visible
+            if (document.getElementById('galleryManagerGroup').style.display !== 'none') {
+                updates.url = coverUrl;
+                updates.gallery = galleryOrder;
+                // Include gallery metadata if it exists
+                if (currentItem.galleryMetadata) {
+                    updates.galleryMetadata = currentItem.galleryMetadata;
+                }
+            }
 
             log('Saving changes...', 'yellow');
 
