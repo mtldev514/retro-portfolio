@@ -5,51 +5,55 @@
 Projet `mtldev514/retro-portfolio` maintenu pour support operationnel et evolution.
 
 ## About
-Projet `mtldev514/retro-portfolio` maintenu pour support operationnel et evolution. Ce README est oriente maintenance/operations pour faciliter l'onboarding, le run et la transition entre contributeurs.
+Welcome to my digital gallery! This project is a personal portfolio website inspired by the early 2000s web aesthetic (Web 1.0). Because the i18n system uses `fetch()` to load translation files (`.json`), you cannot simply double-click `index.html`. You need to run a local web se Ce README est oriente maintenance/operations (runbook + onboarding + passation).
 
-Fonctionnalites cles implementees a ce jour:
-- Surface technique detectee: `Python`.
-- Points d'entree identifies: a confirmer manuellement.
-- Workflow projet: scripts standards non detectes automatiquement.
+## Ce que fait l'application
+- Probleme cible: Welcome to my digital gallery! This project is a personal portfolio website inspired by the early 2000s web aesthetic (Web 1.0). Because the i18n system uses `fetch()` to load translation files (`.json`), you cannot simply double-click `index.html`. You need to run a local web se
+- Solution technique: Le projet est implemente comme plateforme full-stack basee sur `Python`, `GitHub Actions`.
+- Flux principal:
+  - Points d'entree identifies: `index.html`, `admin_api.py`.
+- Fonctionnalites actuellement livrees:
+  - Retro UI: Pure HTML/CSS with marquee, sidebars, and classic layouts.
+  - i18n Support: Multilingual support for 6 languages/dialects:
+  - 🇬🇧 English
+  - 🇫🇷 French
 
 ## Stack Technique
-- Technologies: `Python`
+- Technologies: `Python`, `GitHub Actions`
 - Versions cles: non explicite dans les manifests
 - CI/CD detecte: GitHub Actions
 - Branche par defaut GitHub: `main`
 - Visibilite: public
 
 ## Installation & Configuration
-- Prerequis: `git` + environnement de la stack (Node/Python/Docker selon la section precedente).
-- Environnement Python: creer un venv puis installer les dependances du projet.
+- Prerequis: `git` + runtime correspondant a la stack.
+- Environnement Python: creer un venv et installer les dependances.
 - Variables d'environnement: copier `.env.template` vers `.env`.
-- Cles detectees: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
 
 ## Commandes Usuelles
-- Aucun script standard detecte automatiquement; verifier les docs/outils specifiques du repo.
+- Aucune commande standard detectee automatiquement.
 
 ## Architecture
-- Repertoires principaux: `assets`, `data`, `js`, `lang`, `pages`, `scripts`, `temp_uploads`.
-- Entry points: a documenter manuellement.
-- CI/CD: GitHub Actions.
+- Repertoires principaux: `js`, `lang`, `temp_uploads`, `scripts`, `data`, `assets`, `pages`.
+- Entry points: `index.html`, `admin_api.py`.
 
 ## Timeline & Metrics
 - Creation GitHub: 2026-02-10
 - Premiere activite git (local): 2026-02-10
 - Derniere activite git (local): 2026-02-10
 - Periode de travail observee: 2026-02-10 -> 2026-02-10 (0 day(s))
-- Nombre total de commits (all branches): 48
-- Nombre de contributeurs (historique git): 2
-- Fichiers suivis (git ls-files): 34
-- Volume code approx. (lignes sur fichiers suivis): 5255
+- Nombre total de commits (all branches): 49
+- Nombre de contributeurs: 2
+- Fichiers suivis: 34
+- Volume code approx. (lignes): 5274
 - Branches locales: 1 | Tags: 1
 
 ## Etat Actuel
-- TODO/FIXME/XXX detectes: 0
+- TODO/FIXME/XXX detectes: 1
 - Etat workspace local: propre
 - Dernier push GitHub: 2026-02-11
 - Derniere mise a jour GitHub: 2026-02-11
-- Limitation: metriques calculees automatiquement, a completer si des donnees metier manquent.
+- Limitation: informations fonctionnelles deduites automatiquement; valider metier si necessaire.
 
 ## Historical Notes (README precedent)
 Les informations historiques suivantes ont ete conservees pour la transition maintenance:
@@ -143,7 +147,6 @@ The script will upload the file, update the JSON database, and refresh the "Last
 
 ---
 *Best viewed in Netscape Navigator or Internet Explorer 6.0* 🌐
-
 
 </details>
 
