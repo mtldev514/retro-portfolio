@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.1.0] - 2026-02-11
+
+### 🔄 Update System
+
+This release adds comprehensive update tooling to safely update your portfolio while preserving customizations.
+
+### Added
+
+#### Update Infrastructure
+- 🔄 **Automated update script** (`update.sh`)
+  - Detects setup type (submodule/direct/fork)
+  - Creates automatic backups before updating
+  - Verifies data integrity after updates
+  - Shows changelog and new features
+  - Provides rollback instructions
+
+- 📦 **Backup/Restore system**
+  - `scripts/backup-personal.sh` - Backup user data
+  - `scripts/restore-personal.sh` - Restore from backup
+  - Timestamped backups (keeps last 5)
+  - Backup verification and info files
+
+- 📚 **Update Documentation** (`UPDATE.md`)
+  - Complete update guide for all setup types
+  - Safety mechanisms explained
+  - Troubleshooting section
+  - Best practices and update checklist
+
+---
+
 ## [2.0.0] - 2026-02-11
 
 ### 🎉 Major Release - Complete Configuration System

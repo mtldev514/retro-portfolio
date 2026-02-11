@@ -34,6 +34,8 @@ A **fully configurable** retro-styled portfolio website with Win95/90s aesthetic
 
 ## 🚀 Quick Start
 
+**New to this?** See **[QUICKSTART.md](QUICKSTART.md)** for a beginner-friendly guide!
+
 ### Option 1: Create New Portfolio Site (Recommended)
 
 ```bash
@@ -154,8 +156,23 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for advanced options.
 
 ---
 
+## 🔄 Updating
+
+Keep your portfolio up-to-date while preserving your customizations:
+
+```bash
+./update.sh
+```
+
+Your personal data (`config/`, `data/`, `lang/`, `.env`) is **always preserved**!
+
+See **[UPDATE.md](UPDATE.md)** for detailed update instructions.
+
+---
+
 ## 📚 Documentation
 
+- **[Update Guide](UPDATE.md)** - Update safely without losing data
 - **[Configuration Guide](config/README.md)** - Complete reference
 - **[Deployment Guide](DEPLOYMENT.md)** - Deployment options
 - **[Features Summary](FEATURES_SUMMARY.md)** - All features

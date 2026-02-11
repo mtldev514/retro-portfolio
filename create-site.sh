@@ -163,6 +163,16 @@ python3 -m http.server 8000
 
 ## Update Template
 
+Your personal data is safe during updates! Use the update script:
+
+\`\`\`bash
+cd template
+../update.sh  # Automated update with backup
+cd ..
+\`\`\`
+
+Or manually:
+
 \`\`\`bash
 cd template
 git pull origin main
@@ -170,6 +180,8 @@ cd ..
 git add template
 git commit -m "Update template"
 \`\`\`
+
+See [template/UPDATE.md](template/UPDATE.md) for details.
 
 ## Deploy
 
