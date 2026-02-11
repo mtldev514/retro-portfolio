@@ -2,35 +2,54 @@
 # retro-portfolio
 
 ## Description
-Projet `mtldev514/retro-portfolio` maintenu pour delivrer ses fonctionnalites applicatives actuelles.
+Projet `mtldev514/retro-portfolio` maintenu pour support operationnel et evolution.
 
 ## About
-Projet `mtldev514/retro-portfolio` maintenu pour delivrer ses fonctionnalites applicatives actuelles. La base technique s'appuie sur une organisation de code exploitable en maintenance, avec scripts et points d'entree identifiables pour l'onboarding et les operations.
+Projet `mtldev514/retro-portfolio` maintenu pour support operationnel et evolution. Ce README est oriente maintenance/operations pour faciliter l'onboarding, le run et la transition entre contributeurs.
 
 Fonctionnalites cles implementees a ce jour:
-- Automatisation CI/CD en place (GitHub Actions).
+- Surface technique detectee: `Python`.
+- Points d'entree identifies: a confirmer manuellement.
+- Workflow projet: scripts standards non detectes automatiquement.
 
 ## Stack Technique
 - Technologies: `Python`
-- Versions cles: non explicitement declarees dans les manifests detectes.
-- Visibilite du depot: public
+- Versions cles: non explicite dans les manifests
+- CI/CD detecte: GitHub Actions
+- Branche par defaut GitHub: `main`
+- Visibilite: public
 
 ## Installation & Configuration
-- 1. Cloner le depot puis se placer dans le dossier projet.
-- 2. Creer un environnement virtuel puis installer les dependances (`pip install -r requirements.txt` ou equivalent `pyproject.toml`).
-- 4. Variables d'environnement: copier `.env.template` vers `.env` et renseigner les cles ci-dessous.
-- Variables detectees: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
+- Prerequis: `git` + environnement de la stack (Node/Python/Docker selon la section precedente).
+- Environnement Python: creer un venv puis installer les dependances du projet.
+- Variables d'environnement: copier `.env.template` vers `.env`.
+- Cles detectees: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
 
 ## Commandes Usuelles
-- Aucune commande standard detectee automatiquement. Verifier les scripts du projet.
+- Aucun script standard detecte automatiquement; verifier les docs/outils specifiques du repo.
 
 ## Architecture
-- Modules/repertoires principaux: `assets`, `data`, `js`, `lang`, `pages`, `scripts`, `temp_uploads`.
-- Pipeline CI/CD detecte: GitHub Actions.
+- Repertoires principaux: `assets`, `data`, `js`, `lang`, `pages`, `scripts`, `temp_uploads`.
+- Entry points: a documenter manuellement.
+- CI/CD: GitHub Actions.
+
+## Timeline & Metrics
+- Creation GitHub: 2026-02-10
+- Premiere activite git (local): 2026-02-10
+- Derniere activite git (local): 2026-02-10
+- Periode de travail observee: 2026-02-10 -> 2026-02-10 (0 day(s))
+- Nombre total de commits (all branches): 48
+- Nombre de contributeurs (historique git): 2
+- Fichiers suivis (git ls-files): 34
+- Volume code approx. (lignes sur fichiers suivis): 5255
+- Branches locales: 1 | Tags: 1
 
 ## Etat Actuel
-- Aucun blocage majeur detecte automatiquement au moment de la mise a jour du README.
-- Limites de cet audit: analyse statique rapide basee sur la structure du depot et les manifests disponibles.
+- TODO/FIXME/XXX detectes: 0
+- Etat workspace local: propre
+- Dernier push GitHub: 2026-02-11
+- Derniere mise a jour GitHub: 2026-02-11
+- Limitation: metriques calculees automatiquement, a completer si des donnees metier manquent.
 
 ## Historical Notes (README precedent)
 Les informations historiques suivantes ont ete conservees pour la transition maintenance:
