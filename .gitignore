@@ -8,3 +8,12 @@ __pycache__/
 # Local Temp Files
 temp_uploads/
 temp_test.*
+
+# Private Configuration (if using local mode)
+config-source.json
+config/
+data/
+lang/
+
+# Keep example files
+!config-source.json.example

@@ -1,0 +1,38 @@
+{
+  "_comment": "Copy this file to config-source.json and configure your setup",
+
+  "mode": "local",
+
+  "_modes": {
+    "local": "Load config from local directories (config/, data/, lang/)",
+    "remote": "Load config from a remote GitHub repository",
+    "hybrid": "Try remote first, fallback to local if failed"
+  },
+
+  "remote": {
+    "enabled": false,
+    "repo": "username/retro-portfolio-config",
+    "branch": "main",
+    "baseUrl": "https://raw.githubusercontent.com/username/retro-portfolio-config/main/",
+    "_comment": "For private repos, you'll need to use GitHub Pages or a token"
+  },
+
+  "local": {
+    "configDir": "config",
+    "dataDir": "data",
+    "langDir": "lang"
+  },
+
+  "deployment": {
+    "type": "github-pages",
+    "_types": ["github-pages", "netlify", "vercel", "local"],
+    "buildFromConfigRepo": false,
+    "_comment": "If true, deploy from config repo instead of code repo"
+  },
+
+  "cache": {
+    "enabled": true,
+    "duration": 3600,
+    "_comment": "Cache duration in seconds for remote config"
+  }
+}
