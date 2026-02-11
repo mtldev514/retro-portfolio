@@ -265,7 +265,7 @@ Make sure it points to THIS repo:
 
 ## 📞 Support
 
-- Portfolio Code: https://github.com/mtldev514/retro-portfolio
+- Portfolio Code: https://github.com/yourusername/retro-portfolio
 - Documentation: See DEPLOYMENT.md in code repo
 - Issues: GitHub Issues in code repo
 

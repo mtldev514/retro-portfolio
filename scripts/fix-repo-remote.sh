@@ -73,7 +73,7 @@ git remote add origin "https://github.com/$GITHUB_USER/$REPO_NAME.git"
 
 # Add template as upstream
 if ! git remote get-url upstream > /dev/null 2>&1; then
-    git remote add upstream https://github.com/mtldev514/retro-portfolio.git
+    git remote add upstream https://github.com/yourusername/retro-portfolio.git
     echo "  ✓ Added upstream (template repo)"
 fi
 

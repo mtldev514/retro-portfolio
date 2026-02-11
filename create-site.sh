@@ -42,7 +42,7 @@ git init
 
 echo ""
 echo "📥 Adding template as submodule..."
-git submodule add https://github.com/mtldev514/retro-portfolio.git template
+git submodule add https://github.com/yourusername/retro-portfolio.git template
 
 echo ""
 echo "📋 Setting up directory structure..."
@@ -115,7 +115,7 @@ echo "📝 Creating README.md..."
 cat > README.md << EOF
 # $SITE_NAME
 
-My personal portfolio built with [Retro Portfolio](https://github.com/mtldev514/retro-portfolio).
+My personal portfolio built with [Retro Portfolio](https://github.com/yourusername/retro-portfolio).
 
 ## Structure
 

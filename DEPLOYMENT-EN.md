@@ -310,4 +310,4 @@ After deploying:
 
 ---
 
-Need help? Open an issue on [GitHub](https://github.com/mtldev514/retro-portfolio/issues)!
+Need help? Open an issue on [GitHub](https://github.com/yourusername/retro-portfolio/issues)!

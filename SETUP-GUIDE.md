@@ -65,7 +65,7 @@ This creates a clean separation between template code and your content.
 cd ~/Developer  # or wherever you keep projects
 
 # Clone the template
-git clone https://github.com/mtldev514/retro-portfolio.git
+git clone https://github.com/yourusername/retro-portfolio.git
 cd retro-portfolio
 
 # Create your portfolio site
@@ -244,7 +244,7 @@ For quick testing without submodules.
 cd ~/Developer
 
 # Clone the repo
-git clone https://github.com/mtldev514/retro-portfolio.git my-portfolio-test
+git clone https://github.com/yourusername/retro-portfolio.git my-portfolio-test
 cd my-portfolio-test
 
 # Copy example files
@@ -443,4 +443,4 @@ After following this guide, you should have:
 
 ---
 
-Need help? Check [GitHub Issues](https://github.com/mtldev514/retro-portfolio/issues) or open a new one!
+Need help? Check [GitHub Issues](https://github.com/yourusername/retro-portfolio/issues) or open a new one!

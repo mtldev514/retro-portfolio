@@ -44,13 +44,13 @@ git remote remove origin
 git remote add origin https://github.com/YOUR_USERNAME/alex-a-montreal.git
 
 # Add template as upstream (for updates)
-git remote add upstream https://github.com/mtldev514/retro-portfolio.git
+git remote add upstream https://github.com/yourusername/retro-portfolio.git
 
 # Verify
 git remote -v
 # Should show:
 # origin    https://github.com/YOUR_USERNAME/alex-a-montreal.git
-# upstream  https://github.com/mtldev514/retro-portfolio.git
+# upstream  https://github.com/yourusername/retro-portfolio.git
 ```
 
 #### Step 3: Push Your Portfolio
@@ -84,7 +84,7 @@ Best for clean separation of code and content.
 
 #### Step 1: Create Two GitHub Repos
 
-1. **Code repo**: Fork `mtldev514/retro-portfolio` on GitHub
+1. **Code repo**: Fork `yourusername/retro-portfolio` on GitHub
    - Or use the existing template repo
 
 2. **Content repo**: Create `alex-a-montreal` on GitHub
@@ -191,7 +191,7 @@ git remote -v
 
 # Option A should show:
 # origin    https://github.com/YOUR_USERNAME/alex-a-montreal.git
-# upstream  https://github.com/mtldev514/retro-portfolio.git
+# upstream  https://github.com/yourusername/retro-portfolio.git
 
 # Option B should show:
 # origin    https://github.com/YOUR_USERNAME/alex-a-montreal.git

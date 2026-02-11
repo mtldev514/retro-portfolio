@@ -40,7 +40,7 @@ A **fully configurable** retro-styled portfolio website with Win95/90s aesthetic
 
 ```bash
 # 1. Clone and create your portfolio
-git clone https://github.com/mtldev514/retro-portfolio.git
+git clone https://github.com/yourusername/retro-portfolio.git
 cd retro-portfolio
 ./create-site.sh my-portfolio
 
@@ -59,7 +59,7 @@ cd .. && python3 -m http.server 8000   # Serve site
 ### Alternative: Quick Test (No Submodules)
 
 ```bash
-git clone https://github.com/mtldev514/retro-portfolio.git my-test
+git clone https://github.com/yourusername/retro-portfolio.git my-test
 cd my-test
 ./init.sh  # Copy example files
 nano .env  # Add Cloudinary credentials

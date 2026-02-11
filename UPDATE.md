@@ -104,7 +104,7 @@ If you forked the repo on GitHub:
 
 ```bash
 # Add upstream remote (first time only)
-git remote add upstream https://github.com/mtldev514/retro-portfolio.git
+git remote add upstream https://github.com/yourusername/retro-portfolio.git
 
 # Fetch upstream changes
 git fetch upstream
@@ -297,7 +297,7 @@ rm -rf .cache/  # If you have caching enabled
 
 ## 🆘 Need Help?
 
-1. Check [GitHub Issues](https://github.com/mtldev514/retro-portfolio/issues)
+1. Check [GitHub Issues](https://github.com/yourusername/retro-portfolio/issues)
 2. Read [Documentation](README.md)
 3. Open a new issue with:
    - Your setup method (submodule/direct/fork)

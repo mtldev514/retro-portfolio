@@ -203,7 +203,7 @@ For power users:
 
 ## 🆘 Still Need Help?
 
-1. Check [GitHub Issues](https://github.com/mtldev514/retro-portfolio/issues)
+1. Check [GitHub Issues](https://github.com/yourusername/retro-portfolio/issues)
 2. Search existing issues for your problem
 3. Open new issue with:
    - What you're trying to do

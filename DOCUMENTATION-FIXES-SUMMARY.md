@@ -139,7 +139,7 @@ README.md
 - "Submodule setup" / "direct use" / "direct clone" / "fork"
 
 ### Now (Consistent)
-- **Template** = The retro-portfolio code (mtldev514/retro-portfolio)
+- **Template** = The retro-portfolio code (yourusername/retro-portfolio)
 - **Portfolio** = User's customized site (their content + config)
 - **Setup methods:**
   - "Beginner Setup" (submodule via create-site.sh)

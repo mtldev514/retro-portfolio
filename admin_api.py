@@ -192,7 +192,7 @@ def get_missing_translations():
 @app.route('/api/github/sync', methods=['POST'])
 def sync_github():
     token = os.getenv('GITHUB_TOKEN')
-    username = 'mtldev514'
+    username = 'yourusername'
     headers = {'Accept': 'application/vnd.github.v3+json'}
     if token:
         headers['Authorization'] = f'token {token}'

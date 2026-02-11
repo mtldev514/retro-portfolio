@@ -2,7 +2,7 @@
 # retro-portfolio
 
 ## Description
-Projet `mtldev514/retro-portfolio` maintenu pour support operationnel et evolution.
+Projet `yourusername/retro-portfolio` maintenu pour support operationnel et evolution.
 
 ## About
 Welcome to my digital gallery! This project is a personal portfolio website inspired by the early 2000s web aesthetic (Web 1.0). Because the i18n system uses `fetch()` to load translation files (`.json`), you cannot simply double-click `index.html`. You need to run a local web se Ce README est oriente maintenance/operations (runbook + onboarding + passation).

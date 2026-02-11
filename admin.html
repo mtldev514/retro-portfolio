@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ALEX-CONTROL-PANEL V1.0</title>
+    <title>YOUR-CONTROL-PANEL V1.0</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="fonts.css">
@@ -13,7 +13,7 @@
 
     <div class="window">
         <div class="title-bar">
-            <span>ALEX'S PORTFOLIO MANAGER V1.0</span>
+            <span data-i18n="admin_title">PORTFOLIO MANAGER V1.0</span>
             <div class="title-bar-controls">
                 <button>_</button>
                 <button>[]</button>
@@ -22,18 +22,18 @@
         </div>
 
         <div class="tab-bar">
-            <div class="tab active" onclick="showTab('upload', this)">Add Media</div>
-            <div class="tab" onclick="showTab('manage', this)">Manage Content</div>
-            <div class="tab" onclick="showTab('bulkedit', this)">Bulk Edit</div>
-            <div class="tab" onclick="showTab('translations', this)">Translations</div>
-            <div class="tab" onclick="showTab('config', this)">Configuration</div>
+            <div class="tab active" onclick="showTab('upload', this)" data-i18n="admin_tab_add">Add Media</div>
+            <div class="tab" onclick="showTab('manage', this)" data-i18n="admin_tab_manage">Manage Content</div>
+            <div class="tab" onclick="showTab('bulkedit', this)" data-i18n="admin_tab_bulk">Bulk Edit</div>
+            <div class="tab" onclick="showTab('translations', this)" data-i18n="admin_tab_translations">Translations</div>
+            <div class="tab" onclick="showTab('config', this)" data-i18n="admin_tab_config">Configuration</div>
         </div>
 
         <!-- UPLOAD TAB -->
         <div id="upload" class="tab-content active">
             <div id="bulkDropZone" class="bulk-drop-zone">
-                <p style="font-size: 14px; font-weight: bold;">DROP FILES HERE</p>
-                <p class="admin-muted">or click to browse — images + audio supported</p>
+                <p style="font-size: 14px; font-weight: bold;" data-i18n="admin_drop_title">DROP FILES HERE</p>
+                <p class="admin-muted" data-i18n="admin_drop_subtitle">or click to browse — images + audio supported</p>
                 <input type="file" id="bulkFileInput" multiple accept="image/*,audio/*" style="display:none;">
             </div>
 
@@ -151,11 +151,11 @@
         </div>
 
         <div class="console" id="console">
-            [ALEX-OS-KERNAL] Ready...
+            <span data-i18n="admin_kernel_ready">[OS-KERNEL] Ready...</span>
         </div>
 
         <div class="status-bar">
-            Logged in as ALEX-ADMIN | System: AI-Enhanced | 10 FEB 2026
+            <span data-i18n="admin_logged_as">Logged in as</span> <span data-i18n="admin_user">ADMIN</span> | <span data-i18n="admin_system">System: AI-Enhanced</span> | <span id="current-date"></span>
         </div>
     </div>
 

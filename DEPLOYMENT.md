@@ -237,7 +237,7 @@ Si remote échoue → utilise local automatiquement!
 
 ```bash
 # 1. Fork/clone le repo public
-git clone https://github.com/mtldev514/retro-portfolio.git my-portfolio
+git clone https://github.com/yourusername/retro-portfolio.git my-portfolio
 cd my-portfolio
 
 # 2. Créer ton repo de config privé

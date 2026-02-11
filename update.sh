@@ -162,7 +162,7 @@ update_direct() {
         # Check if upstream exists
         if ! git remote get-url upstream > /dev/null 2>&1; then
             echo -e "${YELLOW}Adding upstream remote...${NC}"
-            git remote add upstream https://github.com/mtldev514/retro-portfolio.git
+            git remote add upstream https://github.com/yourusername/retro-portfolio.git
         fi
 
         git fetch upstream

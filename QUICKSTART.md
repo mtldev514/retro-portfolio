@@ -20,7 +20,7 @@ python3 -m http.server 8000
 ### Option 2: Direct Clone (Quick Start)
 
 ```bash
-git clone https://github.com/mtldev514/retro-portfolio.git my-portfolio
+git clone https://github.com/yourusername/retro-portfolio.git my-portfolio
 cd my-portfolio
 ./init.sh  # Copy example files
 nano .env  # Add Cloudinary credentials
@@ -189,4 +189,4 @@ cat .env
 
 **Welcome to the retro web!** 🌟
 
-Need help? Check [GitHub Issues](https://github.com/mtldev514/retro-portfolio/issues)
+Need help? Check [GitHub Issues](https://github.com/yourusername/retro-portfolio/issues)

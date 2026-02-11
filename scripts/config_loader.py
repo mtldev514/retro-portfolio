@@ -125,7 +125,7 @@ class ConfigLoader:
         if username and repo_name:
             return f"{username}/{repo_name}"
         # Fallback to old 'repo' key if it exists
-        return github.get('repo', 'mtldev514/retro-portfolio')
+        return github.get('repo', 'yourusername/retro-portfolio')
 
     def get_path(self, path_key):
         """Get configured path (dataDir, langDir, etc.)"""

@@ -182,7 +182,7 @@ This release makes the portfolio **fully configurable** through JSON files. No c
 #### Configuration
 - 📝 **Improved GitHub configuration**
   - Split `repo` into `username` and `repoName`
-  - Clearer structure: `mtldev514` + `retro-portfolio`
+  - Clearer structure: `yourusername` + `retro-portfolio`
   - Backend automatically combines into `username/repoName`
   - Better separation of concerns
 
@@ -219,8 +219,8 @@ This release makes the portfolio **fully configurable** through JSON files. No c
 - Backend won't start without valid configuration
 
 ⚠️ **GitHub Config Format Changed**
-- Old: `"repo": "mtldev514/retro-portfolio"`
-- New: `"username": "mtldev514", "repoName": "retro-portfolio"`
+- Old: `"repo": "yourusername/retro-portfolio"`
+- New: `"username": "yourusername", "repoName": "retro-portfolio"`
 - Backward compatible via fallback
 
 #### Migration Guide
