@@ -9,11 +9,20 @@ __pycache__/
 temp_uploads/
 temp_test.*
 
-# Private Configuration (if using local mode)
+# Private Configuration (user's personal data)
 config-source.json
 config/
 data/
 lang/
 
-# Keep example files
-!config-source.json.example
+# Keep example directories and files (for template)
+!config.example/
+!config.example/**
+!data.example/
+!data.example/**
+!lang.example/
+!lang.example/**
+!*.example
+
+# Backup of personal files
+.backup-personal/
