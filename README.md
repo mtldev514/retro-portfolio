@@ -175,17 +175,26 @@ See **[UPDATE.md](UPDATE.md)** for detailed update instructions.
 - **[Setup Guide](SETUP-GUIDE.md)** ⭐ - Complete beginner-to-deployed guide
 - **[Quick Start](QUICKSTART.md)** - Fast reference for common tasks
 
-### Reference
-- **[Update Guide](UPDATE.md)** - Keep template current without losing data
-- **[Configuration Guide](config/README.md)** - All config options
-- **[Features Summary](FEATURES_SUMMARY.md)** - What this template can do
+# Retro Portfolio Template
 
-### Deployment & Advanced
-- **[Deployment Guide](DEPLOYMENT-EN.md)** - GitHub Pages, Netlify, Vercel (English)
-- **[Guide de Déploiement](DEPLOYMENT.md)** - Configuration avancée (Français)
-- **[Separate Repo Setup](SEPARATE-REPO-SETUP.md)** - Fix git remote issues
+A personal portfolio website with a retro early 2000s aesthetic. This is a generic template designed to be easily customized.
 
----
+## 🚀 Quick Setup
+
+1. **Clone the repo**
+2. **Configure your environment**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your Cloudinary and GitHub credentials
+   ```
+3. **Customize your content**:
+   Your data lives in `config/`, `data/`, and `lang/`. We've provided generic examples to get you started.
+
+## 📂 Separating Your Data
+
+To keep this repository generic while maintaining your personal data, we recommend:
+1. Keeping your personal `data/`, `config/`, and `lang/` folders in a separate location or repository.
+2. Linking them here when you're ready to deploy or develop.
 
 ## 🎯 Architecture
 

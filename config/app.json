@@ -1,8 +1,8 @@
 {
   "app": {
-    "name": "Alex's Portfolio",
+    "name": "Retro Portfolio",
     "version": "1.0",
-    "adminTitle": "ALEX'S PORTFOLIO MANAGER V1.0"
+    "adminTitle": "PORTFOLIO MANAGER V1.0"
   },
   "api": {
     "host": "127.0.0.1",
@@ -15,7 +15,7 @@
     "pagesDir": "pages"
   },
   "github": {
-    "username": "mtldev514",
+    "username": "yourusername",
     "repoName": "retro-portfolio",
     "mediaReleaseTag": "media",
     "uploadCategories": ["music"]
