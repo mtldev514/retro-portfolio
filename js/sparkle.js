@@ -3,7 +3,17 @@
  * Creates tiny stars that follow the mouse and fade away
  */
 (function () {
-    const colors = ['#ffd700', '#ff69b4', '#00ffff', '#ff00ff', '#fff', '#7fff00', '#ff4500'];
+    // Read sparkle colors from CSS variables (centralised in style.css :root)
+    const rootStyle = getComputedStyle(document.documentElement);
+    const colors = [
+        rootStyle.getPropertyValue('--sparkle-1').trim() || '#ffd700',
+        rootStyle.getPropertyValue('--sparkle-2').trim() || '#ff69b4',
+        rootStyle.getPropertyValue('--sparkle-3').trim() || '#00ffff',
+        rootStyle.getPropertyValue('--sparkle-4').trim() || '#ff00ff',
+        rootStyle.getPropertyValue('--sparkle-5').trim() || '#fff',
+        rootStyle.getPropertyValue('--sparkle-6').trim() || '#7fff00',
+        rootStyle.getPropertyValue('--sparkle-7').trim() || '#ff4500',
+    ];
     const shapes = ['✦', '✧', '✶', '★', '·', '✸', '✹'];
     const pool = [];
     const POOL_SIZE = 50;

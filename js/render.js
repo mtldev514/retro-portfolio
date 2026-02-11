@@ -113,12 +113,12 @@ const renderer = {
                 <a href="${detailHref}" class="gallery-link">
                     <div class="music-card-icon">&#127925;</div>
                     <h3 align="center">${title}</h3>
-                    ${genre ? `<p align="center"><i>${genre}</i></p>` : ''}
+                    ${genre ? `<p align="center" class="gallery-subtitle">${genre}</p>` : ''}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>
                 </a>
-                ${item.url ? `<div align="center" style="padding: 5px;">
+                ${item.url ? `<div class="music-card-actions">
                     <button class="track-radio-btn" data-track-url="${item.url.replace(/"/g, '&quot;')}">
                         &#9654; ${playLabel}
                     </button>
@@ -150,7 +150,7 @@ const renderer = {
                 <a href="${detailHref}" class="gallery-link">
                     ${item.url && !isProject ? `<img src="${item.url}" alt="${title}">` : ''}
                     <h3 align="center"><span class="category-icon">${icon}</span> ${title}${visibilityEmoji}</h3>
-                    ${subTitle ? `<p align="center"><i>${subTitle}</i></p>` : ''}
+                    ${subTitle ? `<p align="center" class="gallery-subtitle">${subTitle}</p>` : ''}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}
                     </p>

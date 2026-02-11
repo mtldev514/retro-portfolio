@@ -104,7 +104,28 @@ const themes = {
                 '--counter-text':         '#d76f6c',
                 '--accent-navy':          '#00015d',
                 '--accent-magenta':       '#d887f0',
-                '--accent-yellow':        '#f6f8ad'
+                '--accent-yellow':        '#f6f8ad',
+                /* Chrome / UI tones */
+                '--chrome-black':         '#000',
+                '--chrome-darkest':       '#111',
+                '--chrome-darker':        '#222',
+                '--chrome-dark':          '#333',
+                '--chrome-mid':           '#444',
+                '--chrome-gray':          '#555',
+                '--chrome-light':         '#777',
+                '--chrome-border':        '#999',
+                '--chrome-soft':          '#ccc',
+                '--chrome-active':        '#252525',
+                '--chrome-grip-alt':      '#4a4a4a',
+                '--chrome-vol-start':     '#060',
+                /* Sparkle */
+                '--sparkle-1':            '#ffd700',
+                '--sparkle-2':            '#ff69b4',
+                '--sparkle-3':            '#00ffff',
+                '--sparkle-4':            '#ff00ff',
+                '--sparkle-5':            '#fff',
+                '--sparkle-6':            '#7fff00',
+                '--sparkle-7':            '#ff4500'
             }
         },
 
@@ -200,7 +221,28 @@ const themes = {
                 '--counter-text':         '#a02000',
                 '--accent-navy':          '#2a1200',
                 '--accent-magenta':       '#c08020',
-                '--accent-yellow':        '#ffc040'
+                '--accent-yellow':        '#ffc040',
+                /* Chrome / UI tones — warm amber */
+                '--chrome-black':         '#080600',
+                '--chrome-darkest':       '#120e08',
+                '--chrome-darker':        '#1a1408',
+                '--chrome-dark':          '#2a1e0e',
+                '--chrome-mid':           '#3a2810',
+                '--chrome-gray':          '#5a4020',
+                '--chrome-light':         '#786030',
+                '--chrome-border':        '#b08830',
+                '--chrome-soft':          '#c08020',
+                '--chrome-active':        '#1a1408',
+                '--chrome-grip-alt':      '#4a3818',
+                '--chrome-vol-start':     '#332000',
+                /* Sparkle — amber glow */
+                '--sparkle-1':            '#ffc040',
+                '--sparkle-2':            '#c08020',
+                '--sparkle-3':            '#ffa500',
+                '--sparkle-4':            '#d4a030',
+                '--sparkle-5':            '#ffe0a0',
+                '--sparkle-6':            '#e8b840',
+                '--sparkle-7':            '#a02000'
             }
         },
 
@@ -296,7 +338,28 @@ const themes = {
                 '--counter-text':         '#8b2010',
                 '--accent-navy':          '#5c2810',
                 '--accent-magenta':       '#b85c38',
-                '--accent-yellow':        '#e0a870'
+                '--accent-yellow':        '#e0a870',
+                /* Chrome / UI tones — warm terracotta */
+                '--chrome-black':         '#1a1008',
+                '--chrome-darkest':       '#2a1e10',
+                '--chrome-darker':        '#3a2818',
+                '--chrome-dark':          '#4a3820',
+                '--chrome-mid':           '#5c3d28',
+                '--chrome-gray':          '#6a5038',
+                '--chrome-light':         '#8c7058',
+                '--chrome-border':        '#c4a880',
+                '--chrome-soft':          '#d4b890',
+                '--chrome-active':        '#2a1e10',
+                '--chrome-grip-alt':      '#5a4030',
+                '--chrome-vol-start':     '#3a2010',
+                /* Sparkle — Mediterranean warmth */
+                '--sparkle-1':            '#e0a870',
+                '--sparkle-2':            '#b85c38',
+                '--sparkle-3':            '#e8b840',
+                '--sparkle-4':            '#d8a030',
+                '--sparkle-5':            '#f5ead5',
+                '--sparkle-6':            '#98b048',
+                '--sparkle-7':            '#8b2010'
             }
         }
     },

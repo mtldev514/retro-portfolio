@@ -5,186 +5,12 @@
     <meta charset="UTF-8">
     <title>EDIT ITEM - ALEX-CONTROL-PANEL V1.0</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        :root {
-            --win-bg: #c0c0c0;
-            --win-blue: #000080;
-            --win-text: #000;
-            --win-border-light: #fff;
-            --win-border-dark: #808080;
-        }
-
-        body {
-            background-color: #3a6ea5;
-            font-family: 'MS Sans Serif', 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: var(--win-text);
-        }
-
-        .window {
-            width: 700px;
-            background: var(--win-bg);
-            border: 2px solid;
-            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-            padding: 2px;
-        }
-
-        .title-bar {
-            background: var(--win-blue);
-            color: white;
-            padding: 3px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .title-bar-controls button {
-            width: 16px;
-            height: 14px;
-            font-size: 9px;
-            padding: 0;
-            margin-left: 2px;
-            background: var(--win-bg);
-            border: 1px solid;
-            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
-        }
-
-        .edit-body {
-            padding: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .form-group input[type="text"],
-        .form-group textarea {
-            width: 100%;
-            padding: 5px;
-            border: 2px solid;
-            border-color: var(--win-border-dark) var(--win-border-light) var(--win-border-light) var(--win-border-dark);
-            box-sizing: border-box;
-            background: white;
-            font-family: inherit;
-            font-size: 13px;
-        }
-
-        .form-group textarea {
-            height: 60px;
-            resize: vertical;
-        }
-
-        .form-group .readonly {
-            background: #eee;
-            color: #555;
-        }
-
-        .preview-box {
-            border: 2px inset var(--win-border-dark);
-            background: #fff;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .preview-box img {
-            max-width: 300px;
-            max-height: 200px;
-        }
-
-        .button-bar {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid var(--win-border-dark);
-        }
-
-        .button-bar button {
-            padding: 6px 20px;
-            background: var(--win-bg);
-            border: 2px solid;
-            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .button-bar button:active {
-            border-color: var(--win-border-dark) var(--win-border-light) var(--win-border-light) var(--win-border-dark);
-        }
-
-        .button-bar .save-btn {
-            background: #e0e0ff;
-        }
-
-        .status-bar {
-            margin-top: 10px;
-            padding: 3px 5px;
-            background: var(--win-bg);
-            border-top: 1px solid var(--win-border-dark);
-            font-size: 12px;
-        }
-
-        .console {
-            background: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            padding: 10px;
-            height: 80px;
-            overflow-y: auto;
-            margin-top: 15px;
-            font-size: 12px;
-            border: 2px inset var(--win-border-dark);
-        }
-
-        #loading {
-            text-align: center;
-            padding: 40px;
-            font-size: 14px;
-        }
-
-        #editForm {
-            display: none;
-        }
-
-        #errorBox {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            color: red;
-            font-weight: bold;
-        }
-
-        .info-row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .info-row .form-group {
-            flex: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="fonts.css">
 </head>
 
-<body>
+<body class="admin-page">
 
-    <div class="window">
+    <div class="window narrow">
         <div class="title-bar">
             <span id="windowTitle">EDIT ITEM</span>
             <div class="title-bar-controls">
@@ -265,7 +91,7 @@
             </form>
         </div>
 
-        <div class="console" id="console">
+        <div class="console short" id="console">
             [EDIT-MODE] Initializing...
         </div>
 
@@ -284,8 +110,17 @@
 
         const consoleBox = document.getElementById('console');
 
+        // Map color names to CSS classes (all colours centralised in style.css)
+        const colorClassMap = {
+            '#0f0': 'con-success', 'lime': 'con-success', 'green': 'con-success',
+            'red': 'con-error',
+            'cyan': 'con-info',
+            'yellow': 'con-hi',
+            'orange': 'con-warn'
+        };
         function log(msg, color = '#0f0') {
-            consoleBox.innerHTML += `<br><span style="color: ${color}">> ${msg}</span>`;
+            const cls = colorClassMap[color] || 'con-success';
+            consoleBox.innerHTML += `<br><span class="${cls}">> ${msg}</span>`;
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 

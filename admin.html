@@ -5,184 +5,10 @@
     <meta charset="UTF-8">
     <title>ALEX-CONTROL-PANEL V1.0</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        :root {
-            --win-bg: #c0c0c0;
-            --win-blue: #000080;
-            --win-text: #000;
-            --win-border-light: #fff;
-            --win-border-dark: #808080;
-        }
-
-        body {
-            background-color: #3a6ea5;
-            /* Classic Teal Windows Background */
-            font-family: 'MS Sans Serif', 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: var(--win-text);
-        }
-
-        .desktop-icon {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            text-align: center;
-            color: white;
-            cursor: pointer;
-        }
-
-        .desktop-icon img {
-            width: 32px;
-            display: block;
-            margin: 0 auto 5px;
-        }
-
-        .window {
-            width: 800px;
-            background: var(--win-bg);
-            border: 2px solid;
-            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-            padding: 2px;
-        }
-
-        .title-bar {
-            background: var(--win-blue);
-            color: white;
-            padding: 3px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .title-bar-controls button {
-            width: 16px;
-            height: 14px;
-            font-size: 9px;
-            padding: 0;
-            margin-left: 2px;
-            background: var(--win-bg);
-            border: 1px solid;
-            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
-        }
-
-        .tab-bar {
-            padding: 10px 10px 0;
-            display: flex;
-            border-bottom: 1px solid var(--win-border-dark);
-        }
-
-        .tab {
-            padding: 5px 15px;
-            border: 1px solid var(--win-border-dark);
-            border-bottom: none;
-            background: #d4d4d4;
-            cursor: pointer;
-            margin-right: 2px;
-            border-radius: 4px 4px 0 0;
-        }
-
-        .tab.active {
-            background: var(--win-bg);
-            font-weight: bold;
-            position: relative;
-            top: 1px;
-            z-index: 2;
-        }
-
-        .tab-content {
-            padding: 20px;
-            min-height: 400px;
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 5px;
-            border: 2px solid;
-            border-color: var(--win-border-dark) var(--win-border-light) var(--win-border-light) var(--win-border-dark);
-            box-sizing: border-box;
-            background: white;
-        }
-
-        button.action {
-            margin-top: 10px;
-            padding: 8px 20px;
-            background: var(--win-bg);
-            border: 2px solid;
-            border-color: var(--win-border-light) var(--win-border-dark) var(--win-border-dark) var(--win-border-light);
-            cursor: pointer;
-        }
-
-        button.action:active {
-            border-color: var(--win-border-dark) var(--win-border-light) var(--win-border-light) var(--win-border-dark);
-        }
-
-        .status-bar {
-            margin-top: 10px;
-            padding: 3px 5px;
-            background: var(--win-bg);
-            border-top: 1px solid var(--win-border-dark);
-            font-size: 12px;
-        }
-
-        .console {
-            background: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            padding: 10px;
-            height: 100px;
-            overflow-y: auto;
-            margin-top: 20px;
-            font-size: 12px;
-            border: 2px inset var(--win-border-dark);
-        }
-
-        .translation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            height: 300px;
-            overflow-y: auto;
-            padding: 5px;
-            background: white;
-            border: 2px inset var(--win-border-dark);
-        }
-
-        .trans-item {
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .trans-item input {
-            font-size: 11px;
-        }
-    </style>
+    <link rel="stylesheet" href="fonts.css">
 </head>
 
-<body>
+<body class="admin-page">
 
     <div class="window">
         <div class="title-bar">
@@ -204,8 +30,8 @@
         <!-- UPLOAD TAB -->
         <div id="upload" class="tab-content active">
             <form id="uploadForm">
-                <div style="display: flex; gap: 20px;">
-                    <div style="flex: 1;">
+                <div class="admin-flex-row">
+                    <div class="admin-flex-col">
                         <div class="form-group">
                             <label>Title:</label>
                             <input type="text" id="title" name="title" placeholder="E.g. Morning Dreams" required>
@@ -237,7 +63,7 @@
                         <div class="form-group">
                             <label>Creation Date:</label>
                             <input type="date" id="created" name="created" style="font-family: inherit; font-size: 12px;">
-                            <p style="font-size: 10px; color: #666;">When was this work created? (Leave empty for today)</p>
+                            <p class="admin-muted">When was this work created? (Leave empty for today)</p>
                         </div>
 
                         <div class="form-group">
@@ -248,11 +74,11 @@
                         </div>
                     </div>
 
-                    <div style="flex: 1;">
+                    <div class="admin-flex-col">
                         <div id="sourceToggle" style="display: none; margin-bottom: 10px;">
                             <label style="font-size: 11px; font-weight: bold;">Audio Source:</label>
                             <div style="display: flex; gap: 5px; margin-top: 3px;">
-                                <button type="button" id="srcBtnUrl" class="action" style="margin:0; padding:4px 10px; font-size:11px; font-weight:bold; background:#e0e0ff;" onclick="setSourceMode('url')">🔗 Paste URL</button>
+                                <button type="button" id="srcBtnUrl" class="action src-btn-active" style="margin:0; padding:4px 10px; font-size:11px;" onclick="setSourceMode('url')">🔗 Paste URL</button>
                                 <button type="button" id="srcBtnFile" class="action" style="margin:0; padding:4px 10px; font-size:11px;" onclick="setSourceMode('file')">📁 Upload File</button>
                             </div>
                         </div>
@@ -261,7 +87,7 @@
                             <div class="form-group">
                                 <label>Select File:</label>
                                 <input type="file" id="file" name="file">
-                                <p style="font-size: 11px; color: #444;">Supports JPG, PNG, MP3, MP4, etc.</p>
+                                <p class="admin-muted">Supports JPG, PNG, MP3, MP4, etc.</p>
                             </div>
                         </div>
 
@@ -270,27 +96,27 @@
                                 <label>Direct Audio URL:</label>
                                 <input type="text" id="directUrl" name="directUrl" placeholder="https://archive.org/download/my-album/track.mp3">
                             </div>
-                            <div style="background: #fffff0; padding: 8px; border: 1px solid #cc9; font-size: 10px; margin-bottom: 10px;">
+                            <div class="admin-hint">
                                 <b>🎵 Where to host your audio:</b><br><br>
                                 <b>Internet Archive</b> (free, unlimited)<br>
                                 → <a href="https://archive.org/create" target="_blank">archive.org/create</a> → Upload → Copy file URL<br><br>
                                 <b>GitHub Releases</b> (free, in your repo)<br>
                                 → Repo → Releases → New → Attach .mp3 → Copy URL<br>
-                                <code style="font-size: 9px; background:#eee; padding:1px 3px;">github.com/.../releases/download/tag/file.mp3</code>
+                                <code>github.com/.../releases/download/tag/file.mp3</code>
                             </div>
                         </div>
 
-                        <div style="background: #eee; padding: 10px; border: 1px dashed #808080;">
+                        <div class="admin-preview-area">
                             <p align="center" style="margin: 0; font-size: 12px; font-weight: bold;">PREVIEW AREA</p>
                             <div id="preview"
                                 style="height: 120px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                                <span style="color: #888;">No file selected</span>
+                                <span class="admin-muted">No file selected</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div style="text-align: right;">
+                <div class="admin-text-right">
                     <button type="submit" class="action" id="submitBtn">UPLOAD MEDIA</button>
                 </div>
             </form>
@@ -298,7 +124,7 @@
 
         <!-- MANAGE CONTENT TAB -->
         <div id="manage" class="tab-content">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div class="admin-flex-between">
                 <label>Filter Category:</label>
                 <select id="manageCategory" onchange="loadContent()" style="width: 150px;">
                     <option value="all">All Categories</option>
@@ -311,8 +137,7 @@
                 </select>
                 <button class="action" onclick="loadContent()" style="margin: 0; font-size: 11px;">Refresh List</button>
             </div>
-            <div id="contentList"
-                style="height: 350px; overflow-y: auto; background: white; border: 2px inset var(--win-border-dark); padding: 5px;">
+            <div id="contentList" class="admin-content-list">
                 <!-- Populated by JS -->
                 <p align="center">Loading content...</p>
             </div>
@@ -320,7 +145,7 @@
 
         <!-- TRANSLATIONS TAB -->
         <div id="translations" class="tab-content">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div class="admin-flex-between">
                 <label>Language:</label>
                 <select id="langSelect" onchange="loadTranslations()" style="width: 100px;">
                     <option value="en">English</option>
@@ -339,7 +164,7 @@
 
         <!-- CONFIG TAB -->
         <div id="config" class="tab-content">
-            <p>Cloudinary status: <span style="color: green; font-weight: bold;">CONNECTED</span></p>
+            <p>Cloudinary status: <span class="admin-connected">CONNECTED</span></p>
             <p>Current Server Port: 5001</p>
             <hr>
             <p style="font-size: 12px;">Need high-res uploads? Make sure your .env is active.</p>
@@ -350,7 +175,7 @@
                         style="vertical-align: middle;">
                     SYNC GITHUB PROJECTS
                 </button>
-                <p style="font-size: 11px; margin-top: 5px; color: #666;">
+                <p class="admin-muted" style="margin-top: 5px;">
                     * This will fetch repositories for <b>mtldev514</b>.
                     Add GITHUB_TOKEN to .env to include private repos.
                 </p>
@@ -409,19 +234,15 @@
             if (mode === 'url') {
                 fileSection.style.display = 'none';
                 urlSection.style.display = 'block';
-                srcBtnUrl.style.background = '#e0e0ff';
-                srcBtnUrl.style.fontWeight = 'bold';
-                srcBtnFile.style.background = '';
-                srcBtnFile.style.fontWeight = 'normal';
+                srcBtnUrl.classList.add('src-btn-active');
+                srcBtnFile.classList.remove('src-btn-active');
                 document.getElementById('file').removeAttribute('required');
                 if (submitBtn) submitBtn.innerText = 'ADD TRACK FROM URL';
             } else {
                 fileSection.style.display = 'block';
                 urlSection.style.display = 'none';
-                srcBtnFile.style.background = '#e0e0ff';
-                srcBtnFile.style.fontWeight = 'bold';
-                srcBtnUrl.style.background = '';
-                srcBtnUrl.style.fontWeight = 'normal';
+                srcBtnFile.classList.add('src-btn-active');
+                srcBtnUrl.classList.remove('src-btn-active');
                 if (submitBtn) submitBtn.innerText = 'UPLOAD MEDIA';
             }
         }
@@ -438,7 +259,7 @@
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    preview.innerHTML = `<span style="color: blue;">[${file.type}] file ready</span>`;
+                    preview.innerHTML = `<span class="admin-file-type">[${file.type}] file ready</span>`;
                 }
             }
         };
@@ -453,7 +274,7 @@
                 // URL mode — save directly without Cloudinary
                 const url = document.getElementById('directUrl').value.trim();
                 if (!url) {
-                    consoleBox.innerHTML += `<br><span style="color: red">> ERROR: Please paste an audio URL.</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-error">> ERROR: Please paste an audio URL.</span>`;
                     return;
                 }
 
@@ -474,23 +295,23 @@
                     });
                     const result = await response.json();
                     if (result.success) {
-                        consoleBox.innerHTML += `<br><span style="color: yellow">> SUCCESS! Track "${title}" added.</span>`;
-                        consoleBox.innerHTML += `<br><span style="color: cyan">> URL: ${url}</span>`;
-                        consoleBox.innerHTML += `<br><span style="color: lime">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-hi">> SUCCESS! Track "${title}" added.</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-info">> URL: ${url}</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-success">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
                         // Show audio preview
                         const preview = document.getElementById('preview');
                         preview.innerHTML = `<audio controls src="${url}" style="width:100%"></audio>`;
                     } else {
-                        consoleBox.innerHTML += `<br><span style="color: red">> ERROR: ${result.error}</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-error">> ERROR: ${result.error}</span>`;
                     }
                 } catch (err) {
-                    consoleBox.innerHTML += `<br><span style="color: red">> NETWORK ERROR: ${err.message}</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-error">> NETWORK ERROR: ${err.message}</span>`;
                 }
             } else {
                 // File upload mode — Cloudinary
                 const fileInput = document.getElementById('file');
                 if (!fileInput.files.length) {
-                    consoleBox.innerHTML += `<br><span style="color: red">> ERROR: Please select a file.</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-error">> ERROR: Please select a file.</span>`;
                     return;
                 }
 
@@ -504,13 +325,13 @@
                     });
                     const result = await response.json();
                     if (result.success) {
-                        consoleBox.innerHTML += `<br><span style="color: yellow">> SUCCESS! Media available at: ${result.data.url}</span>`;
-                        consoleBox.innerHTML += `<br><span style="color: lime">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-hi">> SUCCESS! Media available at: ${result.data.url}</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-success">> Entry saved to ${document.getElementById('category').value}.json ✔</span>`;
                     } else {
-                        consoleBox.innerHTML += `<br><span style="color: red">> ERROR: ${result.error}</span>`;
+                        consoleBox.innerHTML += `<br><span class="con-error">> ERROR: ${result.error}</span>`;
                     }
                 } catch (err) {
-                    consoleBox.innerHTML += `<br><span style="color: red">> NETWORK ERROR: ${err.message}</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-error">> NETWORK ERROR: ${err.message}</span>`;
                 }
             }
         };
@@ -558,7 +379,7 @@
                 const missing = await res.json();
 
                 if (Object.keys(missing).length === 0) {
-                    consoleBox.innerHTML += `<br><span style="color: cyan">> System status: All languages synchronized.</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-info">> System status: All languages synchronized.</span>`;
                     return;
                 }
 
@@ -567,10 +388,10 @@
                     report += `[${lang.toUpperCase()}]: ${missing[lang].join(', ')}\\n`;
                 }
 
-                consoleBox.innerHTML += `<br><span style="color: orange">> AGENT REQUIRED: ${Object.keys(missing).length} languages have missing keys.</span>`;
-                consoleBox.innerHTML += `<br><span style="color: yellow">> TIP: Ask Antigravity in the chat to 'Translate the missing keys for ${Object.keys(missing).join(', ')}' and they will be fixed instantly!</span>`;
+                consoleBox.innerHTML += `<br><span class="con-warn">> AGENT REQUIRED: ${Object.keys(missing).length} languages have missing keys.</span>`;
+                consoleBox.innerHTML += `<br><span class="con-hi">> TIP: Ask Antigravity in the chat to 'Translate the missing keys for ${Object.keys(missing).join(', ')}' and they will be fixed instantly!</span>`;
             } catch (err) {
-                consoleBox.innerHTML += `<br><span style="color: red">> Error checking missing keys.</span>`;
+                consoleBox.innerHTML += `<br><span class="con-error">> Error checking missing keys.</span>`;
             }
         }
 
@@ -590,27 +411,20 @@
                     if (!items || items.length === 0) return;
 
                     const header = document.createElement('h4');
-                    header.style.margin = '10px 0 5px';
-                    header.style.borderBottom = '1px solid #ccc';
+                    header.className = 'content-header';
                     header.innerText = category.toUpperCase();
                     list.appendChild(header);
 
                     items.forEach(item => {
                         const div = document.createElement('div');
                         div.className = 'content-row';
-                        div.style.padding = '5px';
-                        div.style.borderBottom = '1px dotted #ccc';
-                        div.style.display = 'flex';
-                        div.style.justifyContent = 'space-between';
-                        div.style.alignItems = 'center';
-                        div.style.fontSize = '12px';
 
                         const titleStr = (typeof item.title === 'object' && item.title !== null) ? (item.title.en || '') : (item.title || '');
                         const id = item.id || titleStr;
 
                         const info = document.createElement('div');
                         info.style.flex = '1';
-                        info.innerHTML = `<b>${titleStr}</b> <span style="color: #666;">(${item.date || 'N/A'})</span>`;
+                        info.innerHTML = `<b>${titleStr}</b> <span class="admin-muted">(${item.date || 'N/A'})</span>`;
                         div.appendChild(info);
 
                         const actions = document.createElement('div');
@@ -625,7 +439,7 @@
                         deleteBtn.type = 'button';
                         deleteBtn.innerText = 'Delete';
                         deleteBtn.style.fontSize = '10px';
-                        deleteBtn.style.color = 'red';
+                        deleteBtn.className = 'con-error';
                         deleteBtn.style.marginLeft = '5px';
 
                         const statusSpan = document.createElement('span');
@@ -640,7 +454,7 @@
                                 deleteBtn.dataset.armed = 'true';
                                 deleteBtn.innerText = 'Sure?';
                                 deleteBtn.style.fontWeight = 'bold';
-                                statusSpan.innerHTML = '<span style="color: orange;">click again to confirm</span>';
+                                statusSpan.innerHTML = '<span class="con-warn">click again to confirm</span>';
                                 setTimeout(() => {
                                     deleteBtn.dataset.armed = 'false';
                                     deleteBtn.innerText = 'Delete';
@@ -668,12 +482,12 @@
                 }
 
             } catch (err) {
-                list.innerHTML = '<p align="center" style="color: red;">Error loading content list.</p>';
+                list.innerHTML = '<p align="center" class="con-error">Error loading content list.</p>';
             }
         }
 
         async function deleteItem(category, id, statusSpan) {
-            statusSpan.innerHTML = '<span style="color: yellow;">deleting...</span>';
+            statusSpan.innerHTML = '<span class="con-hi">deleting...</span>';
             try {
                 const res = await fetch(`${API_URL}/api/content/delete`, {
                     method: 'POST',
@@ -682,14 +496,14 @@
                 });
                 const result = await res.json();
                 if (result.success) {
-                    document.getElementById('console').innerHTML += `<br><span style="color: orange">> Item "${id}" deleted from ${category}.</span>`;
-                    statusSpan.innerHTML = '<span style="color: lime;">deleted!</span>';
+                    document.getElementById('console').innerHTML += `<br><span class="con-warn">> Item "${id}" deleted from ${category}.</span>`;
+                    statusSpan.innerHTML = '<span class="con-success">deleted!</span>';
                     setTimeout(() => loadContent(), 500);
                 } else {
-                    statusSpan.innerHTML = `<span style="color: red;">error: ${result.error}</span>`;
+                    statusSpan.innerHTML = `<span class="con-error">error: ${result.error}</span>`;
                 }
             } catch (err) {
-                statusSpan.innerHTML = '<span style="color: red;">network error</span>';
+                statusSpan.innerHTML = '<span class="con-error">network error</span>';
             }
         }
 
@@ -706,13 +520,13 @@
                 const result = await res.json();
 
                 if (result.success) {
-                    consoleBox.innerHTML += `<br><span style="color: lime">> GitHub Sync Successful: ${result.count} repositories fetched.</span>`;
-                    consoleBox.innerHTML += `<br><span style="color: cyan">> ${result.count} projects updated in data/projects.json.</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-success">> GitHub Sync Successful: ${result.count} repositories fetched.</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-info">> ${result.count} projects updated in data/projects.json.</span>`;
                 } else {
-                    consoleBox.innerHTML += `<br><span style="color: red">> GitHub Sync Failed: ${result.error}</span>`;
+                    consoleBox.innerHTML += `<br><span class="con-error">> GitHub Sync Failed: ${result.error}</span>`;
                 }
             } catch (err) {
-                consoleBox.innerHTML += `<br><span style="color: red">> Network Error during GitHub Sync.</span>`;
+                consoleBox.innerHTML += `<br><span class="con-error">> Network Error during GitHub Sync.</span>`;
             }
         }
 
