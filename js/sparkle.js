@@ -5,6 +5,7 @@
 (function () {
     // Read sparkle colors from CSS variables (centralised in style.css :root)
     let colors = [];
+    let enabled = false; // Default to disabled, controlled by effects.js
 
     function refreshColors() {
         const s = getComputedStyle(document.documentElement);
@@ -20,8 +21,6 @@
     }
     refreshColors();
 
-    // Expose so themes.js can call sparkle.refreshColors() on theme change
-    window.sparkle = { refreshColors };
     const shapes = ['✦', '✧', '✶', '★', '·', '✸', '✹'];
     const pool = [];
     const POOL_SIZE = 50;
@@ -38,6 +37,8 @@
     }
 
     function spawnSparkle() {
+        if (!enabled) return;
+
         // Find an inactive sparkle from the pool
         const sparkle = pool.find(s => !s.active);
         if (!sparkle) return;
@@ -99,7 +100,7 @@
         mouseX = e.clientX;
         mouseY = e.clientY;
 
-        if (!ticking) {
+        if (!ticking && enabled) {
             ticking = true;
             requestAnimationFrame(() => {
                 // Spawn 2-3 sparkles per frame for a nice density
@@ -111,4 +112,12 @@
             });
         }
     });
+
+    // Expose public API
+    window.sparkle = {
+        refreshColors,
+        enable: () => { enabled = true; },
+        disable: () => { enabled = false; }
+    };
+
 })();
