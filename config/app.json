@@ -1,0 +1,34 @@
+{
+  "app": {
+    "name": "Alex's Portfolio",
+    "version": "1.0",
+    "adminTitle": "ALEX'S PORTFOLIO MANAGER V1.0"
+  },
+  "api": {
+    "host": "127.0.0.1",
+    "port": 5001,
+    "baseUrl": "http://127.0.0.1:5001"
+  },
+  "paths": {
+    "dataDir": "data",
+    "langDir": "lang",
+    "pagesDir": "pages"
+  },
+  "github": {
+    "username": "mtldev514",
+    "repoName": "retro-portfolio",
+    "mediaReleaseTag": "media",
+    "uploadCategories": ["music"]
+  },
+  "counter": {
+    "apiUrl": "https://api.counterapi.dev/v1/retro-portfolio/visits/up"
+  },
+  "winamp": {
+    "title": "Radyo",
+    "bitrate": "192",
+    "frequency": "44"
+  },
+  "pagination": {
+    "pageSize": 24
+  }
+}

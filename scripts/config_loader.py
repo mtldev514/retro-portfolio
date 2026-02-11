@@ -1,0 +1,119 @@
+"""
+Configuration Loader for Backend
+Loads all configuration files and makes them available to Python scripts
+"""
+
+import json
+import os
+from pathlib import Path
+
+
+class ConfigLoader:
+    """Centralized configuration loader"""
+
+    def __init__(self, config_dir='config'):
+        self.config_dir = Path(config_dir)
+        self.app_config = None
+        self.languages_config = None
+        self.categories_config = None
+
+    def load_all(self):
+        """Load all configuration files"""
+        try:
+            with open(self.config_dir / 'app.json', 'r', encoding='utf-8') as f:
+                self.app_config = json.load(f)
+
+            with open(self.config_dir / 'languages.json', 'r', encoding='utf-8') as f:
+                self.languages_config = json.load(f)
+
+            with open(self.config_dir / 'categories.json', 'r', encoding='utf-8') as f:
+                self.categories_config = json.load(f)
+
+            print('✅ Configuration loaded successfully')
+            return True
+        except Exception as e:
+            print(f'❌ Failed to load configuration: {e}')
+            return False
+
+    def get_api_config(self):
+        """Get API configuration"""
+        return self.app_config.get('api', {})
+
+    def get_port(self):
+        """Get API port"""
+        return self.app_config.get('api', {}).get('port', 5001)
+
+    def get_host(self):
+        """Get API host"""
+        return self.app_config.get('api', {}).get('host', '127.0.0.1')
+
+    def get_language_codes(self):
+        """Get list of supported language codes"""
+        return [lang['code'] for lang in self.languages_config.get('supportedLanguages', [])]
+
+    def get_default_language(self):
+        """Get default language code"""
+        return self.languages_config.get('defaultLanguage', 'en')
+
+    def get_categories(self):
+        """Get all category configurations"""
+        return self.categories_config.get('categories', [])
+
+    def get_category(self, category_id):
+        """Get specific category configuration"""
+        for cat in self.get_categories():
+            if cat['id'] == category_id:
+                return cat
+        return None
+
+    def get_category_data_file(self, category_id):
+        """Get data file path for a category"""
+        cat = self.get_category(category_id)
+        if cat:
+            return cat.get('dataFile', f'data/{category_id}.json')
+        return f'data/{category_id}.json'
+
+    def get_category_map(self):
+        """Get mapping of category ID to data file path"""
+        return {cat['id']: cat['dataFile'] for cat in self.get_categories()}
+
+    def get_gallery_categories(self):
+        """Get list of categories that support galleries"""
+        return [cat['id'] for cat in self.get_categories() if cat.get('hasGallery', False)]
+
+    def get_github_config(self):
+        """Get GitHub configuration"""
+        return self.app_config.get('github', {})
+
+    def get_github_repo(self):
+        """Get full GitHub repository path (username/repo)"""
+        github = self.get_github_config()
+        username = github.get('username', '')
+        repo_name = github.get('repoName', '')
+        if username and repo_name:
+            return f"{username}/{repo_name}"
+        # Fallback to old 'repo' key if it exists
+        return github.get('repo', 'mtldev514/retro-portfolio')
+
+    def get_path(self, path_key):
+        """Get configured path (dataDir, langDir, etc.)"""
+        return self.app_config.get('paths', {}).get(path_key, path_key)
+
+    def create_multilingual_object(self, value):
+        """Create a multilingual object with all supported languages"""
+        return {code: value for code in self.get_language_codes()}
+
+    def get_setting(self, path):
+        """Get app setting by dot-notation path (e.g., 'app.name')"""
+        parts = path.split('.')
+        value = self.app_config
+        for part in parts:
+            if isinstance(value, dict):
+                value = value.get(part)
+            else:
+                return None
+        return value
+
+
+# Global instance
+config = ConfigLoader()

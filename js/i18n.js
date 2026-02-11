@@ -1,8 +1,12 @@
 const i18n = {
-    currentLang: localStorage.getItem('selectedLang') || 'en',
+    currentLang: localStorage.getItem('selectedLang') || (window.AppConfig?.getDefaultLanguage() || 'en'),
     translations: {},
 
     async init() {
+        // Wait for config to load if not already loaded
+        if (window.AppConfig && !window.AppConfig.loaded) {
+            await window.AppConfig.load();
+        }
         await this.loadTranslations(this.currentLang);
         this.updateDOM();
         this.updateSwitcherUI();
@@ -10,15 +14,17 @@ const i18n = {
 
     async loadTranslations(lang) {
         try {
-            const response = await fetch(`lang/${lang}.json`);
+            const langDir = window.AppConfig?.getSetting('paths.langDir') || 'lang';
+            const response = await fetch(`${langDir}/${lang}.json`);
             if (!response.ok) throw new Error(`Could not load ${lang} translation`);
             this.translations = await response.ok ? await response.json() : {};
             this.currentLang = lang;
             localStorage.setItem('selectedLang', lang);
         } catch (error) {
             console.error('i18n Error:', error);
-            // Fallback to English if not already English
-            if (lang !== 'en') await this.loadTranslations('en');
+            // Fallback to default language
+            const defaultLang = window.AppConfig?.getDefaultLanguage() || 'en';
+            if (lang !== defaultLang) await this.loadTranslations(defaultLang);
         }
     },
 

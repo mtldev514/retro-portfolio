@@ -4,9 +4,13 @@ import os
 import sys
 import json
 
-# Add scripts directory to path to import manager
+# Add scripts directory to path to import manager and config loader
 sys.path.append(os.path.join(os.getcwd(), 'scripts'))
 import manager
+from config_loader import config
+
+# Load configuration
+config.load_all()
 
 app = Flask(__name__)
 CORS(app) # Broadest possible CORS for local dev
@@ -534,6 +538,17 @@ def add_to_pile():
         "targetGalleryCount": len(target_item.get('gallery', []))
     })
 
+@app.route('/api/config', methods=['GET'])
+def get_config():
+    """Get application configuration"""
+    return jsonify({
+        "app": config.app_config,
+        "languages": config.languages_config,
+        "categories": config.categories_config
+    })
+
 if __name__ == '__main__':
-    print("Admin API running on http://0.0.0.0:5001")
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    host = config.get_host()
+    port = config.get_port()
+    print(f"Admin API running on http://{host}:{port}")
+    app.run(host=host, port=port, debug=True)

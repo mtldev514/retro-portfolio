@@ -3,23 +3,8 @@
  * Loads ALL categories, renders a single grid, supports filter buttons
  */
 const renderer = {
-    categories: {
-        painting: { file: 'painting.json', from: 'painting' },
-        drawing: { file: 'drawing.json', from: 'drawing' },
-        photography: { file: 'photography.json', from: 'photography' },
-        sculpting: { file: 'sculpting.json', from: 'sculpting' },
-        music: { file: 'music.json', from: 'music' },
-        projects: { file: 'projects.json', from: 'projects' },
-    },
-
-    categoryIcons: {
-        painting: '🎨',
-        drawing: '✏️',
-        photography: '📷',
-        sculpting: '🗿',
-        music: '🎵',
-        projects: '💻',
-    },
+    categories: {},
+    categoryIcons: {},
 
     allItems: [],
     filteredItems: [],
@@ -28,6 +13,31 @@ const renderer = {
     PAGE_SIZE: 24,
     visibleCount: 0,
     _loadMoreObserver: null,
+
+    // Load category configuration dynamically
+    async loadCategoryConfig() {
+        if (!window.AppConfig || !window.AppConfig.loaded) {
+            await window.AppConfig?.load();
+        }
+
+        const allCategories = window.AppConfig?.getAllCategories() || [];
+        const dataDir = window.AppConfig?.getSetting('paths.dataDir') || 'data';
+
+        this.categories = {};
+        this.categoryIcons = {};
+
+        allCategories.forEach(cat => {
+            const fileName = cat.dataFile.split('/').pop();
+            this.categories[cat.id] = {
+                file: fileName,
+                from: cat.id
+            };
+            this.categoryIcons[cat.id] = cat.icon;
+        });
+
+        // Update PAGE_SIZE from config
+        this.PAGE_SIZE = window.AppConfig?.getSetting('pagination.pageSize') || 24;
+    },
 
     t(field) {
         if (!field) return '';
@@ -39,12 +49,16 @@ const renderer = {
     },
 
     async init() {
+        // Load category configuration first
+        await this.loadCategoryConfig();
+
         // Skip re-fetch if data is already loaded (returning from detail view)
         if (this.allItems.length === 0) {
+            const dataDir = window.AppConfig?.getSetting('paths.dataDir') || 'data';
             const entries = Object.entries(this.categories);
             const fetches = entries.map(async ([category, info]) => {
                 try {
-                    const res = await fetch(`data/${info.file}`);
+                    const res = await fetch(`${dataDir}/${info.file}`);
                     const items = await res.json();
                     return items.map(item => ({
                         ...item,

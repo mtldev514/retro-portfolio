@@ -1,0 +1,161 @@
+{
+  "categories": [
+    {
+      "id": "painting",
+      "name": "Painting",
+      "icon": "🎨",
+      "dataFile": "data/painting.json",
+      "hasGallery": true,
+      "fields": {
+        "required": ["title", "url"],
+        "optional": [
+          {
+            "name": "medium",
+            "type": "text",
+            "label": "Medium"
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+          {
+            "name": "date",
+            "type": "text",
+            "label": "Date"
+          }
+        ]
+      }
+    },
+    {
+      "id": "drawing",
+      "name": "Drawing",
+      "icon": "✏️",
+      "dataFile": "data/drawing.json",
+      "hasGallery": true,
+      "fields": {
+        "required": ["title", "url"],
+        "optional": [
+          {
+            "name": "medium",
+            "type": "text",
+            "label": "Medium"
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+          {
+            "name": "date",
+            "type": "text",
+            "label": "Date"
+          }
+        ]
+      }
+    },
+    {
+      "id": "photography",
+      "name": "Photography",
+      "icon": "📷",
+      "dataFile": "data/photography.json",
+      "hasGallery": true,
+      "fields": {
+        "required": ["title", "url"],
+        "optional": [
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+          {
+            "name": "date",
+            "type": "text",
+            "label": "Date"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sculpting",
+      "name": "Sculpting",
+      "icon": "🗿",
+      "dataFile": "data/sculpting.json",
+      "hasGallery": true,
+      "fields": {
+        "required": ["title"],
+        "optional": [
+          {
+            "name": "medium",
+            "type": "text",
+            "label": "Medium"
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+          {
+            "name": "url",
+            "type": "text",
+            "label": "Image URL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "icon": "🎵",
+      "dataFile": "data/music.json",
+      "hasGallery": false,
+      "fields": {
+        "required": ["title", "url"],
+        "optional": [
+          {
+            "name": "genre",
+            "type": "text",
+            "label": "Genre"
+          },
+          {
+            "name": "lyrics",
+            "type": "textarea",
+            "label": "Lyrics"
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description"
+          }
+        ]
+      }
+    },
+    {
+      "id": "projects",
+      "name": "Code",
+      "icon": "💻",
+      "dataFile": "data/projects.json",
+      "hasGallery": false,
+      "fields": {
+        "required": ["title"],
+        "optional": [
+          {
+            "name": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+          {
+            "name": "url",
+            "type": "text",
+            "label": "URL"
+          },
+          {
+            "name": "visibility",
+            "type": "text",
+            "label": "Visibility"
+          }
+        ]
+      }
+    }
+  ]
+}

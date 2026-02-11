@@ -10,9 +10,13 @@ import cloudinary
 import cloudinary.uploader
 import requests
 from dotenv import load_dotenv
+from config_loader import config
 
 # Load environment variables
 load_dotenv()
+
+# Load configuration
+config.load_all()
 
 # Cloudinary Configuration
 cloudinary.config(
@@ -22,21 +26,15 @@ cloudinary.config(
     secure=True
 )
 
-JSON_MAP = {
-    "painting": "data/painting.json",
-    "drawing": "data/drawing.json",
-    "photography": "data/photography.json",
-    "sculpting": "data/sculpting.json",
-    "projects": "data/projects.json",
-    "music": "data/music.json",
-    "video": "data/video.json"
-}
+# Load JSON_MAP from configuration
+JSON_MAP = config.get_category_map()
 
 # GitHub Releases Configuration (for audio/video that Cloudinary free plan rejects)
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPO = "mtldev514/retro-portfolio"
-RELEASE_TAG = "media"
-GITHUB_UPLOAD_CATEGORIES = {"music"}
+GITHUB_REPO = config.get_github_repo()  # Returns "username/repoName"
+github_config = config.get_github_config()
+RELEASE_TAG = github_config.get('mediaReleaseTag', 'media')
+GITHUB_UPLOAD_CATEGORIES = set(github_config.get('uploadCategories', ['music']))
 
 MEDIA_CONTENT_TYPES = {
     ".mp3": "audio/mpeg",
@@ -187,7 +185,7 @@ def upload_and_save(file_path, title, category, medium=None, genre=None, descrip
         """Wrap a single-language value as a multilingual object."""
         if not value:
             return None
-        return {"en": value, "fr": value, "mx": value, "ht": value}
+        return config.create_multilingual_object(value)
 
     new_entry = {
         "id": f"{category}_{int(datetime.now().timestamp())}",
