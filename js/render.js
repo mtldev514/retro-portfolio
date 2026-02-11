@@ -111,7 +111,7 @@ const renderer = {
             const playLabel = (window.i18n && i18n.translations.music_play_in_radio) || 'Play in Radio';
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
-                    <div class="music-card-icon">&#127925;</div>
+                    <div class="card-icon">&#127925;</div>
                     <h3 align="center">${title}</h3>
                     ${genre ? `<p align="center" class="gallery-subtitle">${genre}</p>` : ''}
                     <p align="center" class="item-date">
@@ -146,10 +146,11 @@ const renderer = {
             }
             const subTitle = isProject ? description : (medium ? `(${medium})` : '');
 
+            const hasImage = item.url && !isProject;
             div.innerHTML = `
                 <a href="${detailHref}" class="gallery-link">
-                    ${item.url && !isProject ? `<img src="${item.url}" alt="${title}">` : ''}
-                    <h3 align="center"><span class="category-icon">${icon}</span> ${title} ${visibilityEmoji}</h3>
+                    ${hasImage ? `<img src="${item.url}" alt="${title}">` : `<div class="card-icon">${icon}</div>`}
+                    <h3 align="center">${hasImage ? `<span class="category-icon">${icon}</span> ` : ''}${title}</h3>
                     ${subTitle ? `<p align="center" class="gallery-subtitle">${subTitle}</p>` : ''}
                     <p align="center" class="item-date">
                         <span data-i18n="${dateLabel}">${dateFallback}</span> ${dateStr}

@@ -466,7 +466,8 @@ nav {
 
 .gallery-item img {
     width: 100%;
-    height: auto;
+    height: 180px;
+    object-fit: cover;
 }
 
 /* ===== TERMINAL FOOTER ===== */
@@ -1144,7 +1145,7 @@ nav {
 
 .item-date {
     color: var(--text-secondary);
-    margin-top: 5px;
+    margin-top: 1px;
 }
 
 /* Music Page - Track Styles */
@@ -1193,33 +1194,30 @@ nav {
 
 .track-radio-btn {
     margin-top: 8px;
-    background: linear-gradient(180deg, var(--wp-btn-start) 0%, var(--wp-btn-mid) 40%, var(--wp-btn-end) 100%);
-    border: 1px solid;
-    border-color: var(--text-secondary) var(--chrome-darker) var(--chrome-darker) var(--text-secondary);
-    color: var(--text-primary);
+    background: linear-gradient(180deg, var(--btn-bg-start) 0%, var(--btn-bg-mid) 50%, var(--btn-bg-end) 100%);
+    border: 2px outset var(--container-bg);
+    color: var(--btn-text);
     padding: 4px 12px;
     cursor: pointer;
-    font-family: var(--font-mono);
+    font-family: inherit;
     font-size: 11px;
-    letter-spacing: 0.5px;
 }
 
 .track-radio-btn:hover {
-    background: linear-gradient(180deg, var(--wp-btn-hover-start) 0%, var(--wp-btn-hover-mid) 40%, var(--wp-btn-hover-end) 100%);
-    color: var(--text-primary);
+    color: var(--btn-text-active);
+    background: linear-gradient(180deg, var(--btn-hover-start) 0%, var(--btn-hover-mid) 50%, var(--btn-hover-end) 100%);
 }
 
 .track-radio-btn:active {
-    border-color: var(--chrome-darker) var(--text-secondary) var(--text-secondary) var(--chrome-darker);
-    background: linear-gradient(180deg, var(--chrome-active) 0%, var(--text-primary) 100%);
+    border-style: inset;
 }
 
-/* Music cards in unified grid */
-.music-card-icon {
+/* Icon placeholder for cards without images */
+.card-icon {
     font-size: 48px;
     text-align: center;
-    padding: 15px 0 5px;
-    color: var(--text-secondary);
+    padding: 20px 0;
+    line-height: 1;
 }
 
 .gallery-item[data-category="music"] {
