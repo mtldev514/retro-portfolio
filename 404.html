@@ -1,14 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <script>
-        // GitHub Pages SPA redirect:
-        // Stores the requested path and redirects to index.html
-        // The router picks up the path from sessionStorage and navigates to it
-        sessionStorage.setItem('spa-redirect', window.location.pathname + window.location.search);
-        window.location.replace('/');
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Fatal System Error</title>
+    <style>
+        body {
+            background-color: #0000AA;
+            color: #FFFFFF;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .bsod-container {
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            background-color: #AAAAAA;
+            color: #0000AA;
+            padding: 2px 10px;
+            display: inline-block;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 2px 2px 0 #000000;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        a {
+            color: #FFFFFF;
+            text-decoration: none;
+            border: 1px solid #FFFFFF;
+            padding: 5px 10px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #FFFFFF;
+            color: #0000AA;
+        }
+    </style>
 </head>
-<body></body>
+
+<body>
+    <div class="bsod-container">
+        <h1>Windows</h1>
+
+        <p>A fatal exception 404 has occurred at 0028:C0011E36 in VXD VMM(01) + 00010E36. The current page was not
+            found.</p>
+
+        <p>This may be due to:</p>
+        <p>* A broken link or typo in the URL.<br>
+            * The file has been moved or deleted.<br>
+            * A temporary glitch in the matrix.</p>
+
+        <p>Press any key to continue... or click below to return to safety.</p>
+
+        <div class="center-text">
+            <a href="/">[ RETURN TO SYSTEM ]</a>
+        </div>
+
+        <p class="center-text" style="marginTop: 50px">Running system diagnostic... <span class="blink">_</span></p>
+    </div>
+
+    <script>
+        // Redirect to home on any key press
+        document.addEventListener('keydown', function () {
+            window.location.href = '/';
+        });
+    </script>
+</body>
+
 </html>
